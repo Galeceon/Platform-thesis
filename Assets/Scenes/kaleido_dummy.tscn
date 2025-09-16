@@ -14,7 +14,9 @@ shape = SubResource("CircleShape2D_h7mog")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 offset = Vector2(0, -15)
-zoom = Vector2(6, 6)
+zoom = Vector2(3, 3)
+position_smoothing_enabled = true
+position_smoothing_speed = 7.0
 
 [node name="AgentAnimator" type="Node2D" parent="." node_paths=PackedStringArray("kaleido_controller", "animation_player", "sprite")]
 script = ExtResource("2_s7m5h")
