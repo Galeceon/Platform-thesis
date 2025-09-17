@@ -1,0 +1,661 @@
+[gd_scene load_steps=24 format=3 uid="uid://dwqbvs4je8b66"]
+
+[ext_resource type="Texture2D" uid="uid://eapoywwnqqhw" path="res://Assets/Sprites/level_assets/01-acromatopsia/Nivel ciudad acromatopsia-02.png" id="1_46ipk"]
+[ext_resource type="PackedScene" uid="uid://cx04cpeiplwb5" path="res://Assets/Scenes/kaleido_dummy.tscn" id="2_qxnxa"]
+[ext_resource type="Texture2D" uid="uid://4jn5qwhi5mru" path="res://Assets/Sprites/level_assets/01-acromatopsia/background.jpg" id="3_foseg"]
+[ext_resource type="Texture2D" uid="uid://dhnd5wn1pyjap" path="res://Assets/Sprites/nivel_rkgk/01-acromatopsia.jpg" id="4_dae5h"]
+[ext_resource type="Texture2D" uid="uid://bn0mcdohinmnw" path="res://Assets/Sprites/level_assets/01-acromatopsia/Nivel ciudad acromatopsia-03.png" id="5_lpwsc"]
+[ext_resource type="Texture2D" uid="uid://dpw2wil8pnufv" path="res://Assets/Sprites/level_assets/01-acromatopsia/Nivel ciudad acromatopsia-04.png" id="6_bq5b3"]
+[ext_resource type="Texture2D" uid="uid://dmg21i5ti2rrc" path="res://Assets/Sprites/level_assets/01-acromatopsia/Nivel ciudad acromatopsia-05.png" id="7_5eshb"]
+[ext_resource type="Texture2D" uid="uid://c0ajc5nk0tgix" path="res://Assets/Sprites/level_assets/01-acromatopsia/Nivel ciudad acromatopsia-06.png" id="8_ttt1t"]
+[ext_resource type="Texture2D" uid="uid://c25sweurbttv7" path="res://Assets/Sprites/level_assets/01-acromatopsia/Nivel ciudad acromatopsia-07.png" id="9_nwmwf"]
+[ext_resource type="Texture2D" uid="uid://r52jyfn71c03" path="res://Assets/Sprites/level_assets/01-acromatopsia/Nivel ciudad acromatopsia-08.png" id="10_oik68"]
+[ext_resource type="Texture2D" uid="uid://cm3p8tgdtsthe" path="res://Assets/Sprites/level_assets/01-acromatopsia/Nivel ciudad acromatopsia-09.png" id="11_0jiok"]
+[ext_resource type="Texture2D" uid="uid://ho6nylvw0yjn" path="res://Assets/Sprites/level_assets/01-acromatopsia/Nivel ciudad acromatopsia-10.png" id="12_5ikrw"]
+[ext_resource type="Texture2D" uid="uid://crha7r1utofmn" path="res://Assets/Sprites/level_assets/01-acromatopsia/Nivel ciudad acromatopsia-11.png" id="13_bt114"]
+[ext_resource type="Texture2D" uid="uid://b7b3eusb4arvc" path="res://Assets/Sprites/level_assets/01-acromatopsia/Nivel ciudad acromatopsia-12.png" id="14_aoao4"]
+[ext_resource type="Texture2D" uid="uid://byvk5rvhcdw5c" path="res://Assets/Sprites/level_assets/01-acromatopsia/Nivel ciudad acromatopsia-13.png" id="15_e5f2r"]
+[ext_resource type="PackedScene" uid="uid://b752ro3u1emxh" path="res://Assets/Scenes/coin.tscn" id="16_rng6n"]
+[ext_resource type="Texture2D" uid="uid://dgvvomqg1od8w" path="res://Assets/Sprites/level_assets/01-acromatopsia/coin.png" id="17_hivtu"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ddq0t"]
+size = Vector2(2165.81, 251.694)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_q4ea6"]
+size = Vector2(828, 388)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_h1vit"]
+size = Vector2(875, 525)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wrqss"]
+size = Vector2(1164, 247)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xy2ib"]
+size = Vector2(15.75, 94.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0t4h5"]
+size = Vector2(15392, 482)
+
+[node name="01-acromatopsia" type="Node2D"]
+metadata/_edit_vertical_guides_ = [-618.0, 14728.0]
+metadata/_edit_horizontal_guides_ = [3.0]
+
+[node name="stone_start_plat" type="StaticBody2D" parent="."]
+z_index = 1
+
+[node name="Sprite2D" type="Sprite2D" parent="stone_start_plat"]
+position = Vector2(-371.75, -27.25)
+scale = Vector2(0.239171, 0.242358)
+texture = ExtResource("1_46ipk")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="stone_start_plat"]
+position = Vector2(-370, -24.5)
+scale = Vector2(0.239171, 0.242358)
+shape = SubResource("RectangleShape2D_ddq0t")
+
+[node name="kaleido_dummy" parent="." instance=ExtResource("2_qxnxa")]
+position = Vector2(-494, -147)
+scale = Vector2(6.5, 6.5)
+
+[node name="Camera2D2" type="Camera2D" parent="kaleido_dummy"]
+offset = Vector2(0, -15)
+zoom = Vector2(0.7, 0.7)
+limit_left = -628
+limit_right = 14728
+limit_bottom = -5
+position_smoothing_enabled = true
+position_smoothing_speed = 7.0
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2(0.5, 0.5)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer"]
+position = Vector2(8093.39, -129.176)
+scale = Vector2(1.15893, 1.15893)
+texture = ExtResource("3_foseg")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = -1
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer"]
+anchors_preset = -1
+anchor_left = -0.544
+anchor_right = -0.544
+offset_left = 0.688049
+offset_top = -1074.0
+offset_right = 15360.7
+offset_bottom = 6.0
+mouse_filter = 2
+texture = ExtResource("4_dae5h")
+
+[node name="stone_1" type="StaticBody2D" parent="."]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="stone_1"]
+polygon = PackedVector2Array(616, -375, 166, -251, 154, 7, 627, 4)
+
+[node name="Sprite2D" type="Sprite2D" parent="stone_1/CollisionPolygon2D"]
+position = Vector2(389.34, -185.625)
+scale = Vector2(0.238299, 0.238299)
+texture = ExtResource("5_lpwsc")
+
+[node name="stone_arc_1" type="StaticBody2D" parent="."]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="stone_arc_1"]
+polygon = PackedVector2Array(906, -412, 901, -488, 1717, -488, 1717, 0, 1391, 4, 1382, -135, 1328, -273, 1198, -379, 1047, -417)
+
+[node name="Sprite2D" type="Sprite2D" parent="stone_arc_1/CollisionPolygon2D"]
+position = Vector2(1308, -242)
+scale = Vector2(0.23798, 0.23798)
+texture = ExtResource("6_bq5b3")
+
+[node name="stone_platform_1" type="StaticBody2D" parent="."]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="stone_platform_1"]
+polygon = PackedVector2Array(1873, 3, 1875, -364, 2540, -364, 2544, -419, 3153, -40, 3132, 4)
+
+[node name="Sprite2D" type="Sprite2D" parent="stone_platform_1/CollisionPolygon2D"]
+position = Vector2(2514.25, -205.5)
+scale = Vector2(0.239205, 0.239205)
+texture = ExtResource("7_5eshb")
+
+[node name="stone_2" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="stone_2"]
+position = Vector2(3966, -188)
+shape = SubResource("RectangleShape2D_q4ea6")
+
+[node name="Sprite2D" type="Sprite2D" parent="stone_2/CollisionShape2D"]
+position = Vector2(-6.38379, 1.25)
+scale = Vector2(0.239616, 0.239616)
+texture = ExtResource("8_ttt1t")
+
+[node name="stone_arc_2" type="StaticBody2D" parent="."]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="stone_arc_2"]
+polygon = PackedVector2Array(5158, -2, 4939, 4, 4936, -510, 5491, -510, 5491, -396, 5336, -396, 5211, -295, 5161, -157)
+
+[node name="Sprite2D" type="Sprite2D" parent="stone_arc_2/CollisionPolygon2D"]
+position = Vector2(5214, -253)
+scale = Vector2(0.238806, 0.238806)
+texture = ExtResource("9_nwmwf")
+
+[node name="stone_arc_3" type="StaticBody2D" parent="."]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="stone_arc_3"]
+polygon = PackedVector2Array(5949, -414, 5944, -488, 6765, -490, 6761, 3, 6435, 4, 6425, -149, 6375, -266, 6286, -354, 6159, -409, 6043, -421)
+
+[node name="Sprite2D" type="Sprite2D" parent="stone_arc_3/CollisionPolygon2D"]
+position = Vector2(6353, -241)
+scale = Vector2(0.238587, 0.238587)
+texture = ExtResource("10_oik68")
+
+[node name="stone_platform_2" type="StaticBody2D" parent="."]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="stone_platform_2"]
+polygon = PackedVector2Array(8029, -446, 8075, -380, 8800, -380, 8799, 8, 7471, 8, 7443, -33)
+
+[node name="Sprite2D" type="Sprite2D" parent="stone_platform_2/CollisionPolygon2D"]
+position = Vector2(8119.24, -217)
+scale = Vector2(0.241561, 0.241561)
+texture = ExtResource("11_0jiok")
+
+[node name="stone_3" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="stone_3"]
+position = Vector2(9793.5, -258.5)
+shape = SubResource("RectangleShape2D_h1vit")
+
+[node name="Sprite2D" type="Sprite2D" parent="stone_3/CollisionShape2D"]
+position = Vector2(2.92956, 3.75)
+scale = Vector2(0.240393, 0.240393)
+texture = ExtResource("12_5ikrw")
+
+[node name="stone_4" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="stone_4"]
+position = Vector2(11112, -119.5)
+shape = SubResource("RectangleShape2D_wrqss")
+
+[node name="Sprite2D" type="Sprite2D" parent="stone_4/CollisionShape2D"]
+position = Vector2(4.70626, -0.999987)
+scale = Vector2(0.242218, 0.242218)
+texture = ExtResource("13_bt114")
+
+[node name="stone_arc_4" type="StaticBody2D" parent="."]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="stone_arc_4"]
+polygon = PackedVector2Array(12016, 6, 12016, -638, 13063, -638, 13067, -536, 12804, -532, 12584, -426, 12465, -269, 12435, -15, 12435, 10)
+
+[node name="Sprite2D" type="Sprite2D" parent="stone_arc_4/CollisionPolygon2D"]
+position = Vector2(12538, -315)
+scale = Vector2(0.238363, 0.238363)
+texture = ExtResource("14_aoao4")
+
+[node name="stone_arc_final" type="StaticBody2D" parent="."]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="stone_arc_final"]
+polygon = PackedVector2Array(14199, 5, 14207, -126, 14156, -247, 14052, -366, 13862, -428, 13729, -420, 13718, -485, 14733, -488, 14733, 2)
+
+[node name="Sprite2D" type="Sprite2D" parent="stone_arc_final/CollisionPolygon2D"]
+position = Vector2(14226.2, -241.125)
+scale = Vector2(0.240044, 0.240044)
+texture = ExtResource("15_e5f2r")
+
+[node name="coin" parent="." instance=ExtResource("16_rng6n")]
+position = Vector2(-269, -134)
+scale = Vector2(1, 1)
+
+[node name="Sprite2D2" type="Sprite2D" parent="coin"]
+position = Vector2(0.999969, -3.33786e-06)
+scale = Vector2(0.237745, 0.237745)
+texture = ExtResource("17_hivtu")
+
+[node name="coin2" parent="." instance=ExtResource("16_rng6n")]
+position = Vector2(18, -133)
+scale = Vector2(1, 1)
+
+[node name="Sprite2D2" type="Sprite2D" parent="coin2"]
+position = Vector2(0.999969, -3.33786e-06)
+scale = Vector2(0.237745, 0.237745)
+texture = ExtResource("17_hivtu")
+
+[node name="coin3" parent="." instance=ExtResource("16_rng6n")]
+position = Vector2(273, -393)
+scale = Vector2(1, 1)
+
+[node name="Sprite2D2" type="Sprite2D" parent="coin3"]
+position = Vector2(0.999969, -3.33786e-06)
+scale = Vector2(0.237745, 0.237745)
+texture = ExtResource("17_hivtu")
+
+[node name="coin4" parent="." instance=ExtResource("16_rng6n")]
+position = Vector2(559, -465)
+scale = Vector2(1, 1)
+
+[node name="Sprite2D2" type="Sprite2D" parent="coin4"]
+position = Vector2(0.999969, -3.33786e-06)
+scale = Vector2(0.237745, 0.237745)
+texture = ExtResource("17_hivtu")
+
+[node name="coin5" parent="." instance=ExtResource("16_rng6n")]
+position = Vector2(1105, -275)
+scale = Vector2(1, 1)
+
+[node name="Sprite2D2" type="Sprite2D" parent="coin5"]
+position = Vector2(0.999969, -3.33786e-06)
+scale = Vector2(0.237745, 0.237745)
+texture = ExtResource("17_hivtu")
+
+[node name="coin6" parent="." instance=ExtResource("16_rng6n")]
+position = Vector2(1106, -127)
+scale = Vector2(1, 1)
+
+[node name="Sprite2D2" type="Sprite2D" parent="coin6"]
+position = Vector2(0.999969, -3.33786e-06)
+scale = Vector2(0.237745, 0.237745)
+texture = ExtResource("17_hivtu")
+
+[node name="coin7" parent="." instance=ExtResource("16_rng6n")]
+position = Vector2(962, -612)
+scale = Vector2(1, 1)
+
+[node name="Sprite2D2" type="Sprite2D" parent="coin7"]
+position = Vector2(0.999969, -3.33786e-06)
+scale = Vector2(0.237745, 0.237745)
+texture = ExtResource("17_hivtu")
+
+[node name="coin8" parent="." instance=ExtResource("16_rng6n")]
+position = Vector2(1328, -612)
+scale = Vector2(1, 1)
+
+[node name="Sprite2D2" type="Sprite2D" parent="coin8"]
+position = Vector2(0.999969, -3.33786e-06)
+scale = Vector2(0.237745, 0.237745)
+texture = ExtResource("17_hivtu")
+
+[node name="coin9" parent="." instance=ExtResource("16_rng6n")]
+position = Vector2(1672, -613)
+scale = Vector2(1, 1)
+
+[node name="Sprite2D2" type="Sprite2D" parent="coin9"]
+position = Vector2(0.999969, -3.33786e-06)
+scale = Vector2(0.237745, 0.237745)
+texture = ExtResource("17_hivtu")
+
+[node name="coin10" parent="." instance=ExtResource("16_rng6n")]
+position = Vector2(1952, -469)
+scale = Vector2(1, 1)
+
+[node name="Sprite2D2" type="Sprite2D" parent="coin10"]
+position = Vector2(0.999969, -3.33786e-06)
+scale = Vector2(0.237745, 0.237745)
+texture = ExtResource("17_hivtu")
+
+[node name="coin11" parent="." instance=ExtResource("16_rng6n")]
+position = Vector2(2202, -469)
+scale = Vector2(1, 1)
+
+[node name="Sprite2D2" type="Sprite2D" parent="coin11"]
+position = Vector2(0.999969, -3.33786e-06)
+scale = Vector2(0.237745, 0.237745)
+texture = ExtResource("17_hivtu")
+
+[node name="coin12" parent="." instance=ExtResource("16_rng6n")]
+position = Vector2(2485, -592)
+scale = Vector2(1, 1)
+
+[node name="Sprite2D2" type="Sprite2D" parent="coin12"]
+position = Vector2(0.999969, -3.33786e-06)
+scale = Vector2(0.237745, 0.237745)
+texture = ExtResource("17_hivtu")
+
+[node name="coin13" parent="." instance=ExtResource("16_rng6n")]
+position = Vector2(2867, -348)
+scale = Vector2(1, 1)
+
+[node name="Sprite2D2" type="Sprite2D" parent="coin13"]
+position = Vector2(0.999969, -3.33786e-06)
+scale = Vector2(0.237745, 0.237745)
+texture = ExtResource("17_hivtu")
+
+[node name="coin14" parent="." instance=ExtResource("16_rng6n")]
+position = Vector2(3113, -197)
+scale = Vector2(1, 1)
+
+[node name="Sprite2D2" type="Sprite2D" parent="coin14"]
+position = Vector2(0.999969, -3.33786e-06)
+scale = Vector2(0.237745, 0.237745)
+texture = ExtResource("17_hivtu")
+
+[node name="coin15" parent="." instance=ExtResource("16_rng6n")]
+position = Vector2(3393, -128)
+scale = Vector2(1, 1)
+
+[node name="Sprite2D2" type="Sprite2D" parent="coin15"]
+position = Vector2(0.999969, -3.33786e-06)
+scale = Vector2(0.237745, 0.237745)
+texture = ExtResource("17_hivtu")
+
+[node name="coin16" parent="." instance=ExtResource("16_rng6n")]
+position = Vector2(3392, -588)
+scale = Vector2(1, 1)
+
+[node name="Sprite2D2" type="Sprite2D" parent="coin16"]
+position = Vector2(0.999969, -3.33786e-06)
+scale = Vector2(0.237745, 0.237745)
+texture = ExtResource("17_hivtu")
+
+[node name="coin17" parent="." instance=ExtResource("16_rng6n")]
+position = Vector2(3659, -516)
+scale = Vector2(1, 1)
+
+[node name="Sprite2D2" type="Sprite2D" parent="coin17"]
+position = Vector2(0.999969, -3.33786e-06)
+scale = Vector2(0.237745, 0.237745)
+texture = ExtResource("17_hivtu")
+
+[node name="coin18" parent="." instance=ExtResource("16_rng6n")]
+position = Vector2(3935, -517)
+scale = Vector2(1, 1)
+
+[node name="Sprite2D2" type="Sprite2D" parent="coin18"]
+position = Vector2(0.999969, -3.33786e-06)
+scale = Vector2(0.237745, 0.237745)
+texture = ExtResource("17_hivtu")
+
+[node name="coin19" parent="." instance=ExtResource("16_rng6n")]
+position = Vector2(4284, -517)
+scale = Vector2(1, 1)
+
+[node name="Sprite2D2" type="Sprite2D" parent="coin19"]
+position = Vector2(0.999969, -3.33786e-06)
+scale = Vector2(0.237745, 0.237745)
+texture = ExtResource("17_hivtu")
+
+[node name="coin20" parent="." instance=ExtResource("16_rng6n")]
+position = Vector2(4464, -459)
+scale = Vector2(1, 1)
+
+[node name="Sprite2D2" type="Sprite2D" parent="coin20"]
+position = Vector2(0.999969, -3.33786e-06)
+scale = Vector2(0.237745, 0.237745)
+texture = ExtResource("17_hivtu")
+
+[node name="coin21" parent="." instance=ExtResource("16_rng6n")]
+position = Vector2(4660, -134)
+scale = Vector2(1, 1)
+
+[node name="Sprite2D2" type="Sprite2D" parent="coin21"]
+position = Vector2(0.999969, -3.33786e-06)
+scale = Vector2(0.237745, 0.237745)
+texture = ExtResource("17_hivtu")
+
+[node name="coin22" parent="." instance=ExtResource("16_rng6n")]
+position = Vector2(4934, -631)
+scale = Vector2(1, 1)
+
+[node name="Sprite2D2" type="Sprite2D" parent="coin22"]
+position = Vector2(0.999969, -3.33786e-06)
+scale = Vector2(0.237745, 0.237745)
+texture = ExtResource("17_hivtu")
+
+[node name="coin23" parent="." instance=ExtResource("16_rng6n")]
+position = Vector2(5421, -630)
+scale = Vector2(1, 1)
+
+[node name="Sprite2D2" type="Sprite2D" parent="coin23"]
+position = Vector2(0.999969, -3.33786e-06)
+scale = Vector2(0.237745, 0.237745)
+texture = ExtResource("17_hivtu")
+
+[node name="coin24" parent="." instance=ExtResource("16_rng6n")]
+position = Vector2(5727, -453)
+scale = Vector2(1, 1)
+
+[node name="Sprite2D2" type="Sprite2D" parent="coin24"]
+position = Vector2(0.999969, -3.33786e-06)
+scale = Vector2(0.237745, 0.237745)
+texture = ExtResource("17_hivtu")
+
+[node name="coin25" parent="." instance=ExtResource("16_rng6n")]
+position = Vector2(5339, -141)
+scale = Vector2(1, 1)
+
+[node name="Sprite2D2" type="Sprite2D" parent="coin25"]
+position = Vector2(0.999969, -3.33786e-06)
+scale = Vector2(0.237745, 0.237745)
+texture = ExtResource("17_hivtu")
+
+[node name="coin26" parent="." instance=ExtResource("16_rng6n")]
+position = Vector2(5727, -151)
+scale = Vector2(1, 1)
+
+[node name="Sprite2D2" type="Sprite2D" parent="coin26"]
+position = Vector2(0.999969, -3.33786e-06)
+scale = Vector2(0.237745, 0.237745)
+texture = ExtResource("17_hivtu")
+
+[node name="coin27" parent="." instance=ExtResource("16_rng6n")]
+position = Vector2(6031, -624)
+scale = Vector2(1, 1)
+
+[node name="Sprite2D2" type="Sprite2D" parent="coin27"]
+position = Vector2(0.999969, -3.33786e-06)
+scale = Vector2(0.237745, 0.237745)
+texture = ExtResource("17_hivtu")
+
+[node name="coin28" parent="." instance=ExtResource("16_rng6n")]
+position = Vector2(6346, -625)
+scale = Vector2(1, 1)
+
+[node name="Sprite2D2" type="Sprite2D" parent="coin28"]
+position = Vector2(0.999969, -3.33786e-06)
+scale = Vector2(0.237745, 0.237745)
+texture = ExtResource("17_hivtu")
+
+[node name="coin29" parent="." instance=ExtResource("16_rng6n")]
+position = Vector2(6172, -141)
+scale = Vector2(1, 1)
+
+[node name="Sprite2D2" type="Sprite2D" parent="coin29"]
+position = Vector2(0.999969, -3.33786e-06)
+scale = Vector2(0.237745, 0.237745)
+texture = ExtResource("17_hivtu")
+
+[node name="coin30" parent="." instance=ExtResource("16_rng6n")]
+position = Vector2(6686, -623)
+scale = Vector2(1, 1)
+
+[node name="Sprite2D2" type="Sprite2D" parent="coin30"]
+position = Vector2(0.999969, -3.33786e-06)
+scale = Vector2(0.237745, 0.237745)
+texture = ExtResource("17_hivtu")
+
+[node name="coin31" parent="." instance=ExtResource("16_rng6n")]
+position = Vector2(6854, -554)
+scale = Vector2(1, 1)
+
+[node name="Sprite2D2" type="Sprite2D" parent="coin31"]
+position = Vector2(0.999969, -3.33786e-06)
+scale = Vector2(0.237745, 0.237745)
+texture = ExtResource("17_hivtu")
+
+[node name="coin32" parent="." instance=ExtResource("16_rng6n")]
+position = Vector2(6981, -458)
+scale = Vector2(1, 1)
+
+[node name="Sprite2D2" type="Sprite2D" parent="coin32"]
+position = Vector2(0.999969, -3.33786e-06)
+scale = Vector2(0.237745, 0.237745)
+texture = ExtResource("17_hivtu")
+
+[node name="coin33" parent="." instance=ExtResource("16_rng6n")]
+position = Vector2(7107, -161)
+scale = Vector2(1, 1)
+
+[node name="Sprite2D2" type="Sprite2D" parent="coin33"]
+position = Vector2(0.999969, -3.33786e-06)
+scale = Vector2(0.237745, 0.237745)
+texture = ExtResource("17_hivtu")
+
+[node name="coin34" parent="." instance=ExtResource("16_rng6n")]
+position = Vector2(7420, -203)
+scale = Vector2(1, 1)
+
+[node name="Sprite2D2" type="Sprite2D" parent="coin34"]
+position = Vector2(0.999969, -3.33786e-06)
+scale = Vector2(0.237745, 0.237745)
+texture = ExtResource("17_hivtu")
+
+[node name="coin35" parent="." instance=ExtResource("16_rng6n")]
+position = Vector2(7673, -381)
+scale = Vector2(1, 1)
+
+[node name="Sprite2D2" type="Sprite2D" parent="coin35"]
+position = Vector2(0.999969, -3.33786e-06)
+scale = Vector2(0.237745, 0.237745)
+texture = ExtResource("17_hivtu")
+
+[node name="coin36" parent="." instance=ExtResource("16_rng6n")]
+position = Vector2(8185, -499)
+scale = Vector2(1, 1)
+
+[node name="Sprite2D2" type="Sprite2D" parent="coin36"]
+position = Vector2(0.999969, -3.33786e-06)
+scale = Vector2(0.237745, 0.237745)
+texture = ExtResource("17_hivtu")
+
+[node name="coin37" parent="." instance=ExtResource("16_rng6n")]
+position = Vector2(8696, -498)
+scale = Vector2(1, 1)
+
+[node name="Sprite2D2" type="Sprite2D" parent="coin37"]
+position = Vector2(0.999969, -3.33786e-06)
+scale = Vector2(0.237745, 0.237745)
+texture = ExtResource("17_hivtu")
+
+[node name="coin38" parent="." instance=ExtResource("16_rng6n")]
+position = Vector2(9087, -78)
+scale = Vector2(1, 1)
+
+[node name="Sprite2D2" type="Sprite2D" parent="coin38"]
+position = Vector2(0.999969, -3.33786e-06)
+scale = Vector2(0.237745, 0.237745)
+texture = ExtResource("17_hivtu")
+
+[node name="coin39" parent="." instance=ExtResource("16_rng6n")]
+position = Vector2(9796, -605)
+scale = Vector2(1, 1)
+
+[node name="Sprite2D2" type="Sprite2D" parent="coin39"]
+position = Vector2(0.999969, -3.33786e-06)
+scale = Vector2(0.237745, 0.237745)
+texture = ExtResource("17_hivtu")
+
+[node name="coin40" parent="." instance=ExtResource("16_rng6n")]
+position = Vector2(10181, -606)
+scale = Vector2(1, 1)
+
+[node name="Sprite2D2" type="Sprite2D" parent="coin40"]
+position = Vector2(0.999969, -3.33786e-06)
+scale = Vector2(0.237745, 0.237745)
+texture = ExtResource("17_hivtu")
+
+[node name="coin41" parent="." instance=ExtResource("16_rng6n")]
+position = Vector2(10395, -131)
+scale = Vector2(1, 1)
+
+[node name="Sprite2D2" type="Sprite2D" parent="coin41"]
+position = Vector2(0.999969, -3.33786e-06)
+scale = Vector2(0.237745, 0.237745)
+texture = ExtResource("17_hivtu")
+
+[node name="coin42" parent="." instance=ExtResource("16_rng6n")]
+position = Vector2(10573, -338)
+scale = Vector2(1, 1)
+
+[node name="Sprite2D2" type="Sprite2D" parent="coin42"]
+position = Vector2(0.999969, -3.33786e-06)
+scale = Vector2(0.237745, 0.237745)
+texture = ExtResource("17_hivtu")
+
+[node name="coin43" parent="." instance=ExtResource("16_rng6n")]
+position = Vector2(11115, -341)
+scale = Vector2(1, 1)
+
+[node name="Sprite2D2" type="Sprite2D" parent="coin43"]
+position = Vector2(0.999969, -3.33786e-06)
+scale = Vector2(0.237745, 0.237745)
+texture = ExtResource("17_hivtu")
+
+[node name="coin44" parent="." instance=ExtResource("16_rng6n")]
+position = Vector2(11657, -325)
+scale = Vector2(1, 1)
+
+[node name="Sprite2D2" type="Sprite2D" parent="coin44"]
+position = Vector2(0.999969, -3.33786e-06)
+scale = Vector2(0.237745, 0.237745)
+texture = ExtResource("17_hivtu")
+
+[node name="coin45" parent="." instance=ExtResource("16_rng6n")]
+position = Vector2(12083, -737)
+scale = Vector2(1, 1)
+
+[node name="Sprite2D2" type="Sprite2D" parent="coin45"]
+position = Vector2(0.999969, -3.33786e-06)
+scale = Vector2(0.237745, 0.237745)
+texture = ExtResource("17_hivtu")
+
+[node name="coin46" parent="." instance=ExtResource("16_rng6n")]
+position = Vector2(12528, -860)
+scale = Vector2(1, 1)
+
+[node name="Sprite2D2" type="Sprite2D" parent="coin46"]
+position = Vector2(0.999969, -3.33786e-06)
+scale = Vector2(0.237745, 0.237745)
+texture = ExtResource("17_hivtu")
+
+[node name="coin47" parent="." instance=ExtResource("16_rng6n")]
+position = Vector2(12577, -130)
+scale = Vector2(1, 1)
+
+[node name="Sprite2D2" type="Sprite2D" parent="coin47"]
+position = Vector2(0.999969, -3.33786e-06)
+scale = Vector2(0.237745, 0.237745)
+texture = ExtResource("17_hivtu")
+
+[node name="coin48" parent="." instance=ExtResource("16_rng6n")]
+position = Vector2(13834, -568)
+scale = Vector2(1, 1)
+
+[node name="Sprite2D2" type="Sprite2D" parent="coin48"]
+position = Vector2(0.999969, -3.33786e-06)
+scale = Vector2(0.237745, 0.237745)
+texture = ExtResource("17_hivtu")
+
+[node name="coin49" parent="." instance=ExtResource("16_rng6n")]
+position = Vector2(14061, -130)
+scale = Vector2(1, 1)
+
+[node name="Sprite2D2" type="Sprite2D" parent="coin49"]
+position = Vector2(0.999969, -3.33786e-06)
+scale = Vector2(0.237745, 0.237745)
+texture = ExtResource("17_hivtu")
+
+[node name="ground" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="ground"]
+position = Vector2(-773.5, -517)
+scale = Vector2(20, 20)
+shape = SubResource("RectangleShape2D_xy2ib")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="ground"]
+position = Vector2(14887, -490)
+scale = Vector2(20, 20)
+shape = SubResource("RectangleShape2D_xy2ib")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ground"]
+position = Vector2(7029, 228)
+shape = SubResource("RectangleShape2D_0t4h5")

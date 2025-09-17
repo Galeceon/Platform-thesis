@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Platform-thesis-1"
-run/main_scene="res://Assets/Scenes/Areas/test.tscn"
+run/main_scene="res://Assets/Scenes/Areas/01-acromatopsia/01-acromatopsia.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
 config/icon="res://icon.svg"
 
@@ -38,6 +38,10 @@ move_right={
 2d_physics/layer_1="player"
 2d_physics/layer_9="ground"
 2d_physics/layer_10="foreground"
+
+[physics]
+
+2d/default_gravity=1700.0
 
 [rendering]
 
