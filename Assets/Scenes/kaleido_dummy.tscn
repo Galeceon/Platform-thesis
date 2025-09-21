@@ -9,9 +9,6 @@
 [node name="kaleido_dummy" type="CharacterBody2D"]
 script = ExtResource("1_5obr7")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_h7mog")
-
 [node name="AgentAnimator" type="Node2D" parent="." node_paths=PackedStringArray("kaleido_controller", "animation_player", "sprite")]
 script = ExtResource("2_s7m5h")
 kaleido_controller = NodePath("..")
@@ -27,3 +24,6 @@ scale = Vector2(0.128205, 0.133333)
 texture = ExtResource("1_h5rij")
 region_enabled = true
 region_rect = Rect2(7, 8, 156, 150)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_h7mog")
