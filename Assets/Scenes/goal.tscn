@@ -5,7 +5,7 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lvqgo"]
 size = Vector2(962, 1572)
 
-[node name="goal" type="Area2D"]
+[node name="goal" type="Area2D" groups=["goals"]]
 z_index = -10
 collision_layer = 65536
 script = ExtResource("1_n8v1c")
@@ -13,5 +13,7 @@ script = ExtResource("1_n8v1c")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-1, 50)
 shape = SubResource("RectangleShape2D_lvqgo")
+
+[node name="Timer" type="Timer" parent="."]
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

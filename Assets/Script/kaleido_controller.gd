@@ -1,6 +1,8 @@
 extends CharacterBody2D
 class_name KaleidoController
 
+signal player_died
+
 @export var speed = 15.0
 @export var jump_power = 30.0
 @export var double_jump_power = 30.0 # Nueva variable para el poder del doble salto
@@ -48,3 +50,11 @@ func _physics_process(delta):
 		velocity.x = move_toward(velocity.x, 0, speed * speed_mult)
 
 	move_and_slide()
+
+func _on_body_entered(body):
+	# Si el objeto con el que colisionamos es un enemigo o un obstáculo,
+	# emitimos la señal para reiniciar la escena.
+	if body.is_in_group("enemies") or body.is_in_group("obstacles"):
+		emit_signal("player_died")
+
+

@@ -1,8 +1,10 @@
-[gd_scene load_steps=54 format=3 uid="uid://baycajoxmvnaa"]
+[gd_scene load_steps=57 format=3 uid="uid://baycajoxmvnaa"]
 
+[ext_resource type="Script" path="res://Assets/Script/04.gd" id="1_4ym6h"]
 [ext_resource type="PackedScene" uid="uid://wkt82kw8x2sw" path="res://Assets/Scenes/goal.tscn" id="1_qv81y"]
 [ext_resource type="Texture2D" uid="uid://d2revnm7xxpef" path="res://Assets/Sprites/level_assets/04-tritanopia/Mesa de trabajo 1.png" id="3_8gcks"]
 [ext_resource type="Texture2D" uid="uid://716ws0mqifkd" path="res://Assets/Sprites/level_assets/04-tritanopia/agua.png" id="4_1lwm2"]
+[ext_resource type="Script" path="res://Assets/Script/rio.gd" id="4_egp2j"]
 [ext_resource type="AudioStream" uid="uid://ccoxktwxiixxd" path="res://Assets/Sprites/level_assets/04-tritanopia/pure-theta-4-7hz-gentle-water-flow-351397.mp3" id="4_kdgca"]
 [ext_resource type="Texture2D" uid="uid://do6so0g0scxay" path="res://Assets/Sprites/nivel_rkgk/04-tritanopia.jpg" id="5_3a2qa"]
 [ext_resource type="Texture2D" uid="uid://q0enkscdmvl1" path="res://Assets/Sprites/level_assets/04-tritanopia/Mesa de trabajo 39.png" id="5_4vpqt"]
@@ -39,11 +41,14 @@
 [ext_resource type="PackedScene" uid="uid://b752ro3u1emxh" path="res://Assets/Scenes/coin.tscn" id="37_1y8br"]
 [ext_resource type="Texture2D" uid="uid://boej8o4a3rdj" path="res://Assets/Sprites/level_assets/04-tritanopia/Mesa de trabajo 40.png" id="38_xxvis"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_snp1y"]
+size = Vector2(15891, 620)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_x0koq"]
-size = Vector2(15.75, 94.5)
+size = Vector2(15.775, 114.425)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xbknq"]
-size = Vector2(15392, 351)
+size = Vector2(15406, 293)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2ad3f"]
 size = Vector2(540, 300)
@@ -85,6 +90,7 @@ size = Vector2(380, 594)
 size = Vector2(474, 214)
 
 [node name="04-tritanopia" type="Node2D"]
+script = ExtResource("1_4ym6h")
 
 [node name="CanvasLayer2" type="CanvasLayer" parent="."]
 layer = 100
@@ -113,10 +119,19 @@ motion_mirroring = Vector2(15361, 0)
 position = Vector2(7059, -536)
 texture = ExtResource("4_1lwm2")
 
+[node name="Area2D" type="Area2D" parent="CanvasLayer2/rio"]
+script = ExtResource("4_egp2j")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CanvasLayer2/rio/Area2D"]
+position = Vector2(6911.5, 276)
+shape = SubResource("RectangleShape2D_snp1y")
+debug_color = Color(0.225794, 0.000240681, 0.0358541, 0.42)
+
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 layer = -1
 
 [node name="TextureRect" type="TextureRect" parent="CanvasLayer"]
+visible = false
 anchors_preset = -1
 anchor_left = -0.544
 anchor_right = -0.544
@@ -139,17 +154,17 @@ texture = ExtResource("5_4vpqt")
 [node name="ground" type="StaticBody2D" parent="."]
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="ground"]
-position = Vector2(-773.5, -517)
+position = Vector2(-773.5, -370.5)
 scale = Vector2(20, 20)
 shape = SubResource("RectangleShape2D_x0koq")
 
 [node name="CollisionShape2D3" type="CollisionShape2D" parent="ground"]
-position = Vector2(14887, -490)
+position = Vector2(14887.3, -437.25)
 scale = Vector2(20, 20)
 shape = SubResource("RectangleShape2D_x0koq")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ground"]
-position = Vector2(7029, 293.5)
+position = Vector2(7022, 728.5)
 shape = SubResource("RectangleShape2D_xbknq")
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
@@ -786,3 +801,9 @@ scale = Vector2(1, 1)
 [node name="Sprite2D2" type="Sprite2D" parent="coin50"]
 position = Vector2(0.999969, -3.33786e-06)
 texture = ExtResource("38_xxvis")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 2.0
+
+[connection signal="body_entered" from="CanvasLayer2/rio/Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=54 format=3 uid="uid://bvd0ph2m5cws7"]
+[gd_scene load_steps=62 format=3 uid="uid://bvd0ph2m5cws7"]
 
 [ext_resource type="PackedScene" uid="uid://cx04cpeiplwb5" path="res://Assets/Scenes/kaleido_dummy.tscn" id="1_2bekf"]
 [ext_resource type="Texture2D" uid="uid://8uie6owr3sc3" path="res://Assets/Sprites/nivel_rkgk/02-deuteranopia.jpg" id="2_1arq6"]
@@ -49,11 +49,17 @@ size = Vector2(384, 39)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_e70nk"]
 size = Vector2(175, 41)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xwcep"]
+size = Vector2(199, 562)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ljmef"]
 size = Vector2(392, 41)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hksed"]
 size = Vector2(178, 42)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_731b5"]
+size = Vector2(267, 701)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_enofv"]
 size = Vector2(390, 40)
@@ -61,14 +67,23 @@ size = Vector2(390, 40)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0mw28"]
 size = Vector2(170, 40)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_s5h2u"]
+size = Vector2(269, 710)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lctvs"]
 size = Vector2(189, 42)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tg76h"]
 size = Vector2(391, 39)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_h5puk"]
+size = Vector2(202, 558)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4ocmw"]
 size = Vector2(390, 38)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qf4u7"]
+size = Vector2(204, 570)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_m18c8"]
 size = Vector2(180, 42)
@@ -76,17 +91,26 @@ size = Vector2(180, 42)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_whdgx"]
 size = Vector2(384, 38)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7pol1"]
+size = Vector2(269, 723)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mrs62"]
 size = Vector2(390, 41)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ex12u"]
 size = Vector2(190, 41)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_i55ib"]
+size = Vector2(268, 708)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ea2lj"]
 size = Vector2(393, 38)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nkpav"]
 size = Vector2(175, 39)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_l4hy5"]
+size = Vector2(200, 560)
 
 [node name="02-deuteranopia" type="Node2D"]
 metadata/_edit_horizontal_guides_ = [-1210.0]
@@ -185,7 +209,6 @@ position = Vector2(23, -7)
 texture = ExtResource("9_mlvsh")
 
 [node name="Sprite2D" type="Sprite2D" parent="pillar-1/Sprite2D"]
-z_index = 1
 position = Vector2(-46, -64)
 texture = ExtResource("10_jt623")
 
@@ -198,6 +221,10 @@ one_way_collision = true
 position = Vector2(172.5, 74.5)
 shape = SubResource("RectangleShape2D_e70nk")
 one_way_collision = true
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="pillar-1"]
+position = Vector2(-7.5, 13)
+shape = SubResource("RectangleShape2D_xwcep")
 
 [node name="pillar-2" type="StaticBody2D" parent="."]
 position = Vector2(1197, -370)
@@ -219,6 +246,10 @@ texture = ExtResource("11_cdk57")
 [node name="Sprite2D" type="Sprite2D" parent="pillar-2/Sprite2D"]
 position = Vector2(-48, -24)
 texture = ExtResource("12_73w4h")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="pillar-2"]
+position = Vector2(1.5, 26.5)
+shape = SubResource("RectangleShape2D_731b5")
 
 [node name="arc-1" type="StaticBody2D" parent="."]
 position = Vector2(2388, -284)
@@ -256,6 +287,10 @@ texture = ExtResource("15_ce0xt")
 position = Vector2(42, -41)
 texture = ExtResource("16_462vk")
 
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="pillar-3"]
+position = Vector2(-6.5, 25)
+shape = SubResource("RectangleShape2D_s5h2u")
+
 [node name="arc-2" type="StaticBody2D" parent="."]
 position = Vector2(4263, -199)
 
@@ -291,6 +326,10 @@ texture = ExtResource("19_f14lt")
 position = Vector2(-28, -60)
 texture = ExtResource("20_aaqyi")
 
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="pillar-5"]
+position = Vector2(8, 40)
+shape = SubResource("RectangleShape2D_h5puk")
+
 [node name="pillar-6" type="StaticBody2D" parent="."]
 position = Vector2(6481, -277)
 
@@ -306,6 +345,10 @@ texture = ExtResource("21_ucgmh")
 [node name="Sprite2D" type="Sprite2D" parent="pillar-6/Sprite2D"]
 position = Vector2(-2, -22)
 texture = ExtResource("22_lomxx")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="pillar-6"]
+position = Vector2(10, 1)
+shape = SubResource("RectangleShape2D_qf4u7")
 
 [node name="pillar-7" type="StaticBody2D" parent="."]
 position = Vector2(7423, -371)
@@ -327,6 +370,10 @@ texture = ExtResource("23_o8o4b")
 [node name="Sprite2D" type="Sprite2D" parent="pillar-7/Sprite2D"]
 position = Vector2(40, -45)
 texture = ExtResource("24_7xkdb")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="pillar-7"]
+position = Vector2(18.5, 23.5)
+shape = SubResource("RectangleShape2D_7pol1")
 
 [node name="arc-3" type="StaticBody2D" parent="."]
 position = Vector2(8434, -199)
@@ -377,6 +424,10 @@ texture = ExtResource("29_0u3nt")
 position = Vector2(-100, -25)
 texture = ExtResource("30_4dqne")
 
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="pillar-8"]
+position = Vector2(36, 14)
+shape = SubResource("RectangleShape2D_i55ib")
+
 [node name="pillar-9" type="StaticBody2D" parent="."]
 position = Vector2(12818, -277)
 
@@ -397,6 +448,10 @@ texture = ExtResource("31_vxwd8")
 [node name="Sprite2D" type="Sprite2D" parent="pillar-9/Sprite2D"]
 position = Vector2(3, -25)
 texture = ExtResource("32_bt7c3")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="pillar-9"]
+position = Vector2(-1, 1)
+shape = SubResource("RectangleShape2D_l4hy5")
 
 [node name="arc-final" type="StaticBody2D" parent="."]
 position = Vector2(14448, -307)
