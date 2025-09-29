@@ -1,0 +1,31 @@
+[gd_scene load_steps=3 format=3 uid="uid://dvagybhamqhpl"]
+
+[ext_resource type="Script" path="res://Assets/Script/puzzle.gd" id="1_4fuwl"]
+[ext_resource type="AudioStream" uid="uid://lo5lub3o254r" path="res://Assets/Sounds/Phoenix Wright_ Trials and Tribulations OST - Phoenix Wright  Objection! 2004.mp3" id="2_btxid"]
+
+[node name="puzzle_root" type="CanvasLayer"]
+script = ExtResource("1_4fuwl")
+background_music = ExtResource("2_btxid")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(1, 1, 1, 0)
+
+[node name="CenterContainer" type="CenterContainer" parent="ColorRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="GridContainer" type="GridContainer" parent="ColorRect/CenterContainer"]
+layout_mode = 2
+mouse_filter = 2
+columns = 3

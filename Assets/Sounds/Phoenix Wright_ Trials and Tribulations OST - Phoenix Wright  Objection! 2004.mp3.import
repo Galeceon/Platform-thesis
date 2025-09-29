@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://lo5lub3o254r"
+path="res://.godot/imported/Phoenix Wright_ Trials and Tribulations OST - Phoenix Wright  Objection! 2004.mp3-f4fb798e28a061b987802ad0a7a8c36c.mp3str"
+
+[deps]
+
+source_file="res://Assets/Sounds/Phoenix Wright_ Trials and Tribulations OST - Phoenix Wright  Objection! 2004.mp3"
+dest_files=["res://.godot/imported/Phoenix Wright_ Trials and Tribulations OST - Phoenix Wright  Objection! 2004.mp3-f4fb798e28a061b987802ad0a7a8c36c.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

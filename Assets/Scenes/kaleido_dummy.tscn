@@ -1,10 +1,100 @@
-[gd_scene load_steps=5 format=3 uid="uid://cx04cpeiplwb5"]
+[gd_scene load_steps=11 format=3 uid="uid://cx04cpeiplwb5"]
 
 [ext_resource type="Script" path="res://Assets/Script/kaleido_controller.gd" id="1_5obr7"]
-[ext_resource type="Texture2D" uid="uid://dosm2im6s5c1u" path="res://Assets/Sprites/kal_temp.png" id="1_h5rij"]
 [ext_resource type="Script" path="res://Assets/Script/kaleido_animator.gd" id="2_s7m5h"]
+[ext_resource type="Texture2D" uid="uid://cnkkocf1tro0x" path="res://Assets/Sprites/kaleido_temp.png" id="3_3x8xq"]
+
+[sub_resource type="Animation" id="Animation_7v0sh"]
+resource_name = "idle"
+length = 2.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AgentAnimator/Sprite2D:region_rect")
+tracks/0/interp = 0
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 0.6, 0.7, 0.8, 2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Rect2(14.4546, 8.60721, 83.3003, 68.7708), Rect2(119.36, 8.607, 83.3, 68.771), Rect2(224.25, 8.607, 83.3, 68.771), Rect2(119.36, 8.607, 83.3, 68.771), Rect2(14.4546, 8.60721, 83.3003, 68.7708), Rect2(14.4546, 8.60721, 83.3003, 68.7708)]
+}
+
+[sub_resource type="Animation" id="Animation_8re76"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AgentAnimator/Sprite2D:region_rect")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Rect2(14.4546, 8.60721, 83.3003, 68.7708)]
+}
+
+[sub_resource type="Animation" id="Animation_dxc85"]
+resource_name = "move"
+length = 0.7
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AgentAnimator/Sprite2D:region_rect")
+tracks/0/interp = 0
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Rect2(14.455, 90.192, 83.3, 68.771), Rect2(125.113, 85.5609, 91.479, 73.4021), Rect2(240.335, 90.192, 83.3, 68.771), Rect2(356.665, 90.192, 83.3, 68.771), Rect2(469.33, 90.192, 83.3, 68.771), Rect2(581.85, 85.5609, 89.3816, 73.4021), Rect2(694.43, 90.192, 83.3, 68.771), Rect2(803.655, 90.192, 83.3, 68.771)]
+}
+
+[sub_resource type="Animation" id="Animation_u8dla"]
+resource_name = "jump"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AgentAnimator/Sprite2D:region_rect")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Rect2(2.84, 163.632, 83.3, 74.3835)]
+}
+
+[sub_resource type="Animation" id="Animation_35lx5"]
+resource_name = "fall"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AgentAnimator/Sprite2D:region_rect")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Rect2(94.265, 160.807, 83.3, 74.383)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_be227"]
+_data = {
+"RESET": SubResource("Animation_8re76"),
+"fall": SubResource("Animation_35lx5"),
+"idle": SubResource("Animation_7v0sh"),
+"jump": SubResource("Animation_u8dla"),
+"move": SubResource("Animation_dxc85")
+}
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_h7mog"]
+radius = 9.0
 
 [node name="kaleido_dummy" type="CharacterBody2D"]
 script = ExtResource("1_5obr7")
@@ -17,13 +107,17 @@ sprite = NodePath("Sprite2D")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="AgentAnimator"]
 root_node = NodePath("../..")
+libraries = {
+"": SubResource("AnimationLibrary_be227")
+}
+autoplay = "idle"
 
 [node name="Sprite2D" type="Sprite2D" parent="AgentAnimator"]
 position = Vector2(-1.78814e-07, 3.57628e-07)
-scale = Vector2(0.128205, 0.133333)
-texture = ExtResource("1_h5rij")
+scale = Vector2(0.25, 0.26)
+texture = ExtResource("3_3x8xq")
 region_enabled = true
-region_rect = Rect2(7, 8, 156, 150)
+region_rect = Rect2(14.4546, 8.60721, 83.3003, 68.7708)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_h7mog")

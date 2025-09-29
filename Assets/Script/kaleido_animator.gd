@@ -21,4 +21,4 @@ func _process(delta):
 	if kaleido_controller.velocity.y < 0.0:
 		animation_player.play("jump") #Animación para saltar
 	elif kaleido_controller.velocity.y > 0.0:
-		animation_player.play("fal") #Animación para caer
+		animation_player.play("fall") #Animación para caer

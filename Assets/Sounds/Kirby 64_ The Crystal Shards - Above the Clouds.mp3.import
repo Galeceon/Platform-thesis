@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://co471jbj0y4je"
+path="res://.godot/imported/Kirby 64_ The Crystal Shards - Above the Clouds.mp3-6293b16dba454718de53e36af71efb1d.mp3str"
+
+[deps]
+
+source_file="res://Assets/Sounds/Kirby 64_ The Crystal Shards - Above the Clouds.mp3"
+dest_files=["res://.godot/imported/Kirby 64_ The Crystal Shards - Above the Clouds.mp3-6293b16dba454718de53e36af71efb1d.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

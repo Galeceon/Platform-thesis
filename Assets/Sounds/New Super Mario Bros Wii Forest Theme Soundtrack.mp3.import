@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://ym6b2s5scjue"
+path="res://.godot/imported/New Super Mario Bros Wii Forest Theme Soundtrack.mp3-a6f43e5e4a146e5c193535906022728b.mp3str"
+
+[deps]
+
+source_file="res://Assets/Sounds/New Super Mario Bros Wii Forest Theme Soundtrack.mp3"
+dest_files=["res://.godot/imported/New Super Mario Bros Wii Forest Theme Soundtrack.mp3-a6f43e5e4a146e5c193535906022728b.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
