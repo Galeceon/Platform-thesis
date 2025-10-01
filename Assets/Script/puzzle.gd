@@ -118,8 +118,6 @@ func _unhandled_input(event):
 
 func _on_tile_clicked(tile_value):
 	"""Maneja el click del mouse, moviendo la ficha clickeada si es adyacente."""
-	print("Clicked tile: ", tile_value) # Deja el print para la depuración
-	
 	var tile_index = board.find(tile_value)
 	var empty_index = board.find(0)
 	

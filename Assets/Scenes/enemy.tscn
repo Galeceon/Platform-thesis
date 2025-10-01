@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://b5mty1v36aorc"]
+
+[ext_resource type="Script" path="res://Assets/Script/enemy.gd" id="1_o0q8d"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_hfoaa"]
+radius = 17.0294
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7e82e"]
+radius = 20.0
+
+[node name="Enemigo" type="CharacterBody2D"]
+script = ExtResource("1_o0q8d")
+
+[node name="Timer" type="Timer" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_hfoaa")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_7e82e")
+debug_color = Color(0.941764, 0.221017, 0.259251, 0.42)

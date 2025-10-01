@@ -112,7 +112,7 @@ libraries = {
 }
 autoplay = "idle"
 
-[node name="Sprite2D" type="Sprite2D" parent="AgentAnimator"]
+[node name="Sprite2D" type="Sprite2D" parent="AgentAnimator" groups=["goals", "player"]]
 position = Vector2(-1.78814e-07, 3.57628e-07)
 scale = Vector2(0.25, 0.26)
 texture = ExtResource("3_3x8xq")

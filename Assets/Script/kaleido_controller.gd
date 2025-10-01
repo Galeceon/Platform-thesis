@@ -21,6 +21,8 @@ var is_on_slope = false
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
+func _ready():
+	add_to_group("player")
 
 func _physics_process(delta):
 	# Guardar estado anterior del suelo
@@ -97,5 +99,4 @@ func _on_body_entered(body):
 	# Si el objeto con el que colisionamos es un enemigo o un obstáculo,
 	# emitimos la señal para reiniciar la escena.
 	if body.is_in_group("enemies") or body.is_in_group("obstacles"):
-		GameManager.reset_coins()
 		emit_signal("player_died")

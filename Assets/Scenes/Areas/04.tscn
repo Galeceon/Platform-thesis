@@ -1,8 +1,8 @@
-[gd_scene load_steps=58 format=3 uid="uid://baycajoxmvnaa"]
+[gd_scene load_steps=59 format=3 uid="uid://baycajoxmvnaa"]
 
 [ext_resource type="Script" path="res://Assets/Script/04.gd" id="1_4ym6h"]
 [ext_resource type="PackedScene" uid="uid://wkt82kw8x2sw" path="res://Assets/Scenes/goal.tscn" id="1_qv81y"]
-[ext_resource type="Texture2D" uid="uid://d2revnm7xxpef" path="res://Assets/Sprites/level_assets/04-tritanopia/Mesa de trabajo 1.png" id="3_8gcks"]
+[ext_resource type="Texture2D" uid="uid://dnf6ybl2ccwd8" path="res://Assets/Sprites/level_assets/04-tritanopia/fondo fix.png" id="2_dskji"]
 [ext_resource type="Texture2D" uid="uid://716ws0mqifkd" path="res://Assets/Sprites/level_assets/04-tritanopia/agua.png" id="4_1lwm2"]
 [ext_resource type="Script" path="res://Assets/Script/rio.gd" id="4_egp2j"]
 [ext_resource type="AudioStream" uid="uid://ccoxktwxiixxd" path="res://Assets/Sprites/level_assets/04-tritanopia/pure-theta-4-7hz-gentle-water-flow-351397.mp3" id="4_kdgca"]
@@ -41,6 +41,7 @@
 [ext_resource type="PackedScene" uid="uid://b752ro3u1emxh" path="res://Assets/Scenes/coin.tscn" id="37_1y8br"]
 [ext_resource type="Texture2D" uid="uid://boej8o4a3rdj" path="res://Assets/Sprites/level_assets/04-tritanopia/Mesa de trabajo 40.png" id="38_xxvis"]
 [ext_resource type="AudioStream" uid="uid://co471jbj0y4je" path="res://Assets/Sounds/Kirby 64_ The Crystal Shards - Above the Clouds.mp3" id="41_bvifq"]
+[ext_resource type="Texture2D" uid="uid://d38lv3vnkgfbb" path="res://Assets/Sprites/level_assets/04-tritanopia/modo oscuroMesa de trabajo 1.png" id="42_dokii"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_snp1y"]
 size = Vector2(15891, 620)
@@ -92,6 +93,7 @@ size = Vector2(474, 214)
 
 [node name="04-tritanopia" type="Node2D"]
 script = ExtResource("1_4ym6h")
+metadata/_edit_horizontal_guides_ = [-1071.0]
 
 [node name="CanvasLayer2" type="CanvasLayer" parent="."]
 layer = 100
@@ -104,7 +106,7 @@ motion_scale = Vector2(0.4, 0.4)
 [node name="Sprite2D" type="Sprite2D" parent="CanvasLayer2/fondo/ParallaxLayer"]
 position = Vector2(8091.28, -93.4991)
 scale = Vector2(1.15921, 1.225)
-texture = ExtResource("3_8gcks")
+texture = ExtResource("2_dskji")
 
 [node name="rio" type="ParallaxBackground" parent="CanvasLayer2"]
 layer = 5
@@ -168,6 +170,10 @@ shape = SubResource("RectangleShape2D_x0koq")
 position = Vector2(7022, 728.5)
 shape = SubResource("RectangleShape2D_xbknq")
 
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="ground"]
+position = Vector2(7022, -1213.5)
+shape = SubResource("RectangleShape2D_xbknq")
+
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("4_kdgca")
 volume_db = 10.121
@@ -182,7 +188,7 @@ scale = Vector2(6.5, 6.5)
 offset = Vector2(0, -15)
 zoom = Vector2(0.7, 0.7)
 limit_left = -628
-limit_top = -1350
+limit_top = -1050
 limit_right = 14728
 limit_bottom = -5
 position_smoothing_enabled = true
@@ -811,6 +817,11 @@ stream = ExtResource("41_bvifq")
 volume_db = -11.033
 autoplay = true
 max_distance = 1e+17
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = -2
+position = Vector2(7053, -530)
+texture = ExtResource("42_dokii")
 
 [connection signal="body_entered" from="CanvasLayer2/rio/Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
