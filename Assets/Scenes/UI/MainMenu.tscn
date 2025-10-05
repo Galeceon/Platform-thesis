@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://bpovjs2nspjp"]
+[gd_scene load_steps=14 format=3 uid="uid://bpovjs2nspjp"]
 
 [ext_resource type="Texture2D" uid="uid://b1oes6dbdcca1" path="res://Assets/Sprites/UI/Pantallas de inicio/PANTALLA 2-03.jpg" id="1_fc20j"]
 [ext_resource type="Texture2D" uid="uid://hcw8xhndvn05" path="res://Assets/Sprites/UI/Botones/Modo Claro/es_jugar.png" id="2_dthvn"]
@@ -6,7 +6,9 @@
 [ext_resource type="Texture2D" uid="uid://ce83gb7cw78tq" path="res://Assets/Sprites/UI/Botones/Modo Oscuro/en_cerrar.png" id="3_26q2e"]
 [ext_resource type="Texture2D" uid="uid://7n8o8evv5my6" path="res://Assets/Sprites/UI/Botones/Modo Oscuro/es_jugar.png" id="3_o6c14"]
 [ext_resource type="Texture2D" uid="uid://c3xq2w348tn3m" path="res://Assets/Sprites/UI/Botones/Modo Claro/reanudar.png" id="4_dtj2p"]
+[ext_resource type="Texture2D" uid="uid://qwk6uqvjlpoh" path="res://Assets/Sprites/UI/Botones/Modo Claro/configuracion.png" id="4_m5hs1"]
 [ext_resource type="Texture2D" uid="uid://b6se63bpb2yas" path="res://Assets/Sprites/UI/Botones/Modo Oscuro/es_reanudar.png" id="5_0dog1"]
+[ext_resource type="Texture2D" uid="uid://b68g6iburi34q" path="res://Assets/Sprites/UI/Botones/Modo Oscuro/configuracion.png" id="5_ybwcp"]
 [ext_resource type="Texture2D" uid="uid://do35vh63qx2nx" path="res://Assets/Sprites/UI/Botones/Modo Claro/es_como_jugar.png" id="6_fhljv"]
 [ext_resource type="Texture2D" uid="uid://de6xpyngoc2xj" path="res://Assets/Sprites/UI/Botones/Modo Oscuro/es_como_jugar.png" id="7_tk10j"]
 [ext_resource type="Texture2D" uid="uid://bgx05vrf4ynk3" path="res://Assets/Sprites/UI/Botones/Modo Claro/es_creditos.png" id="8_2rlnf"]
@@ -30,14 +32,32 @@ grow_vertical = 2
 texture = ExtResource("1_fc20j")
 expand_mode = 3
 
-[node name="TextureButton" type="TextureButton" parent="TextureRect"]
-layout_mode = 0
-offset_left = 1052.0
-offset_top = 21.0
-offset_right = 1122.0
-offset_bottom = 91.0
+[node name="cerrar_button" type="TextureButton" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.025
+anchor_bottom = 0.025
+offset_left = 1056.0
+offset_top = 15.8
+offset_right = 1126.0
+offset_bottom = 85.8
 texture_normal = ExtResource("2_lo7jy")
 texture_pressed = ExtResource("3_26q2e")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="config_button" type="TextureButton" parent="."]
+custom_minimum_size = Vector2(70, 70)
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 2.286
+offset_left = 960.0
+offset_top = 32.0
+offset_right = -122.0
+offset_bottom = -1379.33
+texture_normal = ExtResource("4_m5hs1")
+texture_pressed = ExtResource("5_ybwcp")
 ignore_texture_size = true
 stretch_mode = 0
 
@@ -49,16 +69,17 @@ offset_top = 303.0
 offset_right = 401.0
 offset_bottom = 640.0
 
-[node name="Jugar_Button" type="TextureButton" parent="VBoxContainer"]
+[node name="jugar_button" type="TextureButton" parent="VBoxContainer"]
 layout_mode = 2
 texture_normal = ExtResource("2_dthvn")
 texture_pressed = ExtResource("3_o6c14")
 
 [node name="AspectRatioContainer" type="AspectRatioContainer" parent="VBoxContainer"]
+custom_minimum_size = Vector2(10, 0)
 layout_mode = 2
 stretch_mode = 0
 
-[node name="Reanudar_Button" type="TextureButton" parent="VBoxContainer"]
+[node name="reanudar_button" type="TextureButton" parent="VBoxContainer"]
 layout_mode = 2
 texture_normal = ExtResource("4_dtj2p")
 texture_pressed = ExtResource("5_0dog1")
@@ -67,7 +88,7 @@ texture_pressed = ExtResource("5_0dog1")
 layout_mode = 2
 stretch_mode = 0
 
-[node name="comoJugar_Button" type="TextureButton" parent="VBoxContainer"]
+[node name="comoJugar_button" type="TextureButton" parent="VBoxContainer"]
 layout_mode = 2
 texture_normal = ExtResource("6_fhljv")
 texture_pressed = ExtResource("7_tk10j")
@@ -76,7 +97,7 @@ texture_pressed = ExtResource("7_tk10j")
 layout_mode = 2
 stretch_mode = 0
 
-[node name="Creditos_Button" type="TextureButton" parent="VBoxContainer"]
+[node name="creditos_button" type="TextureButton" parent="VBoxContainer"]
 layout_mode = 2
 texture_normal = ExtResource("8_2rlnf")
 texture_pressed = ExtResource("9_6enyd")
