@@ -92,18 +92,29 @@ func _connect_player_death_signal():
 		player.player_died.connect(_on_player_died)
 		print("GameManager: Señal player_died conectada")
 
+# GameManager.gd - en _on_player_died
+# GameManager.gd - en _on_player_died, AÑADE esto:
 func _on_player_died():
 	print("GameManager: Jugador murió - procesando muerte")
 	
-	# 1. PRIMERO pausar todos los sonidos actuales (monedas, etc.)
-	_pause_all_sounds()
+	# 0. PRIMERO reproducir animación de muerte si existe
+	var player = get_tree().get_first_node_in_group("player") as KaleidoController
+	if player and player.has_node("AgentAnimator/AnimationPlayer"):
+		var death_anim = player.get_node("AgentAnimator/AnimationPlayer")
+		if death_anim and death_anim.has_animation("death"):
+			print("🎭 Reproduciendo animación de muerte en pausa")
+			death_anim.process_mode = Node.PROCESS_MODE_ALWAYS
+			death_anim.play("death")
 	
-	# 2. LUEGO reproducir sonido de muerte
+	# 1. Pausar todos los sonidos actuales
+	#_pause_all_sounds()
+	
+	# 2. Reproducir sonido de muerte
 	if death_sound:
 		death_sound.play()
 		print("GameManager: Sonido de muerte reproducido")
 	
-	# 3. Pausar el juego
+	# 3. Pausar el juego (la animación seguirá por PROCESS_MODE_ALWAYS)
 	get_tree().paused = true
 	print("GameManager: Juego pausado")
 	

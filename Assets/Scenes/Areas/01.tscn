@@ -672,7 +672,7 @@ shape = SubResource("RectangleShape2D_0t4h5")
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("18_81o57")
-volume_db = 1.0
+volume_db = -3.298
 autoplay = true
 max_distance = 1e+17
 
