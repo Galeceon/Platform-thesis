@@ -1,0 +1,142 @@
+[gd_scene load_steps=18 format=3 uid="uid://bwwwkfcx4pjks"]
+
+[ext_resource type="Script" path="res://Assets/Script/OptionsMenu.gd" id="1_2eo3m"]
+[ext_resource type="Texture2D" uid="uid://bjuffjsfley0h" path="res://Assets/Sprites/UI/Configuracion/config_template.png" id="2_ayflx"]
+[ext_resource type="Texture2D" uid="uid://dssbc60o2ev26" path="res://Assets/Sprites/UI/Configuracion/config_es_light.png" id="3_8ik8q"]
+[ext_resource type="Texture2D" uid="uid://cnvqb1ip78as4" path="res://Assets/Sprites/UI/Botones/Modo Claro/modo_claro.png" id="4_422eg"]
+[ext_resource type="Texture2D" uid="uid://bngpcy7pdyihl" path="res://Assets/Sprites/UI/Botones/Modo Claro/modo_oscuro.png" id="5_1pqh8"]
+[ext_resource type="Texture2D" uid="uid://b2t5fjcv8dd1b" path="res://Assets/Sprites/UI/Botones/Modo Claro/sonido_on.png" id="6_b4sc8"]
+[ext_resource type="Texture2D" uid="uid://ddeg3hacrto82" path="res://Assets/Sprites/UI/Botones/Modo Claro/sonido_off.png" id="7_x6kq0"]
+[ext_resource type="Texture2D" uid="uid://ci1c6n7ls3wly" path="res://Assets/Sprites/UI/Configuracion/es_español_light.png" id="8_i1a5j"]
+[ext_resource type="Texture2D" uid="uid://ib1ios45wc8v" path="res://Assets/Sprites/UI/Configuracion/es_ingles_light.png" id="9_fdc0e"]
+[ext_resource type="Texture2D" uid="uid://bu67mb18jcf7k" path="res://Assets/Sprites/UI/Botones/Modo Claro/regresar.png" id="10_06lip"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_myrau"]
+size = Vector2(255, 255)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5yo7g"]
+size = Vector2(259.146, 255)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4tliu"]
+size = Vector2(252.952, 255)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dy1d6"]
+size = Vector2(255, 255)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_w05yw"]
+size = Vector2(98, 27)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0jcs0"]
+size = Vector2(67, 26)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_v6qg1"]
+size = Vector2(250.984, 255)
+
+[node name="OptionsMenu" type="Node2D"]
+position = Vector2(194, 108)
+script = ExtResource("1_2eo3m")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(0.6, 0.6)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = 0
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer"]
+visible = false
+offset_left = -766.0
+offset_top = -433.0
+offset_right = 1155.0
+offset_bottom = 648.0
+texture = ExtResource("2_ayflx")
+metadata/_edit_use_anchors_ = true
+
+[node name="Background" type="Sprite2D" parent="."]
+z_index = -1
+position = Vector2(0, -1)
+texture = ExtResource("3_8ik8q")
+
+[node name="SunButton" type="Node2D" parent="."]
+position = Vector2(-89.5, -82.5)
+scale = Vector2(0.239216, 0.239216)
+
+[node name="SunButton2" type="Sprite2D" parent="SunButton"]
+z_index = 1
+texture = ExtResource("4_422eg")
+
+[node name="Area2D" type="Area2D" parent="SunButton"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SunButton/Area2D"]
+shape = SubResource("RectangleShape2D_myrau")
+
+[node name="MoonButton" type="Node2D" parent="."]
+position = Vector2(-192.75, -82.75)
+scale = Vector2(0.241176, 0.241176)
+
+[node name="MoonButton" type="Sprite2D" parent="MoonButton"]
+texture = ExtResource("5_1pqh8")
+
+[node name="Area2D" type="Area2D" parent="MoonButton"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MoonButton/Area2D"]
+shape = SubResource("RectangleShape2D_5yo7g")
+
+[node name="Node2D" type="Node2D" parent="."]
+position = Vector2(92.875, -82.125)
+scale = Vector2(0.244118, 0.244118)
+
+[node name="SoundOnButton" type="Sprite2D" parent="Node2D"]
+texture = ExtResource("6_b4sc8")
+
+[node name="Area2D" type="Area2D" parent="Node2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/Area2D"]
+shape = SubResource("RectangleShape2D_4tliu")
+
+[node name="Node2D2" type="Node2D" parent="."]
+position = Vector2(196.75, -82.75)
+scale = Vector2(0.241176, 0.241176)
+
+[node name="SoundOffButton" type="Sprite2D" parent="Node2D2"]
+texture = ExtResource("7_x6kq0")
+
+[node name="Area2D" type="Area2D" parent="Node2D2"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D2/Area2D"]
+shape = SubResource("RectangleShape2D_dy1d6")
+
+[node name="Node2D3" type="Node2D" parent="."]
+position = Vector2(1, 115)
+
+[node name="ESButton" type="Sprite2D" parent="Node2D3"]
+texture = ExtResource("8_i1a5j")
+
+[node name="Area2D" type="Area2D" parent="Node2D3"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D3/Area2D"]
+position = Vector2(0, -1.5)
+shape = SubResource("RectangleShape2D_w05yw")
+
+[node name="Node2D4" type="Node2D" parent="."]
+position = Vector2(1, 74)
+
+[node name="ENButton" type="Sprite2D" parent="Node2D4"]
+texture = ExtResource("9_fdc0e")
+
+[node name="Area2D" type="Area2D" parent="Node2D4"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D4/Area2D"]
+position = Vector2(-2.5, -2)
+shape = SubResource("RectangleShape2D_0jcs0")
+
+[node name="Node2D5" type="Node2D" parent="."]
+position = Vector2(-867.75, -448.75)
+scale = Vector2(0.24902, 0.24902)
+
+[node name="BackButton" type="Sprite2D" parent="Node2D5"]
+texture = ExtResource("10_06lip")
+
+[node name="Area2D" type="Area2D" parent="Node2D5"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D5/Area2D"]
+shape = SubResource("RectangleShape2D_v6qg1")

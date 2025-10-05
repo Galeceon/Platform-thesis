@@ -18,6 +18,8 @@ config/icon="res://icon.svg"
 [autoload]
 
 GameManager="*res://Assets/Script/game_manager.gd"
+ConfigManager="*res://Assets/Script/config_manager.gd"
+Transicion="*res://Assets/Script/Transicion.gd"
 
 [input]
 

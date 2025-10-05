@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://cb7j4sqksp23p"]
+
+[ext_resource type="Script" path="res://Assets/Script/LoadingScreen.gd" id="1_2chyn"]
+[ext_resource type="Texture2D" uid="uid://cld76lihik4dh" path="res://Assets/Sprites/UI/Pantallas de carga/01.png" id="2_guu6y"]
+
+[node name="LoadingScreen" type="CanvasLayer"]
+script = ExtResource("1_2chyn")
+
+[node name="Background" type="TextureRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_guu6y")
+expand_mode = 3
+stretch_mode = 5

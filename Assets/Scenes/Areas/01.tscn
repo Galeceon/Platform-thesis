@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://dwqbvs4je8b66"]
+[gd_scene load_steps=29 format=3 uid="uid://dwqbvs4je8b66"]
 
 [ext_resource type="Texture2D" uid="uid://eapoywwnqqhw" path="res://Assets/Sprites/level_assets/01-acromatopsia/Nivel ciudad acromatopsia-02.png" id="1_46asm"]
 [ext_resource type="PackedScene" uid="uid://cx04cpeiplwb5" path="res://Assets/Scenes/kaleido_dummy.tscn" id="2_wbqkm"]
@@ -21,6 +21,7 @@
 [ext_resource type="PackedScene" uid="uid://wkt82kw8x2sw" path="res://Assets/Scenes/goal.tscn" id="19_qej2s"]
 [ext_resource type="Texture2D" uid="uid://cwqn2y6d853ae" path="res://Assets/Sprites/level_assets/01-acromatopsia/goal.png" id="20_pnnwc"]
 [ext_resource type="AudioStream" uid="uid://osgv6tch73gx" path="res://Assets/Sounds/Beneath the Mask -rain, instrumental version-.mp3" id="21_hv27e"]
+[ext_resource type="PackedScene" uid="uid://b5mty1v36aorc" path="res://Assets/Scenes/enemy.tscn" id="22_ko5h5"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ddq0t"]
 size = Vector2(2165.81, 251.694)
@@ -694,3 +695,6 @@ limit_right = 14728
 limit_bottom = -5
 position_smoothing_enabled = true
 position_smoothing_speed = 7.0
+
+[node name="Enemigo" parent="." instance=ExtResource("22_ko5h5")]
+position = Vector2(5, -79)

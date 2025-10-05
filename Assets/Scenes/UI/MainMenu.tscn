@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bpovjs2nspjp"]
+
+[ext_resource type="Script" path="res://Assets/Scenes/UI/MainMenu.gd" id="1_roi0c"]
+
+[node name="MainMenu" type="CanvasLayer"]
+script = ExtResource("1_roi0c")

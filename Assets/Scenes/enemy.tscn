@@ -1,17 +1,22 @@
-[gd_scene load_steps=4 format=3 uid="uid://b5mty1v36aorc"]
+[gd_scene load_steps=5 format=3 uid="uid://b5mty1v36aorc"]
 
 [ext_resource type="Script" path="res://Assets/Script/enemy.gd" id="1_o0q8d"]
+[ext_resource type="Texture2D" uid="uid://2j6upld6g6tm" path="res://Assets/Sprites/enem_temp.png" id="2_5nwr7"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_hfoaa"]
-radius = 17.0294
+radius = 50.2494
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_7e82e"]
-radius = 20.0
+radius = 82.0061
 
 [node name="Enemigo" type="CharacterBody2D"]
 script = ExtResource("1_o0q8d")
 
 [node name="Timer" type="Timer" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.886364, 0.802326)
+texture = ExtResource("2_5nwr7")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_hfoaa")
@@ -21,3 +26,5 @@ shape = SubResource("CircleShape2D_hfoaa")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("CircleShape2D_7e82e")
 debug_color = Color(0.941764, 0.221017, 0.259251, 0.42)
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

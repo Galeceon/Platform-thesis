@@ -4,6 +4,9 @@ extends Area2D
 @onready var audio_player = $AudioStreamPlayer
 @onready var coin_sprite = find_child("Sprite2D2")
 
+func _ready():
+	add_to_group("audio_players")
+
 func _on_body_entered(body):
 	if body is KaleidoController:
 		GameManager.add_coin()
