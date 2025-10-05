@@ -697,4 +697,4 @@ position_smoothing_enabled = true
 position_smoothing_speed = 7.0
 
 [node name="Enemigo" parent="." instance=ExtResource("22_ko5h5")]
-position = Vector2(5, -79)
+position = Vector2(701, -64)

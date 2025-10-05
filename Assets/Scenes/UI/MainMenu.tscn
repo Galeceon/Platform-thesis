@@ -1,6 +1,82 @@
-[gd_scene load_steps=2 format=3 uid="uid://bpovjs2nspjp"]
+[gd_scene load_steps=12 format=3 uid="uid://bpovjs2nspjp"]
 
-[ext_resource type="Script" path="res://Assets/Scenes/UI/MainMenu.gd" id="1_roi0c"]
+[ext_resource type="Texture2D" uid="uid://b1oes6dbdcca1" path="res://Assets/Sprites/UI/Pantallas de inicio/PANTALLA 2-03.jpg" id="1_fc20j"]
+[ext_resource type="Texture2D" uid="uid://hcw8xhndvn05" path="res://Assets/Sprites/UI/Botones/Modo Claro/es_jugar.png" id="2_dthvn"]
+[ext_resource type="Texture2D" uid="uid://c3n010v3kkfv" path="res://Assets/Sprites/UI/Botones/Modo Claro/cerrar.png" id="2_lo7jy"]
+[ext_resource type="Texture2D" uid="uid://ce83gb7cw78tq" path="res://Assets/Sprites/UI/Botones/Modo Oscuro/en_cerrar.png" id="3_26q2e"]
+[ext_resource type="Texture2D" uid="uid://7n8o8evv5my6" path="res://Assets/Sprites/UI/Botones/Modo Oscuro/es_jugar.png" id="3_o6c14"]
+[ext_resource type="Texture2D" uid="uid://c3xq2w348tn3m" path="res://Assets/Sprites/UI/Botones/Modo Claro/reanudar.png" id="4_dtj2p"]
+[ext_resource type="Texture2D" uid="uid://b6se63bpb2yas" path="res://Assets/Sprites/UI/Botones/Modo Oscuro/es_reanudar.png" id="5_0dog1"]
+[ext_resource type="Texture2D" uid="uid://do35vh63qx2nx" path="res://Assets/Sprites/UI/Botones/Modo Claro/es_como_jugar.png" id="6_fhljv"]
+[ext_resource type="Texture2D" uid="uid://de6xpyngoc2xj" path="res://Assets/Sprites/UI/Botones/Modo Oscuro/es_como_jugar.png" id="7_tk10j"]
+[ext_resource type="Texture2D" uid="uid://bgx05vrf4ynk3" path="res://Assets/Sprites/UI/Botones/Modo Claro/es_creditos.png" id="8_2rlnf"]
+[ext_resource type="Texture2D" uid="uid://d0va8qe4u4ekk" path="res://Assets/Sprites/UI/Botones/Modo Oscuro/es_creditos.png" id="9_6enyd"]
 
-[node name="MainMenu" type="CanvasLayer"]
-script = ExtResource("1_roi0c")
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_fc20j")
+expand_mode = 3
+
+[node name="TextureButton" type="TextureButton" parent="TextureRect"]
+layout_mode = 0
+offset_left = 1052.0
+offset_top = 21.0
+offset_right = 1122.0
+offset_bottom = 91.0
+texture_normal = ExtResource("2_lo7jy")
+texture_pressed = ExtResource("3_26q2e")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+clip_contents = true
+layout_mode = 0
+offset_left = 44.0
+offset_top = 303.0
+offset_right = 401.0
+offset_bottom = 640.0
+
+[node name="Jugar_Button" type="TextureButton" parent="VBoxContainer"]
+layout_mode = 2
+texture_normal = ExtResource("2_dthvn")
+texture_pressed = ExtResource("3_o6c14")
+
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="VBoxContainer"]
+layout_mode = 2
+stretch_mode = 0
+
+[node name="Reanudar_Button" type="TextureButton" parent="VBoxContainer"]
+layout_mode = 2
+texture_normal = ExtResource("4_dtj2p")
+texture_pressed = ExtResource("5_0dog1")
+
+[node name="AspectRatioContainer2" type="AspectRatioContainer" parent="VBoxContainer"]
+layout_mode = 2
+stretch_mode = 0
+
+[node name="comoJugar_Button" type="TextureButton" parent="VBoxContainer"]
+layout_mode = 2
+texture_normal = ExtResource("6_fhljv")
+texture_pressed = ExtResource("7_tk10j")
+
+[node name="AspectRatioContainer3" type="AspectRatioContainer" parent="VBoxContainer"]
+layout_mode = 2
+stretch_mode = 0
+
+[node name="Creditos_Button" type="TextureButton" parent="VBoxContainer"]
+layout_mode = 2
+texture_normal = ExtResource("8_2rlnf")
+texture_pressed = ExtResource("9_6enyd")
