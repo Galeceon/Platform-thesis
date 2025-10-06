@@ -69,9 +69,9 @@ func actualizar_contador_gemas():
 func actualizar_status_puerta():
 	if puerta_status_label:
 		if GameManager.coins >= 50:
-			puerta_status_label.text = "La puerta esta abierta! Resuelve el minijuego!"
+			puerta_status_label.text = "¡La puerta está abierta! ¡Resuelve el minijuego!"
 		else:
-			puerta_status_label.text = "La puerta esta cerrada... Recoge las gemas!"
+			puerta_status_label.text = "La puerta está cerrada... ¡Recoge las gemas!"
 		print("✅ Status puerta actualizado")
 	else:
 		print("❌ ERROR: puerta_status_label es null - no se puede actualizar")

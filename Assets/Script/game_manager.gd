@@ -32,12 +32,30 @@ func load_level(level_number: int, with_loading_screen: bool = true):
 func _show_loading_screen(level_number: int):
 	print("🔄 GameManager: Iniciando carga del nivel ", level_number)
 	
-	# 1. Transición de salida - VERIFICAR QUE SE LLAME
+	# 1. Intentar transición, pero con timeout por si falla
 	print("🎬 Llamando Transicion.start_transition()")
 	Transicion.start_transition()
-	print("⏳ Esperando transition_finished...")
-	await Transicion.transition_finished
-	print("✅ Transición de salida COMPLETADA")
+	
+	# Esperar la transición con timeout - CORREGIDO
+	var transition_timeout = 3.0  # máximo 3 segundos
+	var time_elapsed = 0.0
+	
+	# Verificar si la señal está conectada y esperar
+	while time_elapsed < transition_timeout:
+		# Si la transición ya completó, salir del loop
+		if Transicion.transition_finished.get_connections().size() > 0:
+			print("✅ Señal transition_finished está conectada")
+			break
+		await get_tree().create_timer(0.1).timeout
+		time_elapsed += 1.5
+		print("⏳ Esperando conexión de señal... ", time_elapsed)
+	
+	if time_elapsed >= transition_timeout:
+		print("⚠️  Timeout en transición, continuando...")
+	else:
+		print("✅ Esperando señal transition_finished...")
+		await Transicion.transition_finished
+		print("✅ Transición de salida COMPLETADA")
 	
 	# 2. Mostrar loading screen
 	var loading_screen_scene = preload("res://Assets/Scenes/UI/LoadingScreen.tscn")
@@ -62,11 +80,24 @@ func _show_loading_screen(level_number: int):
 		current_loading_screen.queue_free()
 		current_loading_screen = null
 	
-	# 5. Transición de entrada
+	# 5. Transición de entrada (también con timeout) - CORREGIDO
 	print("🎬 Llamando Transicion.start_transition() para entrada")
 	Transicion.start_transition()
-	await Transicion.transition_finished
-	print("✅ Transición de entrada COMPLETADA")
+	
+	time_elapsed = 0.0
+	while time_elapsed < transition_timeout:
+		# Si la transición ya completó, salir del loop
+		if Transicion.transition_finished.get_connections().size() > 0:
+			break
+		await get_tree().create_timer(0.1).timeout
+		time_elapsed += 0.1
+	
+	if time_elapsed >= transition_timeout:
+		print("⚠️  Timeout en transición de entrada, continuando...")
+	else:
+		print("✅ Esperando señal transition_finished para entrada...")
+		await Transicion.transition_finished
+		print("✅ Transición de entrada COMPLETADA")
 
 # ===== SISTEMA DE MUERTE =====
 func _setup_death_timer():
@@ -95,8 +126,6 @@ func _connect_player_death_signal():
 		player.player_died.connect(_on_player_died)
 		print("GameManager: Señal player_died conectada")
 
-# GameManager.gd - en _on_player_died
-# GameManager.gd - en _on_player_died, AÑADE esto:
 func _on_player_died():
 	print("GameManager: Jugador murió - procesando muerte")
 	
