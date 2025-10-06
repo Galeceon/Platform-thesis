@@ -8,6 +8,9 @@ var death_timer: Timer
 var death_sound: AudioStreamPlayer
 var current_loading_screen: Node = null
 
+signal coin_added
+signal coins_reset
+
 func _ready():
 	reset_coins()
 	_setup_death_timer()
@@ -170,6 +173,7 @@ func area_setup():
 func add_coin():
 	coins += 1
 	print("Moneda recolectada: ", coins, "/50")
+	coin_added.emit()  # Emitir la señal renombrada
 	if coins >= 50:
 		var goals = get_tree().get_nodes_in_group("goals")
 		for goal in goals:
@@ -179,6 +183,7 @@ func add_coin():
 func reset_coins():
 	coins = 0
 	print("GameManager: Contador de monedas reseteado a ", coins)
+	coins_reset.emit()  # Emitir la señal renombrada
 
 # ===== FUNCIONES PÚBLICAS PARA MENÚS =====
 func start_new_game():

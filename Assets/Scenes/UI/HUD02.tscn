@@ -1,0 +1,42 @@
+[gd_scene load_steps=4 format=3 uid="uid://qju1xa5qugit"]
+
+[ext_resource type="Script" path="res://Assets/Script/HUD01.gd" id="1_2erfv"]
+[ext_resource type="Texture2D" uid="uid://b2ipmdx8vtn4p" path="res://Assets/Sprites/level_assets/02-deuteranopia/Mesa de trabajo 38.png" id="2_6bbu3"]
+[ext_resource type="LabelSettings" uid="uid://cwvu40uu8862s" path="res://Assets/Fonts/HUDFont.tres" id="3_gyujr"]
+
+[node name="Hud02" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_2erfv")
+
+[node name="TexturaGema" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 59.0
+offset_right = 84.0
+offset_bottom = 182.0
+texture = ExtResource("2_6bbu3")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="ContadorGema" type="Label" parent="TexturaGema"]
+layout_mode = 0
+offset_left = 76.0
+offset_top = 25.0
+offset_right = 234.0
+offset_bottom = 97.0
+text = "
+"
+label_settings = ExtResource("3_gyujr")
+
+[node name="PuertaStatus" type="Label" parent="."]
+layout_mode = 0
+offset_left = 15.0
+offset_top = 12.0
+offset_right = 838.0
+offset_bottom = 67.0
+label_settings = ExtResource("3_gyujr")

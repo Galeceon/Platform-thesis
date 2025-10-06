@@ -1,0 +1,42 @@
+[gd_scene load_steps=4 format=3 uid="uid://cueyub213qhhh"]
+
+[ext_resource type="Texture2D" uid="uid://dgvvomqg1od8w" path="res://Assets/Sprites/level_assets/01-acromatopsia/coin.png" id="1_2ppb0"]
+[ext_resource type="Script" path="res://Assets/Script/HUD01.gd" id="1_hrgpt"]
+[ext_resource type="LabelSettings" uid="uid://cwvu40uu8862s" path="res://Assets/Fonts/HUDFont.tres" id="2_88tib"]
+
+[node name="Hud01" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_hrgpt")
+
+[node name="TexturaGema" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 59.0
+offset_right = 84.0
+offset_bottom = 182.0
+texture = ExtResource("1_2ppb0")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="ContadorGema" type="Label" parent="TexturaGema"]
+layout_mode = 0
+offset_left = 76.0
+offset_top = 25.0
+offset_right = 234.0
+offset_bottom = 97.0
+text = "
+"
+label_settings = ExtResource("2_88tib")
+
+[node name="PuertaStatus" type="Label" parent="."]
+layout_mode = 0
+offset_left = 15.0
+offset_top = 12.0
+offset_right = 838.0
+offset_bottom = 67.0
+label_settings = ExtResource("2_88tib")

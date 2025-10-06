@@ -1,4 +1,4 @@
-[gd_scene load_steps=59 format=3 uid="uid://baycajoxmvnaa"]
+[gd_scene load_steps=60 format=3 uid="uid://baycajoxmvnaa"]
 
 [ext_resource type="Script" path="res://Assets/Script/04.gd" id="1_4ym6h"]
 [ext_resource type="PackedScene" uid="uid://wkt82kw8x2sw" path="res://Assets/Scenes/goal.tscn" id="1_qv81y"]
@@ -42,6 +42,7 @@
 [ext_resource type="Texture2D" uid="uid://boej8o4a3rdj" path="res://Assets/Sprites/level_assets/04-tritanopia/Mesa de trabajo 40.png" id="38_xxvis"]
 [ext_resource type="AudioStream" uid="uid://co471jbj0y4je" path="res://Assets/Sounds/Kirby 64_ The Crystal Shards - Above the Clouds.mp3" id="41_bvifq"]
 [ext_resource type="Texture2D" uid="uid://d38lv3vnkgfbb" path="res://Assets/Sprites/level_assets/04-tritanopia/modo oscuroMesa de trabajo 1.png" id="42_dokii"]
+[ext_resource type="PackedScene" path="res://Assets/Scenes/UI/HUD04.tscn" id="43_gfo21"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_snp1y"]
 size = Vector2(15891, 620)
@@ -825,6 +826,10 @@ max_distance = 1e+17
 z_index = -2
 position = Vector2(7053, -530)
 texture = ExtResource("42_dokii")
+
+[node name="HUD" type="CanvasLayer" parent="."]
+
+[node name="Hud02" parent="HUD" instance=ExtResource("43_gfo21")]
 
 [connection signal="body_entered" from="CanvasLayer2/rio/Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
