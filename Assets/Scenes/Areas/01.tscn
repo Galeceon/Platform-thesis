@@ -1,7 +1,7 @@
 [gd_scene load_steps=29 format=3 uid="uid://dwqbvs4je8b66"]
 
 [ext_resource type="Texture2D" uid="uid://eapoywwnqqhw" path="res://Assets/Sprites/level_assets/01-acromatopsia/Nivel ciudad acromatopsia-02.png" id="1_46asm"]
-[ext_resource type="PackedScene" uid="uid://cx04cpeiplwb5" path="res://Assets/Scenes/kaleido.tscn" id="2_wbqkm"]
+[ext_resource type="PackedScene" uid="uid://cx04cpeiplwb5" path="res://Assets/Scenes/kaleido_dummy.tscn" id="2_wbqkm"]
 [ext_resource type="Texture2D" uid="uid://4jn5qwhi5mru" path="res://Assets/Sprites/level_assets/01-acromatopsia/background.jpg" id="3_fco4w"]
 [ext_resource type="Texture2D" uid="uid://dhnd5wn1pyjap" path="res://Assets/Sprites/nivel_rkgk/01-acromatopsia.jpg" id="4_ag0wa"]
 [ext_resource type="Texture2D" uid="uid://bn0mcdohinmnw" path="res://Assets/Sprites/level_assets/01-acromatopsia/Nivel ciudad acromatopsia-03.png" id="5_g55k8"]
