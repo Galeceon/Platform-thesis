@@ -1,6 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://cf2ckfxwgsvcb"]
-
-[ext_resource type="Script" path="res://Assets/Script/Transicion.gd" id="1_h62v1"]
+[gd_scene load_steps=5 format=3 uid="uid://cf2ckfxwgsvcb"]
 
 [sub_resource type="Animation" id="Animation_ohw47"]
 length = 0.001
@@ -57,7 +55,6 @@ _data = {
 }
 
 [node name="Transicion" type="CanvasLayer"]
-script = ExtResource("1_h62v1")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 anchors_preset = 15

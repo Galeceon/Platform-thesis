@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://wkt82kw8x2sw" path="res://Assets/Scenes/goal.tscn" id="3_ajbgv"]
 [ext_resource type="Texture2D" uid="uid://c8ebnn7xbop83" path="res://Assets/Sprites/level_assets/03-protanopia/Mesa de trabajo 20.png" id="4_jme36"]
 [ext_resource type="AudioStream" uid="uid://coc3lbfr6x6q5" path="res://Assets/Sprites/level_assets/03-protanopia/pure-theta-4-7hz-with-417hz-639hz-music-351389.mp3" id="5_7p4f3"]
-[ext_resource type="PackedScene" uid="uid://cx04cpeiplwb5" path="res://Assets/Scenes/kaleido_dummy.tscn" id="6_x12kk"]
+[ext_resource type="PackedScene" uid="uid://cx04cpeiplwb5" path="res://Assets/Scenes/kaleido.tscn" id="6_x12kk"]
 [ext_resource type="Texture2D" uid="uid://mvs7snqvjkkp" path="res://Assets/Sprites/level_assets/03-protanopia/Mesa de trabajo 3.png" id="7_1kgpm"]
 [ext_resource type="Texture2D" uid="uid://di58epljdin7a" path="res://Assets/Sprites/level_assets/03-protanopia/Mesa de trabajo 4.png" id="8_s66k5"]
 [ext_resource type="Texture2D" uid="uid://b6q07qogwkp40" path="res://Assets/Sprites/level_assets/03-protanopia/Mesa de trabajo 5.png" id="9_eiinj"]

@@ -8,7 +8,7 @@
 [ext_resource type="AudioStream" uid="uid://ccoxktwxiixxd" path="res://Assets/Sprites/level_assets/04-tritanopia/pure-theta-4-7hz-gentle-water-flow-351397.mp3" id="4_kdgca"]
 [ext_resource type="Texture2D" uid="uid://do6so0g0scxay" path="res://Assets/Sprites/nivel_rkgk/04-tritanopia.jpg" id="5_3a2qa"]
 [ext_resource type="Texture2D" uid="uid://q0enkscdmvl1" path="res://Assets/Sprites/level_assets/04-tritanopia/Mesa de trabajo 39.png" id="5_4vpqt"]
-[ext_resource type="PackedScene" uid="uid://cx04cpeiplwb5" path="res://Assets/Scenes/kaleido_dummy.tscn" id="7_g4xqy"]
+[ext_resource type="PackedScene" uid="uid://cx04cpeiplwb5" path="res://Assets/Scenes/kaleido.tscn" id="7_g4xqy"]
 [ext_resource type="Texture2D" uid="uid://bb1v1g1ft0xyp" path="res://Assets/Sprites/level_assets/04-tritanopia/Mesa de trabajo 21.png" id="8_5wt47"]
 [ext_resource type="Texture2D" uid="uid://cti1cbx0406fp" path="res://Assets/Sprites/level_assets/04-tritanopia/Mesa de trabajo 3.png" id="9_gl3xr"]
 [ext_resource type="Texture2D" uid="uid://5mdfn1jnow55" path="res://Assets/Sprites/level_assets/04-tritanopia/Mesa de trabajo 26.png" id="9_jr7xw"]
