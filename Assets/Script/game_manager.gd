@@ -17,6 +17,7 @@ func _ready():
 	call_deferred("_connect_player_death_signal")
 
 # ===== SISTEMA DE CARGA DE NIVELES =====
+# GameManager.gd - en load_level
 func load_level(level_number: int, with_loading_screen: bool = true):
 	if with_loading_screen:
 		await _show_loading_screen(level_number)
@@ -25,8 +26,14 @@ func load_level(level_number: int, with_loading_screen: bool = true):
 		current_area = level_number
 		var full_path = area_path + str(current_area) + ".tscn"
 		get_tree().change_scene_to_file(full_path)
+		
+		# Esperar a que la escena se cargue
+		await get_tree().process_frame
+		await get_tree().process_frame
+		
 		area_setup()
 
+# GameManager.gd - en _show_loading_screen
 func _show_loading_screen(level_number: int):
 	print("🔄 GameManager: Iniciando carga del nivel ", level_number)
 	
@@ -46,9 +53,15 @@ func _show_loading_screen(level_number: int):
 	current_area = level_number
 	var full_path = area_path + str(current_area) + ".tscn"
 	get_tree().change_scene_to_file(full_path)
+	
+	# 3. Esperar a que el nivel se cargue completamente
+	await get_tree().process_frame
+	await get_tree().process_frame
+	
+	# 4. Configurar el nivel
 	area_setup()
 	
-	# 3. Quitar loading screen
+	# 5. Quitar loading screen
 	loading_screen.queue_free()
 	
 	print("✅ Nivel ", level_number, " cargado completamente")
@@ -71,14 +84,33 @@ func _setup_death_sound():
 	add_child(death_sound)
 	print("GameManager: Sonido de muerte configurado")
 
+# GameManager.gd - en _connect_player_death_signal
 func _connect_player_death_signal():
 	await get_tree().process_frame
 	var player = get_tree().get_first_node_in_group("player") as KaleidoController
 	if player:
-		if player.player_died.is_connected(_on_player_died):
-			player.player_died.disconnect(_on_player_died)
-		player.player_died.connect(_on_player_died)
-		print("GameManager: Señal player_died conectada")
+		print("🔍 GameManager: Jugador encontrado, verificando conexión...")
+		
+		# Verificar si la señal existe
+		if player.has_signal("player_died"):
+			print("✅ GameManager: Señal player_died existe en el jugador")
+			
+			# Verificar conexiones actuales
+			var connections = player.player_died.get_connections()
+			print("🔗 GameManager: Conexiones a player_died: ", connections.size())
+			
+			# Desconectar si ya está conectada
+			if player.player_died.is_connected(_on_player_died):
+				player.player_died.disconnect(_on_player_died)
+				print("🔄 GameManager: Señal desconectada para reconectar")
+			
+			# Conectar la señal
+			player.player_died.connect(_on_player_died)
+			print("✅ GameManager: Señal player_died CONECTADA")
+		else:
+			print("❌ GameManager: El jugador NO tiene la señal player_died")
+	else:
+		print("❌ GameManager: No se encontró jugador en el grupo 'player'")
 
 func _on_player_died():
 	print("GameManager: Jugador murió - procesando muerte")
@@ -139,10 +171,40 @@ func next_level():
 	# Cargar el siguiente nivel con pantalla de carga
 	await load_level(current_area + 1, true)
 
+# GameManager.gd - modifica area_setup
 func area_setup():
 	reset_coins()
 	close_all_goals()
-	call_deferred("_connect_player_death_signal")
+	# Esperar un frame para que el jugador esté en la escena
+	call_deferred("_reconnect_player_signals")
+
+# Nueva función para reconectar señales
+func _reconnect_player_signals():
+	print("🔄 GameManager: Reconectando señales del jugador...")
+	
+	# Esperar a que el jugador esté disponible
+	await get_tree().process_frame
+	
+	var player = get_tree().get_first_node_in_group("player") as KaleidoController
+	if player:
+		print("🎯 GameManager: Jugador encontrado en el grupo 'player'")
+		
+		# Verificar y conectar señal de muerte
+		if player.has_signal("player_died"):
+			# Desconectar si ya estaba conectada
+			if player.player_died.is_connected(_on_player_died):
+				player.player_died.disconnect(_on_player_died)
+			
+			# Conectar la señal
+			player.player_died.connect(_on_player_died)
+			print("✅ GameManager: Señal player_died conectada al jugador")
+		else:
+			print("❌ GameManager: El jugador no tiene la señal player_died")
+	else:
+		print("❌ GameManager: No se pudo encontrar el jugador en el grupo 'player'")
+		# Reintentar después de un tiempo
+		await get_tree().create_timer(0.5).timeout
+		_reconnect_player_signals()
 
 func add_coin():
 	coins += 1

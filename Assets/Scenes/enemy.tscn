@@ -8,8 +8,8 @@ radius = 39.0
 height = 146.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_c5ei7"]
-radius = 46.0
-height = 148.0
+radius = 63.0
+height = 168.0
 
 [sub_resource type="Animation" id="Animation_tt1si"]
 length = 0.001
