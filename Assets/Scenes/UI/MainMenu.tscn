@@ -1,6 +1,7 @@
-[gd_scene load_steps=14 format=3 uid="uid://bpovjs2nspjp"]
+[gd_scene load_steps=15 format=3 uid="uid://bpovjs2nspjp"]
 
 [ext_resource type="Texture2D" uid="uid://b1oes6dbdcca1" path="res://Assets/Sprites/UI/Pantallas de inicio/PANTALLA 2-03.jpg" id="1_fc20j"]
+[ext_resource type="Script" path="res://Assets/Script/MainMenu.gd" id="1_icvw2"]
 [ext_resource type="Texture2D" uid="uid://hcw8xhndvn05" path="res://Assets/Sprites/UI/Botones/Modo Claro/es_jugar.png" id="2_dthvn"]
 [ext_resource type="Texture2D" uid="uid://c3n010v3kkfv" path="res://Assets/Sprites/UI/Botones/Modo Claro/cerrar.png" id="2_lo7jy"]
 [ext_resource type="Texture2D" uid="uid://ce83gb7cw78tq" path="res://Assets/Sprites/UI/Botones/Modo Oscuro/en_cerrar.png" id="3_26q2e"]
@@ -21,6 +22,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_icvw2")
 
 [node name="TextureRect" type="TextureRect" parent="."]
 layout_mode = 1
@@ -101,3 +103,9 @@ stretch_mode = 0
 layout_mode = 2
 texture_normal = ExtResource("8_2rlnf")
 texture_pressed = ExtResource("9_6enyd")
+
+[connection signal="pressed" from="cerrar_button" to="." method="_on_cerrar_button_pressed"]
+[connection signal="pressed" from="config_button" to="." method="_on_config_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/jugar_button" to="." method="_on_jugar_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/reanudar_button" to="." method="_on_reanudar_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/creditos_button" to="." method="_on_creditos_button_pressed"]

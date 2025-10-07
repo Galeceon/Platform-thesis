@@ -170,4 +170,4 @@ func start_new_game():
 func continue_game():
 	# Cargar el último nivel desbloqueado sin pantalla de carga
 	var last_unlocked = ConfigManager.get_unlocked_levels()
-	await load_level(last_unlocked, false)
+	await load_level(last_unlocked, true)

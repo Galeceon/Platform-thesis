@@ -1,146 +1,122 @@
 # OptionsMenu.gd
-extends Node2D  # ← CAMBIA de BaseMenu a Node2D
+extends Control
 
-# Referencias a los Sprites
-@onready var background = $Background
-@onready var sun_button = $SunButton
-@onready var moon_button = $MoonButton
-@onready var es_button = $ESButton
-@onready var en_button = $ENButton
-@onready var sound_on_button = $SoundOnButton
-@onready var sound_off_button = $SoundOffButton
-@onready var back_button = $BackButton
+# Referencias a los botones de idioma
+@onready var idioma_espanol = $idioma_español
+@onready var idioma_ingles = $idioma_ingles
 
-# Texturas PRELOADED (igual que antes)
-var sun_light = preload("res://Assets/Sprites/UI/Botones/Modo Claro/modo_claro.png")
-var sun_dark = preload("res://Assets/Sprites/UI/Botones/Modo Oscuro/modo_claro.png")
-var moon_light = preload("res://Assets/Sprites/UI/Botones/Modo Claro/modo_oscuro.png")
-var moon_dark = preload("res://Assets/Sprites/UI/Botones/Modo Oscuro/modo_oscuro.png")
-var es_light = preload("res://Assets/Sprites/UI/Configuracion/en_español_light.png")
-var en_light = preload("res://Assets/Sprites/UI/Configuracion/en_ingles_light.png")
-var es_dark = preload("res://Assets/Sprites/UI/Configuracion/en_español_dark.png")
-var en_dark = preload("res://Assets/Sprites/UI/Configuracion/en_ingles_dark.png")
-var sound_on_light = preload("res://Assets/Sprites/UI/Botones/Modo Claro/sonido_on.png")
-var sound_off_light = preload("res://Assets/Sprites/UI/Botones/Modo Claro/sonido_off.png")
-var sound_on_dark = preload("res://Assets/Sprites/UI/Botones/Modo Oscuro/sound_on.png")
-var sound_off_dark = preload("res://Assets/Sprites/UI/Botones/Modo Oscuro/sound_off.png")
-var back_light = preload("res://Assets/Sprites/UI/Botones/Modo Claro/regresar.png")
-var back_dark = preload("res://Assets/Sprites/UI/Botones/Modo Oscuro/regresar.png")
-var background_es_light = preload("res://Assets/Sprites/UI/Configuracion/config_es_light.png")
-var background_es_dark = preload("res://Assets/Sprites/UI/Configuracion/config_es_dark.png")
-var background_en_light = preload("res://Assets/Sprites/UI/Configuracion/config_en_light.png")
-var background_en_dark = preload("res://Assets/Sprites/UI/Configuracion/config_en_dark.png")
+# Referencias a los checks (debes agregarlos como nodos hijos de los botones de idioma)
+@onready var check_espanol = $idioma_español/CheckMark
+@onready var check_ingles = $idioma_ingles/CheckMark
 
-# Variables para navegación
-var buttons: Array[Sprite2D] = []
-var current_button_index: int = 0
+# Referencias a los botones de modo y sonido
+@onready var modo_oscuro = $modo_oscuro
+@onready var modo_claro = $modo_claro
+@onready var sonido_on = $sonido_on
+@onready var sonido_off = $sonido_off
+@onready var regresar = $regresar
+
+# Variables de estado (simuladas por ahora)
+var idioma_actual = "es"
+var modo_actual = "light"
+var sonido_actual = true
 
 func _ready():
-	# Recolectar todos los botones
-	buttons = [sun_button, moon_button, es_button, en_button, sound_on_button, sound_off_button, back_button]
-	setup_ui()
-	ConfigManager.color_mode_changed.connect(_on_color_mode_changed)
-	ConfigManager.language_changed.connect(_on_language_changed)
-
-func _input(event):
-	# Navegación con teclado
-	if event.is_action_pressed("move_up"):
-		current_button_index = wrapi(current_button_index - 1, 0, buttons.size())
-		update_button_selection()
-	elif event.is_action_pressed("move_down"):
-		current_button_index = wrapi(current_button_index + 1, 0, buttons.size())
-		update_button_selection()
-	elif event.is_action_pressed("jump") or event.is_action_pressed("ui_accept"):
-		_on_button_pressed(buttons[current_button_index])
-
-func update_button_selection():
-	for i in range(buttons.size()):
-		if i == current_button_index:
-			buttons[i].modulate = Color(1.2, 1.2, 1.2)  # Resaltar
-		else:
-			buttons[i].modulate = Color(1, 1, 1)  # Normal
-
-func _on_button_pressed(button: Sprite2D):
-	if button == sun_button:
-		ConfigManager.set_color_mode("light")
-	elif button == moon_button:
-		ConfigManager.set_color_mode("dark")
-	elif button == es_button:
-		ConfigManager.set_language("es")
-	elif button == en_button:
-		ConfigManager.set_language("en")
-	elif button == sound_on_button:
-		ConfigManager.set_sound_volume(1.0)
-	elif button == sound_off_button:
-		ConfigManager.set_sound_volume(0.0)
-	elif button == back_button:
-		get_tree().change_scene_to_file("res://Assets/Scenes/UI/MainMenu.tscn")
-
-# Detección de clic del mouse
-func _unhandled_input(event):
-	if event is InputEventMouseButton and event.pressed:
-		for i in range(buttons.size()):
-			var button = buttons[i]
-			# Verificar si el click fue dentro del área del sprite
-			if button.get_rect().has_point(button.to_local(event.position)):
-				current_button_index = i
-				_on_button_pressed(button)
-				break
-
-func setup_ui():
-	update_all_ui()
-
-func update_all_ui():
-	var is_light_mode = ConfigManager.get_color_mode() == "light"
-	var current_lang = ConfigManager.get_language()
+	# Conectar todas las señales
+	_conectar_senales()
 	
-	update_background(current_lang, is_light_mode)
-	update_color_mode_buttons(is_light_mode)
-	update_language_buttons(is_light_mode, current_lang)
-	update_sound_buttons(is_light_mode)
-	update_back_button(is_light_mode)
-	update_button_selection()
+	# Inicializar el estado visual de los botones
+	_actualizar_botones_idioma()
+	_actualizar_botones_modo()
+	_actualizar_botones_sonido()
 
-func update_background(language: String, is_light_mode: bool):
-	if background:
-		match language:
-			"es":
-				background.texture = background_es_light if is_light_mode else background_es_dark
-			"en":
-				background.texture = background_en_light if is_light_mode else background_en_dark
+func _conectar_senales():
+	# Botones de idioma
+	idioma_espanol.pressed.connect(_on_idioma_espanol_pressed)
+	idioma_ingles.pressed.connect(_on_idioma_ingles_pressed)
+	
+	# Botones de modo
+	modo_oscuro.pressed.connect(_on_modo_oscuro_pressed)
+	modo_claro.pressed.connect(_on_modo_claro_pressed)
+	
+	# Botones de sonido
+	sonido_on.pressed.connect(_on_sonido_on_pressed)
+	sonido_off.pressed.connect(_on_sonido_off_pressed)
+	
+	# Botón regresar
+	regresar.pressed.connect(_on_regresar_pressed)
 
-func update_color_mode_buttons(is_light_mode: bool):
-	if is_light_mode:
-		sun_button.texture = sun_light
-		moon_button.texture = moon_light
+# ===== FUNCIONALIDAD DE IDIOMA (Radio Buttons) =====
+func _on_idioma_espanol_pressed():
+	print("🌐 Idioma español presionado")
+	idioma_actual = "es"
+	ConfigManager.set_language("es")
+	_actualizar_botones_idioma()
+
+func _on_idioma_ingles_pressed():
+	print("🌐 Idioma inglés presionado")
+	idioma_actual = "en"
+	ConfigManager.set_language("en")
+	_actualizar_botones_idioma()
+
+func _actualizar_botones_idioma():
+	# Ocultar todos los checks primero
+	if check_espanol:
+		check_espanol.visible = false
+	if check_ingles:
+		check_ingles.visible = false
+	
+	# Mostrar solo el check del idioma activo
+	match ConfigManager.get_language():
+		"es":
+			if check_espanol:
+				check_espanol.visible = true
+			print("✅ Idioma activo: Español")
+		"en":
+			if check_ingles:
+				check_ingles.visible = true
+			print("✅ Idioma activo: Inglés")
+
+# ===== FUNCIONALIDAD DE MODO CLARO/OSCURO =====
+func _on_modo_oscuro_pressed():
+	print("🌙 Modo oscuro presionado")
+	modo_actual = "dark"
+	ConfigManager.set_color_mode("dark")
+	_actualizar_botones_modo()
+
+func _on_modo_claro_pressed():
+	print("☀️ Modo claro presionado")
+	modo_actual = "light"
+	ConfigManager.set_color_mode("light")
+	_actualizar_botones_modo()
+
+func _actualizar_botones_modo():
+	match ConfigManager.get_color_mode():
+		"light":
+			print("✅ Modo activo: Claro")
+		"dark":
+			print("✅ Modo activo: Oscuro")
+
+# ===== FUNCIONALIDAD DE SONIDO ON/OFF =====
+func _on_sonido_on_pressed():
+	print("🔊 Sonido ON presionado")
+	sonido_actual = true
+	ConfigManager.set_sound_volume(1.0)  # Volumen máximo
+	_actualizar_botones_sonido()
+
+func _on_sonido_off_pressed():
+	print("🔇 Sonido OFF presionado")
+	sonido_actual = false
+	ConfigManager.set_sound_volume(0.0)  # Silencio
+	_actualizar_botones_sonido()
+
+func _actualizar_botones_sonido():
+	if ConfigManager.get_sound_volume() > 0:
+		print("✅ Sonido: Activado")
 	else:
-		sun_button.texture = sun_dark
-		moon_button.texture = moon_dark
+		print("✅ Sonido: Desactivado")
 
-func update_language_buttons(is_light_mode: bool, current_lang: String):
-	if is_light_mode:
-		es_button.texture = es_light
-		en_button.texture = en_light
-	else:
-		es_button.texture = es_dark
-		en_button.texture = en_dark
-
-func update_sound_buttons(is_light_mode: bool):
-	if is_light_mode:
-		sound_on_button.texture = sound_on_light
-		sound_off_button.texture = sound_off_light
-	else:
-		sound_on_button.texture = sound_on_dark
-		sound_off_button.texture = sound_off_dark
-
-func update_back_button(is_light_mode: bool):
-	if is_light_mode:
-		back_button.texture = back_light
-	else:
-		back_button.texture = back_dark
-
-func _on_color_mode_changed(mode: String):
-	update_all_ui()
-
-func _on_language_changed(lang: String):
-	update_all_ui()
+# ===== BOTÓN REGRESAR =====
+func _on_regresar_pressed():
+	print("🔙 Regresar al menú principal")
+	get_tree().change_scene_to_file("res://Assets/Scenes/UI/MainMenu.tscn")

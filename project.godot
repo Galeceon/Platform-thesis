@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Platform-thesis-1"
-run/main_scene="res://Assets/Scenes/Areas/01.tscn"
+run/main_scene="res://Assets/Scenes/UI/MainMenu.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
 config/icon="res://icon.svg"
 
@@ -20,6 +20,10 @@ config/icon="res://icon.svg"
 GameManager="*res://Assets/Script/game_manager.gd"
 ConfigManager="*res://Assets/Script/config_manager.gd"
 Transicion="*res://Assets/Script/Transicion.gd"
+
+[display]
+
+window/stretch/mode="canvas_items"
 
 [input]
 
