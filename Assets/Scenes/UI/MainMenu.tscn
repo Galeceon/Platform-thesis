@@ -108,4 +108,5 @@ texture_pressed = ExtResource("9_6enyd")
 [connection signal="pressed" from="config_button" to="." method="_on_config_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/jugar_button" to="." method="_on_jugar_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/reanudar_button" to="." method="_on_reanudar_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/comoJugar_button" to="." method="_on_como_jugar_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/creditos_button" to="." method="_on_creditos_button_pressed"]
