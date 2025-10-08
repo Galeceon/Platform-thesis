@@ -47,13 +47,16 @@ func _show_loading_screen(level_number: int):
 	
 	print("📱 LoadingScreen mostrada - esperando input del jugador")
 	
-	# 2. Esperar a que el jugador presione una tecla (esto ahora lo maneja el LoadingScreen)
-	# Necesitamos una señal en el LoadingScreen para saber cuándo continuar
+	# 2. Esperar a que el jugador presione una tecla
+	# Conectar a la señal del LoadingScreen
 	if loading_screen.has_signal("loading_completed"):
+		print("⏳ Esperando señal loading_completed...")
 		await loading_screen.loading_completed
+		print("✅ Señal loading_completed recibida")
 	else:
-		# Fallback: esperar un tiempo fijo
-		await get_tree().create_timer(5.0).timeout
+		print("❌ LoadingScreen no tiene señal loading_completed - usando fallback")
+		# Fallback: esperar 8 segundos (3 de espera + 5 extra)
+		await get_tree().create_timer(8.0).timeout
 	
 	print("⏰ LoadingScreen completada - cargando nivel")
 	

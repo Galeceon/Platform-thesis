@@ -1,14 +1,19 @@
 # LoadingScreen.gd
 extends CanvasLayer
 
+signal loading_completed
+
 @onready var background = $Background
-@onready var continue_label = $ContinueLabel  # Añade un Label como hijo
+@onready var continue_label = $ContinueLabel
 
 # Textos para continuar en diferentes idiomas
 var continue_texts = {
 	"es": "¡Pulsa cualquier tecla para continuar!",
 	"en": "Press any key to continue!"
 }
+
+# Variable para controlar si estamos esperando input
+var esperando_input = false
 
 func set_level(level_number: int):
 	var modo = ConfigManager.get_color_mode()
@@ -59,12 +64,9 @@ func _configurar_texto_continuar(idioma: String):
 	# Ocultar inicialmente
 	continue_label.visible = false
 	
-	# Configurar estilo básico (puedes personalizar esto)
+	# Configurar estilo básico
 	continue_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	continue_label.vertical_alignment = VERTICAL_ALIGNMENT_BOTTOM
-	
-	# Posicionar en la parte inferior
-	continue_label.position = Vector2(get_viewport().size.x / 2, get_viewport().size.y - 50)
 	
 	print("📝 Texto de continuar configurado: ", continue_label.text)
 
@@ -76,34 +78,29 @@ func _iniciar_secuencia_continuar():
 	
 	# Mostrar el texto de continuar
 	continue_label.visible = true
+	esperando_input = true
 	print("✅ Texto de continuar visible - Esperando input del jugador")
-	
-	# Esperar a que el jugador presione cualquier tecla
-	await _esperar_input_jugador()
-	
-	# Ocultar el texto y continuar
-	continue_label.visible = false
-	print("🎮 Input detectado - Continuando...")
 
-func _esperar_input_jugador():
-	# Crear una señal personalizada para esperar input
-	var input_signal = "input_received"
+func _input(event):
+	# Solo procesar input si estamos esperando
+	if not esperando_input:
+		return
 	
-	# Conectar la señal de input
-	get_viewport().connect("gui_input", Callable(self, "_on_gui_input"))
-	
-	# Esperar a que se emita la señal
-	await self.input_received
-	
-	# Desconectar la señal
-	get_viewport().disconnect("gui_input", Callable(self, "_on_gui_input"))
-
-# Señal personalizada
-signal input_received
-
-func _on_gui_input(event):
 	# Detectar cualquier input de teclado o mouse
 	if event is InputEventKey or event is InputEventMouseButton:
 		if event.pressed:
 			print("🎮 Input detectado: ", event)
-			input_received.emit()
+			_continuar_loading()
+
+func _continuar_loading():
+	# Prevenir múltiples llamadas
+	if not esperando_input:
+		return
+	
+	esperando_input = false
+	continue_label.visible = false
+	
+	print("🎮 Input detectado - Continuando...")
+	
+	# Emitir señal de que el loading ha completado
+	loading_completed.emit()
