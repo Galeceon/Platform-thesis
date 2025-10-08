@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c3xq2w348tn3m"
-path="res://.godot/imported/reanudar.png-e64b14f12ec99beaaea3cbdf9b77b271.ctex"
+uid="uid://ce83gb7cw78tq"
+path="res://.godot/imported/cerrar.png-44f5c7836f7488d7dd0ab0132f3d528b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Sprites/UI/Botones/Modo Claro/reanudar.png"
-dest_files=["res://.godot/imported/reanudar.png-e64b14f12ec99beaaea3cbdf9b77b271.ctex"]
+source_file="res://Assets/Sprites/UI/Botones/Modo Oscuro/cerrar.png"
+dest_files=["res://.godot/imported/cerrar.png-44f5c7836f7488d7dd0ab0132f3d528b.ctex"]
 
 [params]
 

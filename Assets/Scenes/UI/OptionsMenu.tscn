@@ -1,23 +1,16 @@
-[gd_scene load_steps=19 format=3 uid="uid://c2x0r3n4jnx3r"]
+[gd_scene load_steps=12 format=3 uid="uid://c2x0r3n4jnx3r"]
 
 [ext_resource type="Script" path="res://Assets/Script/OptionsMenu.gd" id="1_2eo3m"]
 [ext_resource type="Texture2D" uid="uid://bjuffjsfley0h" path="res://Assets/Sprites/UI/Configuracion/config_template.png" id="2_ayflx"]
 [ext_resource type="Texture2D" uid="uid://dssbc60o2ev26" path="res://Assets/Sprites/UI/Configuracion/config_es_light.png" id="3_8ik8q"]
-[ext_resource type="Texture2D" uid="uid://csjxqct040qbx" path="res://Assets/Sprites/UI/Botones/Modo Oscuro/modo_oscuro.png" id="4_6b2e6"]
 [ext_resource type="Texture2D" uid="uid://cnvqb1ip78as4" path="res://Assets/Sprites/UI/Botones/Modo Claro/modo_claro.png" id="4_422eg"]
 [ext_resource type="Texture2D" uid="uid://bngpcy7pdyihl" path="res://Assets/Sprites/UI/Botones/Modo Claro/modo_oscuro.png" id="5_1pqh8"]
 [ext_resource type="Texture2D" uid="uid://b2t5fjcv8dd1b" path="res://Assets/Sprites/UI/Botones/Modo Claro/sonido_on.png" id="6_b4sc8"]
-[ext_resource type="Texture2D" uid="uid://dleewcfb7nrdk" path="res://Assets/Sprites/UI/Botones/Modo Oscuro/modo_claro.png" id="6_sjfc2"]
 [ext_resource type="Texture2D" uid="uid://ddeg3hacrto82" path="res://Assets/Sprites/UI/Botones/Modo Claro/sonido_off.png" id="7_x6kq0"]
-[ext_resource type="Texture2D" uid="uid://bwhkk21fsxe3m" path="res://Assets/Sprites/UI/Botones/Modo Oscuro/sound_on.png" id="8_7e4tn"]
 [ext_resource type="Texture2D" uid="uid://ci1c6n7ls3wly" path="res://Assets/Sprites/UI/Configuracion/es_español_light.png" id="8_i1a5j"]
 [ext_resource type="Texture2D" uid="uid://ib1ios45wc8v" path="res://Assets/Sprites/UI/Configuracion/es_ingles_light.png" id="9_fdc0e"]
-[ext_resource type="Texture2D" uid="uid://bq75f7ir6kljl" path="res://Assets/Sprites/UI/Botones/Modo Oscuro/sound_off.png" id="10_1ck5b"]
 [ext_resource type="Texture2D" uid="uid://bu67mb18jcf7k" path="res://Assets/Sprites/UI/Botones/Modo Claro/regresar.png" id="10_06lip"]
-[ext_resource type="Texture2D" uid="uid://dsp607cebljrq" path="res://Assets/Sprites/UI/Configuracion/es_español_dark.png" id="12_oekh5"]
-[ext_resource type="Texture2D" uid="uid://cnulq0mqam53r" path="res://Assets/Sprites/UI/Configuracion/es_ingles_dark.png" id="14_wl7m1"]
 [ext_resource type="Texture2D" uid="uid://dg8en2atifqj6" path="res://Assets/Sprites/UI/Configuracion/check_light.png" id="16_ij63g"]
-[ext_resource type="Texture2D" uid="uid://l7ohd1wksbi4" path="res://Assets/Sprites/UI/Botones/Modo Oscuro/regresar.png" id="17_5ss2h"]
 
 [node name="OptionsMenu" type="Control"]
 layout_mode = 3
@@ -56,7 +49,6 @@ offset_top = 256.0
 offset_right = 479.0
 offset_bottom = 293.0
 texture_normal = ExtResource("5_1pqh8")
-texture_pressed = ExtResource("4_6b2e6")
 ignore_texture_size = true
 stretch_mode = 0
 
@@ -67,7 +59,6 @@ offset_top = 256.0
 offset_right = 541.0
 offset_bottom = 293.0
 texture_normal = ExtResource("4_422eg")
-texture_pressed = ExtResource("6_sjfc2")
 ignore_texture_size = true
 stretch_mode = 0
 
@@ -78,7 +69,6 @@ offset_top = 257.0
 offset_right = 650.0
 offset_bottom = 294.0
 texture_normal = ExtResource("6_b4sc8")
-texture_pressed = ExtResource("8_7e4tn")
 ignore_texture_size = true
 stretch_mode = 0
 
@@ -89,7 +79,6 @@ offset_top = 256.0
 offset_right = 712.0
 offset_bottom = 293.0
 texture_normal = ExtResource("7_x6kq0")
-texture_pressed = ExtResource("10_1ck5b")
 ignore_texture_size = true
 stretch_mode = 0
 
@@ -100,7 +89,6 @@ offset_top = 37.0
 offset_right = 74.0
 offset_bottom = 74.0
 texture_normal = ExtResource("10_06lip")
-texture_pressed = ExtResource("17_5ss2h")
 ignore_texture_size = true
 stretch_mode = 0
 
@@ -111,7 +99,6 @@ offset_top = 384.0
 offset_right = 603.0
 offset_bottom = 403.0
 texture_normal = ExtResource("8_i1a5j")
-texture_pressed = ExtResource("12_oekh5")
 ignore_texture_size = true
 stretch_mode = 0
 
@@ -136,7 +123,6 @@ offset_top = 359.0
 offset_right = 599.0
 offset_bottom = 379.0
 texture_normal = ExtResource("9_fdc0e")
-texture_pressed = ExtResource("14_wl7m1")
 ignore_texture_size = true
 stretch_mode = 0
 

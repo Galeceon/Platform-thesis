@@ -1,34 +1,86 @@
 # OptionsMenu.gd
 extends Control
 
-# Referencias a los botones de idioma
+# Referencias a los nodos
+@onready var background = $TextureRect
 @onready var idioma_espanol = $idioma_español
 @onready var idioma_ingles = $idioma_ingles
-
-# Referencias a los checks (debes agregarlos como nodos hijos de los botones de idioma)
-@onready var check_espanol = $idioma_español/CheckMark
-@onready var check_ingles = $idioma_ingles/CheckMark
-
-# Referencias a los botones de modo y sonido
 @onready var modo_oscuro = $modo_oscuro
 @onready var modo_claro = $modo_claro
 @onready var sonido_on = $sonido_on
 @onready var sonido_off = $sonido_off
 @onready var regresar = $regresar
 
-# Variables de estado (simuladas por ahora)
-var idioma_actual = "es"
-var modo_actual = "light"
-var sonido_actual = true
+# Solo checks para idioma
+@onready var check_espanol = $idioma_español/CheckMark
+@onready var check_ingles = $idioma_ingles/CheckMark
+
+# Texturas para modo claro y oscuro CON IDIOMA
+var texturas_fondo = {
+	"es_light": "res://Assets/Sprites/UI/Configuracion/config_es_light.png",
+	"es_dark": "res://Assets/Sprites/UI/Configuracion/config_es_dark.png",
+	"en_light": "res://Assets/Sprites/UI/Configuracion/config_en_light.png",
+	"en_dark": "res://Assets/Sprites/UI/Configuracion/config_en_dark.png"
+}
+
+var texturas_botones = {
+	"light": {
+		"regresar": "res://Assets/Sprites/UI/Botones/Modo Claro/regresar.png",
+		"modo_claro": "res://Assets/Sprites/UI/Botones/Modo Claro/modo_claro.png",
+		"modo_oscuro": "res://Assets/Sprites/UI/Botones/Modo Claro/modo_oscuro.png",
+		"sonido_on": "res://Assets/Sprites/UI/Botones/Modo Claro/sonido_on.png",
+		"sonido_off": "res://Assets/Sprites/UI/Botones/Modo Claro/sonido_off.png"
+	},
+	"dark": {
+		"regresar": "res://Assets/Sprites/UI/Botones/Modo Oscuro/regresar.png",
+		"modo_claro": "res://Assets/Sprites/UI/Botones/Modo Oscuro/modo_claro.png",
+		"modo_oscuro": "res://Assets/Sprites/UI/Botones/Modo Oscuro/modo_oscuro.png",
+		"sonido_on": "res://Assets/Sprites/UI/Botones/Modo Oscuro/sound_on.png",
+		"sonido_off": "res://Assets/Sprites/UI/Botones/Modo Oscuro/sound_off.png"
+	}
+}
+
+# Botones de idioma con versiones en ambos idiomas y modos
+var texturas_botones_idioma = {
+	"es_light": {
+		"idioma_espanol": "res://Assets/Sprites/UI/Configuracion/es_español_light.png",
+		"idioma_ingles": "res://Assets/Sprites/UI/Configuracion/es_ingles_light.png"
+	},
+	"es_dark": {
+		"idioma_espanol": "res://Assets/Sprites/UI/Configuracion/es_español_dark.png",
+		"idioma_ingles": "res://Assets/Sprites/UI/Configuracion/es_ingles_dark.png"
+	},
+	"en_light": {
+		"idioma_espanol": "res://Assets/Sprites/UI/Configuracion/en_español_light.png",
+		"idioma_ingles": "res://Assets/Sprites/UI/Configuracion/en_ingles_light.png"
+	},
+	"en_dark": {
+		"idioma_espanol": "res://Assets/Sprites/UI/Configuracion/en_español_dark.png",
+		"idioma_ingles": "res://Assets/Sprites/UI/Configuracion/en_ingles_dark.png"
+	}
+}
+
+var texturas_checks = {
+	"light": "res://Assets/Sprites/UI/Configuracion/check_light.png",
+	"dark": "res://Assets/Sprites/UI/Configuracion/check_dark.png"
+}
 
 func _ready():
-	# Conectar todas las señales
+	# Conectar señales
 	_conectar_senales()
 	
-	# Inicializar el estado visual de los botones
+	# Conectar a cambios de configuración
+	ConfigManager.color_mode_changed.connect(_on_config_changed)
+	ConfigManager.language_changed.connect(_on_config_changed)
+	ConfigManager.sound_volume_changed.connect(_on_sound_volume_changed)
+	
+	# Aplicar configuración actual
+	_aplicar_configuracion()
+	
+	# Inicializar estado visual
 	_actualizar_botones_idioma()
-	_actualizar_botones_modo()
-	_actualizar_botones_sonido()
+	_actualizar_estado_modo()
+	_actualizar_estado_sonido()
 
 func _conectar_senales():
 	# Botones de idioma
@@ -46,21 +98,102 @@ func _conectar_senales():
 	# Botón regresar
 	regresar.pressed.connect(_on_regresar_pressed)
 
+func _aplicar_configuracion():
+	var modo = ConfigManager.get_color_mode()
+	var idioma = ConfigManager.get_language()
+	var clave_config = "%s_%s" % [idioma, modo]
+	
+	print("🎨 OptionsMenu: Aplicando configuración - Idioma: ", idioma, ", Modo: ", modo)
+	
+	# Aplicar fondo (depende de idioma y modo)
+	_aplicar_fondo(clave_config)
+	
+	# Aplicar botones regulares (solo modo)
+	_aplicar_botones(modo)
+	
+	# Aplicar botones de idioma (idioma y modo)
+	_aplicar_botones_idioma(clave_config)
+	
+	# Aplicar checks de idioma (solo modo)
+	_aplicar_checks_idioma(modo)
+
+func _aplicar_fondo(clave_config: String):
+	if texturas_fondo.has(clave_config):
+		var texture_path = texturas_fondo[clave_config]
+		var texture = load(texture_path)
+		if texture:
+			background.texture = texture
+			print("✅ Fondo aplicado: ", texture_path)
+		else:
+			print("❌ Error cargando fondo: ", texture_path)
+	else:
+		print("❌ Configuración no encontrada para fondo: ", clave_config)
+
+func _aplicar_botones(modo: String):
+	if texturas_botones.has(modo):
+		var texturas_modo = texturas_botones[modo]
+		
+		# Aplicar texturas a botones regulares
+		_aplicar_textura_boton(regresar, texturas_modo, "regresar")
+		_aplicar_textura_boton(modo_claro, texturas_modo, "modo_claro")
+		_aplicar_textura_boton(modo_oscuro, texturas_modo, "modo_oscuro")
+		_aplicar_textura_boton(sonido_on, texturas_modo, "sonido_on")
+		_aplicar_textura_boton(sonido_off, texturas_modo, "sonido_off")
+		
+		print("✅ Botones regulares aplicados - Modo: ", modo)
+	else:
+		print("❌ Modo no encontrado para botones regulares: ", modo)
+
+func _aplicar_botones_idioma(clave_config: String):
+	if texturas_botones_idioma.has(clave_config):
+		var texturas_idioma = texturas_botones_idioma[clave_config]
+		
+		# Aplicar texturas a botones de idioma
+		_aplicar_textura_boton(idioma_espanol, texturas_idioma, "idioma_espanol")
+		_aplicar_textura_boton(idioma_ingles, texturas_idioma, "idioma_ingles")
+		
+		print("✅ Botones de idioma aplicados - Config: ", clave_config)
+	else:
+		print("❌ Configuración no encontrada para botones de idioma: ", clave_config)
+
+func _aplicar_checks_idioma(modo: String):
+	if texturas_checks.has(modo):
+		var check_texture_path = texturas_checks[modo]
+		var check_texture = load(check_texture_path)
+		
+		if check_texture:
+			# Aplicar solo a los checks de idioma
+			if check_espanol:
+				check_espanol.texture = check_texture
+			if check_ingles:
+				check_ingles.texture = check_texture
+			
+			print("✅ Checks de idioma aplicados: ", check_texture_path)
+		else:
+			print("❌ Error cargando textura de check: ", check_texture_path)
+	else:
+		print("❌ Modo no encontrado para checks: ", modo)
+
+func _aplicar_textura_boton(boton: TextureButton, texturas: Dictionary, clave: String):
+	if boton and texturas.has(clave):
+		var texture_path = texturas[clave]
+		var texture = load(texture_path)
+		if texture:
+			boton.texture_normal = texture
+		else:
+			print("❌ Error cargando textura: ", texture_path, " para botón: ", clave)
+
 # ===== FUNCIONALIDAD DE IDIOMA (Radio Buttons) =====
 func _on_idioma_espanol_pressed():
 	print("🌐 Idioma español presionado")
-	idioma_actual = "es"
 	ConfigManager.set_language("es")
-	_actualizar_botones_idioma()
 
 func _on_idioma_ingles_pressed():
 	print("🌐 Idioma inglés presionado")
-	idioma_actual = "en"
 	ConfigManager.set_language("en")
-	_actualizar_botones_idioma()
 
 func _actualizar_botones_idioma():
-	# Ocultar todos los checks primero
+	# Ocultar todos los checks de idioma primero
 	if check_espanol:
 		check_espanol.visible = false
 	if check_ingles:
@@ -80,17 +213,13 @@ func _actualizar_botones_idioma():
 # ===== FUNCIONALIDAD DE MODO CLARO/OSCURO =====
 func _on_modo_oscuro_pressed():
 	print("🌙 Modo oscuro presionado")
-	modo_actual = "dark"
 	ConfigManager.set_color_mode("dark")
-	_actualizar_botones_modo()
 
 func _on_modo_claro_pressed():
 	print("☀️ Modo claro presionado")
-	modo_actual = "light"
 	ConfigManager.set_color_mode("light")
-	_actualizar_botones_modo()
 
-func _actualizar_botones_modo():
+func _actualizar_estado_modo():
 	match ConfigManager.get_color_mode():
 		"light":
 			print("✅ Modo activo: Claro")
@@ -100,17 +229,13 @@ func _actualizar_botones_modo():
 # ===== FUNCIONALIDAD DE SONIDO ON/OFF =====
 func _on_sonido_on_pressed():
 	print("🔊 Sonido ON presionado")
-	sonido_actual = true
 	ConfigManager.set_sound_volume(1.0)  # Volumen máximo
-	_actualizar_botones_sonido()
 
 func _on_sonido_off_pressed():
 	print("🔇 Sonido OFF presionado")
-	sonido_actual = false
 	ConfigManager.set_sound_volume(0.0)  # Silencio
-	_actualizar_botones_sonido()
 
-func _actualizar_botones_sonido():
+func _actualizar_estado_sonido():
 	if ConfigManager.get_sound_volume() > 0:
 		print("✅ Sonido: Activado")
 	else:
@@ -120,3 +245,15 @@ func _actualizar_botones_sonido():
 func _on_regresar_pressed():
 	print("🔙 Regresar al menú principal")
 	get_tree().change_scene_to_file("res://Assets/Scenes/UI/MainMenu.tscn")
+
+# ===== MANEJADORES DE CAMBIOS DE CONFIGURACIÓN =====
+func _on_config_changed(_value):
+	print("🔄 OptionsMenu: Configuración cambiada - actualizando interfaz")
+	_aplicar_configuracion()
+	_actualizar_botones_idioma()
+	_actualizar_estado_modo()
+	_actualizar_estado_sonido()
+
+func _on_sound_volume_changed(volume: float):
+	print("🔊 Volumen de sonido cambiado: ", volume)
+	_actualizar_estado_sonido()
