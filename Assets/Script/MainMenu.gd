@@ -58,13 +58,18 @@ var texturas_botones_texto = {
 	}
 }
 
+# Variable para controlar si las señales ya están conectadas
+var senales_conectadas = false
+
 func _ready():
-	# Conectar señales de los botones
+	# Conectar señales de los botones (solo si no están conectadas)
 	_conectar_senales()
 	
-	# Conectar a cambios de configuración
-	ConfigManager.color_mode_changed.connect(_on_config_changed)
-	ConfigManager.language_changed.connect(_on_config_changed)
+	# Conectar a cambios de configuración (solo una vez)
+	if not ConfigManager.color_mode_changed.is_connected(_on_config_changed):
+		ConfigManager.color_mode_changed.connect(_on_config_changed)
+	if not ConfigManager.language_changed.is_connected(_on_config_changed):
+		ConfigManager.language_changed.connect(_on_config_changed)
 	
 	# Aplicar configuración actual
 	_aplicar_configuracion()
@@ -73,12 +78,26 @@ func _ready():
 	_actualizar_boton_reanudar()
 
 func _conectar_senales():
-	cerrar_button.pressed.connect(_on_cerrar_button_pressed)
-	config_button.pressed.connect(_on_config_button_pressed)
-	jugar_button.pressed.connect(_on_jugar_button_pressed)
-	reanudar_button.pressed.connect(_on_reanudar_button_pressed)
-	como_jugar_button.pressed.connect(_on_como_jugar_button_pressed)
-	creditos_button.pressed.connect(_on_creditos_button_pressed)
+	# Si ya están conectadas, no hacer nada
+	if senales_conectadas:
+		return
+	
+	# Conectar señales solo si no están conectadas
+	if not cerrar_button.pressed.is_connected(_on_cerrar_button_pressed):
+		cerrar_button.pressed.connect(_on_cerrar_button_pressed)
+	if not config_button.pressed.is_connected(_on_config_button_pressed):
+		config_button.pressed.connect(_on_config_button_pressed)
+	if not jugar_button.pressed.is_connected(_on_jugar_button_pressed):
+		jugar_button.pressed.connect(_on_jugar_button_pressed)
+	if not reanudar_button.pressed.is_connected(_on_reanudar_button_pressed):
+		reanudar_button.pressed.connect(_on_reanudar_button_pressed)
+	if not como_jugar_button.pressed.is_connected(_on_como_jugar_button_pressed):
+		como_jugar_button.pressed.connect(_on_como_jugar_button_pressed)
+	if not creditos_button.pressed.is_connected(_on_creditos_button_pressed):
+		creditos_button.pressed.connect(_on_creditos_button_pressed)
+	
+	senales_conectadas = true
+	print("✅ Señales del MainMenu conectadas")
 
 func _aplicar_configuracion():
 	var modo = ConfigManager.get_color_mode()
@@ -155,7 +174,7 @@ func _on_config_changed(_value):
 	print("🔄 Configuración cambiada - actualizando Main Menu")
 	_aplicar_configuracion()
 
-# Señales de los botones (se mantienen igual)
+# Señales de los botones
 func _on_cerrar_button_pressed():
 	print("🚪 Cerrando juego...")
 	get_tree().quit()

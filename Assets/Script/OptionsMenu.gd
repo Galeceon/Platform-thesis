@@ -82,21 +82,29 @@ func _ready():
 	_actualizar_estado_modo()
 	_actualizar_estado_sonido()
 
+# OptionsMenu.gd - en la función _conectar_senales()
 func _conectar_senales():
 	# Botones de idioma
-	idioma_espanol.pressed.connect(_on_idioma_espanol_pressed)
-	idioma_ingles.pressed.connect(_on_idioma_ingles_pressed)
+	if not idioma_espanol.pressed.is_connected(_on_idioma_espanol_pressed):
+		idioma_espanol.pressed.connect(_on_idioma_espanol_pressed)
+	if not idioma_ingles.pressed.is_connected(_on_idioma_ingles_pressed):
+		idioma_ingles.pressed.connect(_on_idioma_ingles_pressed)
 	
 	# Botones de modo
-	modo_oscuro.pressed.connect(_on_modo_oscuro_pressed)
-	modo_claro.pressed.connect(_on_modo_claro_pressed)
+	if not modo_oscuro.pressed.is_connected(_on_modo_oscuro_pressed):
+		modo_oscuro.pressed.connect(_on_modo_oscuro_pressed)
+	if not modo_claro.pressed.is_connected(_on_modo_claro_pressed):
+		modo_claro.pressed.connect(_on_modo_claro_pressed)
 	
 	# Botones de sonido
-	sonido_on.pressed.connect(_on_sonido_on_pressed)
-	sonido_off.pressed.connect(_on_sonido_off_pressed)
+	if not sonido_on.pressed.is_connected(_on_sonido_on_pressed):
+		sonido_on.pressed.connect(_on_sonido_on_pressed)
+	if not sonido_off.pressed.is_connected(_on_sonido_off_pressed):
+		sonido_off.pressed.connect(_on_sonido_off_pressed)
 	
 	# Botón regresar
-	regresar.pressed.connect(_on_regresar_pressed)
+	if not regresar.pressed.is_connected(_on_regresar_pressed):
+		regresar.pressed.connect(_on_regresar_pressed)
 
 func _aplicar_configuracion():
 	var modo = ConfigManager.get_color_mode()
