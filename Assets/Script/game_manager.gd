@@ -45,23 +45,31 @@ func _show_loading_screen(level_number: int):
 	if loading_screen.has_method("set_level"):
 		loading_screen.set_level(level_number)
 	
-	print("📱 LoadingScreen mostrada - esperando 3 segundos")
-	await get_tree().create_timer(3.0).timeout
-	print("⏰ Tiempo de lectura completado")
+	print("📱 LoadingScreen mostrada - esperando input del jugador")
 	
-	# 2. Cargar el nivel
+	# 2. Esperar a que el jugador presione una tecla (esto ahora lo maneja el LoadingScreen)
+	# Necesitamos una señal en el LoadingScreen para saber cuándo continuar
+	if loading_screen.has_signal("loading_completed"):
+		await loading_screen.loading_completed
+	else:
+		# Fallback: esperar un tiempo fijo
+		await get_tree().create_timer(5.0).timeout
+	
+	print("⏰ LoadingScreen completada - cargando nivel")
+	
+	# 3. Cargar el nivel
 	current_area = level_number
 	var full_path = area_path + str(current_area) + ".tscn"
 	get_tree().change_scene_to_file(full_path)
 	
-	# 3. Esperar a que el nivel se cargue completamente
+	# 4. Esperar a que el nivel se cargue completamente
 	await get_tree().process_frame
 	await get_tree().process_frame
 	
-	# 4. Configurar el nivel
+	# 5. Configurar el nivel
 	area_setup()
 	
-	# 5. Quitar loading screen
+	# 6. Quitar loading screen
 	loading_screen.queue_free()
 	
 	print("✅ Nivel ", level_number, " cargado completamente")
