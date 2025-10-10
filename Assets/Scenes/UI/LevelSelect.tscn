@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://dfoeyj4l2pj10"]
+[gd_scene load_steps=20 format=3 uid="uid://dfoeyj4l2pj10"]
 
 [ext_resource type="Script" path="res://Assets/Script/LevelSelect.gd" id="1_ivo8t"]
 [ext_resource type="Texture2D" uid="uid://cc7rei1qu6eyu" path="res://Assets/Sprites/UI/Pantallas de carga/02_es_light.png" id="2_cp470"]
@@ -15,11 +15,16 @@
 [ext_resource type="Texture2D" uid="uid://bu67mb18jcf7k" path="res://Assets/Sprites/UI/Botones/Modo Claro/regresar.png" id="6_t3umq"]
 [ext_resource type="Texture2D" uid="uid://jedceknmw447" path="res://Assets/Sprites/UI/Botones/Modo Claro/es_inicio.png" id="7_owiwc"]
 [ext_resource type="Texture2D" uid="uid://qwk6uqvjlpoh" path="res://Assets/Sprites/UI/Botones/Modo Claro/configuracion.png" id="8_g4m6a"]
+[ext_resource type="PackedScene" uid="uid://dwqbvs4je8b66" path="res://Assets/Scenes/Areas/01.tscn" id="10_wofe7"]
+[ext_resource type="PackedScene" uid="uid://bvd0ph2m5cws7" path="res://Assets/Scenes/Areas/02.tscn" id="11_6vc7b"]
+[ext_resource type="PackedScene" uid="uid://bxhsrv5g5imno" path="res://Assets/Scenes/Areas/03.tscn" id="12_c4cdr"]
+[ext_resource type="PackedScene" uid="uid://baycajoxmvnaa" path="res://Assets/Scenes/Areas/04.tscn" id="13_nmg05"]
 
 [node name="LevelSelect" type="CanvasLayer"]
 script = ExtResource("1_ivo8t")
 previews = Array[Texture2D]([ExtResource("4_tw78i"), ExtResource("3_ihgcx"), ExtResource("4_tmcxy"), ExtResource("5_gnkh7")])
 fondos = Array[Texture2D]([ExtResource("3_po3yl"), ExtResource("2_cp470"), ExtResource("4_wrfaw"), ExtResource("5_dway1")])
+level_scenes = Array[PackedScene]([ExtResource("10_wofe7"), ExtResource("11_6vc7b"), ExtResource("12_c4cdr"), ExtResource("13_nmg05")])
 
 [node name="Fondo" type="TextureRect" parent="."]
 offset_right = 1153.0
