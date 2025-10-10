@@ -102,6 +102,10 @@ func _setup_background_music():
 	if background_music:
 		audio_player.stream = background_music
 		audio_player.volume_db = -10.0
+		
+		# APLICAR EL VOLUMEN CONFIGURADO - ESTA ES LA LÍNEA QUE FALTA
+		ConfigManager.apply_volume_to_player(audio_player)
+		
 		audio_player.play()
 		print("🎵 Música del puzzle iniciada")
 	else:

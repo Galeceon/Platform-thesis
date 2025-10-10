@@ -1,4 +1,4 @@
-# ConfigManager.gd (versión simplificada)
+# ConfigManager.gd
 extends Node
 
 # Configuración persistente
@@ -10,10 +10,10 @@ var config = {
 	"character_skin": 1         # Skin del personaje (1-4)
 }
 
-# Señales para notificar cambios
+# Señales para notificar cambios - AÑADIR ESTAS LÍNEAS
 signal color_mode_changed(mode)
 signal language_changed(lang)
-signal sound_volume_changed(volume)
+signal sound_volume_changed(volume)  # ¡ESTA ES LA SEÑAL QUE FALTA!
 signal character_skin_changed(skin_id)
 
 func _ready():
@@ -75,7 +75,7 @@ func _validate_skin_id(skin_id: int) -> int:
 		print("⚠️  Skin ID fuera de rango: ", skin_id, ", pero permitiendo para testing")
 		return skin_id
 
-# Resto de las funciones permanecen igual...
+# Modo de color
 func set_color_mode(mode: String):
 	if mode != config["color_mode"]:
 		config["color_mode"] = mode
@@ -86,6 +86,7 @@ func set_color_mode(mode: String):
 func get_color_mode() -> String:
 	return config["color_mode"]
 
+# Idioma
 func set_language(lang: String):
 	if lang != config["language"]:
 		config["language"] = lang
@@ -96,13 +97,14 @@ func set_language(lang: String):
 func get_language() -> String:
 	return config["language"]
 
+# Volumen de sonido - MODIFICADO PARA EMITIR LA SEÑAL
 func set_sound_volume(volume: float):
 	var new_volume = clamp(volume, 0.0, 1.0)
 	if new_volume != config["sound_volume"]:
 		config["sound_volume"] = new_volume
 		save_config()
 		apply_global_volume()
-		sound_volume_changed.emit(config["sound_volume"])
+		sound_volume_changed.emit(config["sound_volume"])  # ¡EMITIR LA SEÑAL!
 		print("ConfigManager: Volumen de sonido cambiado a: ", config["sound_volume"])
 
 func get_sound_volume() -> float:

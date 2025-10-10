@@ -15,21 +15,14 @@ func _ready():
 	_setup_death_timer()
 	_setup_death_sound()
 	call_deferred("_connect_player_death_signal")
-	# Aplicar volumen global después de cargar la configuración
+	# Aplicar volumen global al inicio
 	call_deferred("apply_global_volume")
-	
-	# Conectar a la señal de cambio de volumen
-	ConfigManager.sound_volume_changed.connect(_on_volume_changed)
 
 # ===== SISTEMA DE VOLUMEN GLOBAL =====
 func apply_global_volume():
 	print("🔊 GameManager: Aplicando volumen global...")
+	# Llamar directamente a la función del ConfigManager
 	ConfigManager.apply_global_volume()
-
-func _on_volume_changed(volume: float):
-	print("🔊 GameManager: Volumen cambiado a ", volume, " - aplicando globalmente")
-	# Aplicar inmediatamente cuando cambie el volumen
-	apply_global_volume()
 
 # ===== SISTEMA DE CARGA DE NIVELES =====
 func load_level(level_number: int, with_loading_screen: bool = true):
@@ -193,9 +186,23 @@ func _on_death_timer_timeout():
 		return
 	
 	get_tree().reload_current_scene()
+	
+	# ESPERAR a que la escena se recargue completamente
+	await get_tree().process_frame
+	await get_tree().process_frame
+	await get_tree().process_frame
+	
+	print("🔄 GameManager: Escena recargada - aplicando configuración")
+	
+	# Aplicar volumen inmediatamente después de recargar
+	apply_global_volume()
+	
+	# Esperar un poco más y aplicar de nuevo por si acaso
+	await get_tree().create_timer(0.2).timeout
+	apply_global_volume()
+	
+	# Reconectar señales del jugador
 	call_deferred("_connect_player_death_signal")
-	# Aplicar volumen después de recargar la escena
-	call_deferred("apply_global_volume")
 
 # ===== SISTEMA DE METAS Y MONEDAS =====
 func close_all_goals():
@@ -284,7 +291,7 @@ func start_new_game():
 
 func continue_game():
 	# Cargar el último nivel desbloqueado sin pantalla de carga
-	var last_unlocked = ConfigManager.get_unlocked_levels()
+	var last_unlocked = ConfigManager.get_unrolled_levels()
 	
 	# Si el último nivel desbloqueado es 5, cargar la escena final
 	if last_unlocked == 5:
