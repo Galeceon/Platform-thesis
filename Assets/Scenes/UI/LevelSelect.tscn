@@ -1,23 +1,33 @@
-[gd_scene load_steps=9 format=3 uid="uid://dfoeyj4l2pj10"]
+[gd_scene load_steps=16 format=3 uid="uid://dfoeyj4l2pj10"]
 
-[ext_resource type="Texture2D" uid="uid://bsaeddk376xn8" path="res://Assets/Sprites/UI/Pantallas de carga/01_en_light.png" id="1_ete1s"]
+[ext_resource type="Script" path="res://Assets/Script/LevelSelect.gd" id="1_ivo8t"]
+[ext_resource type="Texture2D" uid="uid://cc7rei1qu6eyu" path="res://Assets/Sprites/UI/Pantallas de carga/02_es_light.png" id="2_cp470"]
 [ext_resource type="Texture2D" uid="uid://bb1s1kc77mrkv" path="res://Assets/Sprites/UI/Botones/Modo Claro/derecha.png" id="2_tjeae"]
 [ext_resource type="Texture2D" uid="uid://cai2fbhas50fg" path="res://Assets/Sprites/UI/Botones/Modo Claro/izquierda.png" id="3_ayksl"]
+[ext_resource type="Texture2D" uid="uid://c281q4rmkunwo" path="res://Assets/Sprites/UI/Niveles/Menú de niveles- Deuteranopia/MENÚ NIVEL DEUTERANOPIA-05.png" id="3_ihgcx"]
+[ext_resource type="Texture2D" uid="uid://dm7lsgqshbwg5" path="res://Assets/Sprites/UI/Pantallas de carga/01_es_light.png" id="3_po3yl"]
+[ext_resource type="Texture2D" uid="uid://8ps5jme1hifb" path="res://Assets/Sprites/UI/Niveles/Menú de niveles- Protanopia/MENÚ NIVEL PROTANOPIA-05.png" id="4_tmcxy"]
 [ext_resource type="Texture2D" uid="uid://c6u4cygf3l2b6" path="res://Assets/Sprites/UI/Niveles/Menú de niveles- acromatopsia/Menú de niveles- acromatopsia-05.png" id="4_tw78i"]
+[ext_resource type="Texture2D" uid="uid://dnepx4oh6t8uf" path="res://Assets/Sprites/UI/Pantallas de carga/03_es_light.png" id="4_wrfaw"]
 [ext_resource type="Texture2D" uid="uid://hcw8xhndvn05" path="res://Assets/Sprites/UI/Botones/Modo Claro/es_jugar.png" id="5_d56pg"]
+[ext_resource type="Texture2D" uid="uid://b701cei8du1fv" path="res://Assets/Sprites/UI/Pantallas de carga/04_es_light.png" id="5_dway1"]
+[ext_resource type="Texture2D" uid="uid://cal4f7m4pwtg2" path="res://Assets/Sprites/UI/Niveles/Menú de niveles- Tritanopia/MENÚ NIVEL TRITANOPIA-05.png" id="5_gnkh7"]
 [ext_resource type="Texture2D" uid="uid://bu67mb18jcf7k" path="res://Assets/Sprites/UI/Botones/Modo Claro/regresar.png" id="6_t3umq"]
 [ext_resource type="Texture2D" uid="uid://jedceknmw447" path="res://Assets/Sprites/UI/Botones/Modo Claro/es_inicio.png" id="7_owiwc"]
 [ext_resource type="Texture2D" uid="uid://qwk6uqvjlpoh" path="res://Assets/Sprites/UI/Botones/Modo Claro/configuracion.png" id="8_g4m6a"]
 
 [node name="LevelSelect" type="CanvasLayer"]
+script = ExtResource("1_ivo8t")
+previews = Array[Texture2D]([ExtResource("4_tw78i"), ExtResource("3_ihgcx"), ExtResource("4_tmcxy"), ExtResource("5_gnkh7")])
+fondos = Array[Texture2D]([ExtResource("3_po3yl"), ExtResource("2_cp470"), ExtResource("4_wrfaw"), ExtResource("5_dway1")])
 
-[node name="TextureRect" type="TextureRect" parent="."]
+[node name="Fondo" type="TextureRect" parent="."]
 offset_right = 1153.0
 offset_bottom = 648.0
-texture = ExtResource("1_ete1s")
+texture = ExtResource("3_po3yl")
 expand_mode = 2
 
-[node name="TextureButton" type="TextureButton" parent="."]
+[node name="next_button" type="TextureButton" parent="."]
 offset_left = 1088.0
 offset_top = 264.0
 offset_right = 1128.0
@@ -26,7 +36,7 @@ texture_normal = ExtResource("2_tjeae")
 ignore_texture_size = true
 stretch_mode = 0
 
-[node name="TextureButton2" type="TextureButton" parent="."]
+[node name="back_button1" type="TextureButton" parent="."]
 offset_left = 24.0
 offset_top = 256.0
 offset_right = 64.0
@@ -35,7 +45,7 @@ texture_normal = ExtResource("3_ayksl")
 ignore_texture_size = true
 stretch_mode = 0
 
-[node name="TextureRect2" type="TextureRect" parent="."]
+[node name="level" type="TextureRect" parent="."]
 offset_left = 208.0
 offset_top = 64.0
 offset_right = 496.0
@@ -43,16 +53,16 @@ offset_bottom = 544.0
 texture = ExtResource("4_tw78i")
 expand_mode = 3
 
-[node name="TextureButton3" type="TextureButton" parent="."]
+[node name="play_button" type="TextureButton" parent="."]
 offset_left = 664.0
-offset_top = 376.0
+offset_top = 448.0
 offset_right = 944.0
-offset_bottom = 420.0
+offset_bottom = 492.0
 texture_normal = ExtResource("5_d56pg")
 ignore_texture_size = true
 stretch_mode = 0
 
-[node name="back_button" type="TextureButton" parent="."]
+[node name="p_atras_button" type="TextureButton" parent="."]
 offset_left = 40.0
 offset_top = 24.0
 offset_right = 84.0
