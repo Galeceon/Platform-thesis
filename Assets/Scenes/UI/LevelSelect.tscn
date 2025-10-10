@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://dfoeyj4l2pj10"]
+[gd_scene load_steps=26 format=3 uid="uid://dfoeyj4l2pj10"]
 
 [ext_resource type="Script" path="res://Assets/Script/LevelSelect.gd" id="1_ivo8t"]
 [ext_resource type="Texture2D" uid="uid://cc7rei1qu6eyu" path="res://Assets/Sprites/UI/Pantallas de carga/02_es_light.png" id="2_cp470"]
@@ -19,6 +19,12 @@
 [ext_resource type="PackedScene" uid="uid://bvd0ph2m5cws7" path="res://Assets/Scenes/Areas/02.tscn" id="11_6vc7b"]
 [ext_resource type="PackedScene" uid="uid://bxhsrv5g5imno" path="res://Assets/Scenes/Areas/03.tscn" id="12_c4cdr"]
 [ext_resource type="PackedScene" uid="uid://baycajoxmvnaa" path="res://Assets/Scenes/Areas/04.tscn" id="13_nmg05"]
+[ext_resource type="Texture2D" uid="uid://bnu4hweqp4u43" path="res://Assets/Sprites/UI/Botones/Modo Oscuro/derecha.png" id="15_oq1eq"]
+[ext_resource type="Texture2D" uid="uid://42vifr3yedc7" path="res://Assets/Sprites/UI/Botones/Modo Oscuro/izquierda.png" id="17_cetib"]
+[ext_resource type="Texture2D" uid="uid://7n8o8evv5my6" path="res://Assets/Sprites/UI/Botones/Modo Oscuro/es_jugar.png" id="19_c6n5j"]
+[ext_resource type="Texture2D" uid="uid://l7ohd1wksbi4" path="res://Assets/Sprites/UI/Botones/Modo Oscuro/regresar.png" id="20_meoin"]
+[ext_resource type="Texture2D" uid="uid://bvqg6kn76kgxl" path="res://Assets/Sprites/UI/Botones/Modo Oscuro/inicio.png" id="22_tuocu"]
+[ext_resource type="Texture2D" uid="uid://b68g6iburi34q" path="res://Assets/Sprites/UI/Botones/Modo Oscuro/configuracion.png" id="24_g3rwt"]
 
 [node name="LevelSelect" type="CanvasLayer"]
 script = ExtResource("1_ivo8t")
@@ -38,6 +44,8 @@ offset_top = 264.0
 offset_right = 1128.0
 offset_bottom = 376.0
 texture_normal = ExtResource("2_tjeae")
+texture_pressed = ExtResource("15_oq1eq")
+texture_hover = ExtResource("15_oq1eq")
 ignore_texture_size = true
 stretch_mode = 0
 
@@ -47,6 +55,8 @@ offset_top = 256.0
 offset_right = 64.0
 offset_bottom = 368.0
 texture_normal = ExtResource("3_ayksl")
+texture_pressed = ExtResource("17_cetib")
+texture_hover = ExtResource("17_cetib")
 ignore_texture_size = true
 stretch_mode = 0
 
@@ -64,6 +74,8 @@ offset_top = 448.0
 offset_right = 944.0
 offset_bottom = 492.0
 texture_normal = ExtResource("5_d56pg")
+texture_pressed = ExtResource("19_c6n5j")
+texture_hover = ExtResource("19_c6n5j")
 ignore_texture_size = true
 stretch_mode = 0
 
@@ -73,6 +85,8 @@ offset_top = 24.0
 offset_right = 84.0
 offset_bottom = 68.0
 texture_normal = ExtResource("6_t3umq")
+texture_pressed = ExtResource("20_meoin")
+texture_hover = ExtResource("20_meoin")
 ignore_texture_size = true
 stretch_mode = 0
 
@@ -82,6 +96,8 @@ offset_top = 32.0
 offset_right = 1044.0
 offset_bottom = 76.0
 texture_normal = ExtResource("7_owiwc")
+texture_pressed = ExtResource("22_tuocu")
+texture_hover = ExtResource("22_tuocu")
 ignore_texture_size = true
 stretch_mode = 0
 
@@ -91,5 +107,7 @@ offset_top = 32.0
 offset_right = 1100.0
 offset_bottom = 76.0
 texture_normal = ExtResource("8_g4m6a")
+texture_pressed = ExtResource("24_g3rwt")
+texture_hover = ExtResource("24_g3rwt")
 ignore_texture_size = true
 stretch_mode = 0
