@@ -45,6 +45,11 @@ func _ready():
 	else:
 		print("❌ GameManager no encontrado")
 	
+	# Conectar señal de cambio de idioma
+	if ConfigManager.has_signal("language_changed"):
+		ConfigManager.language_changed.connect(_on_language_changed)
+		print("✅ Señal language_changed conectada")
+	
 	# Actualizar estado inicial
 	actualizar_contador_gemas()
 	actualizar_status_puerta()
@@ -59,19 +64,43 @@ func _on_game_manager_coins_reset():
 	actualizar_contador_gemas()
 	actualizar_status_puerta()
 
+func _on_language_changed(_lang: String):
+	print("🌐 Idioma cambiado - actualizando HUD")
+	actualizar_contador_gemas()
+	actualizar_status_puerta()
+
 func actualizar_contador_gemas():
 	if contador_gemas_label:
-		contador_gemas_label.text = str(GameManager.coins) + " de 50"
-		print("✅ Contador actualizado: ", GameManager.coins, "/50")
+		var language = ConfigManager.get_language()
+		var text = ""
+		
+		if language == "es":
+			text = str(GameManager.coins) + " de 50"
+		else: # "en"
+			text = str(GameManager.coins) + " of 50"
+		
+		contador_gemas_label.text = text
+		print("✅ Contador actualizado: ", GameManager.coins, "/50 (", language, ")")
 	else:
 		print("❌ ERROR: contador_gemas_label es null - no se puede actualizar")
 
 func actualizar_status_puerta():
 	if puerta_status_label:
+		var language = ConfigManager.get_language()
+		var text = ""
+		
 		if GameManager.coins >= 50:
-			puerta_status_label.text = "¡La puerta está abierta! ¡Resuelve el minijuego!"
+			if language == "es":
+				text = "¡La puerta está abierta! ¡Resuelve el minijuego!"
+			else: # "en"
+				text = "The door is open! Solve the minigame!"
 		else:
-			puerta_status_label.text = "La puerta está cerrada... ¡Recoge las gemas!"
-		print("✅ Status puerta actualizado")
+			if language == "es":
+				text = "La puerta está cerrada... ¡Recoge las gemas!"
+			else: # "en"
+				text = "The door is closed... Collect the gems!"
+		
+		puerta_status_label.text = text
+		print("✅ Status puerta actualizado (", language, ")")
 	else:
 		print("❌ ERROR: puerta_status_label es null - no se puede actualizar")

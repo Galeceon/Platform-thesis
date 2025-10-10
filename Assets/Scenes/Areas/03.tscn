@@ -366,7 +366,7 @@ position = Vector2(-171, 81)
 texture = ExtResource("20_g4bxy")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="stone-arc-final"]
-polygon = PackedVector2Array(223, 340, 185, 309, 167, 272, 34, 269, -14, 249, -67, 183, -180, 148, -233, 100, -246, 47, -354, -16, -508, -33, -581, -33, -606, -101, -700, -179, 354, -177, 359, 340)
+polygon = PackedVector2Array(223, 340, 185, 309, 167, 272, 34, 269, -14, 249, -67, 183, -82, 317, -233, 100, -246, 47, -354, -16, -508, -33, -581, -33, -606, -101, -700, -179, 354, -177, 359, 340)
 
 [node name="coin" parent="." instance=ExtResource("21_hrlsy")]
 position = Vector2(69, -633)
