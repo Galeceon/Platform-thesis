@@ -1,7 +1,64 @@
-[gd_scene format=3 uid="uid://co0c2q20s63du"]
+[gd_scene load_steps=8 format=3 uid="uid://co0c2q20s63du"]
+
+[ext_resource type="Script" path="res://Assets/Script/CanvasLayer.gd" id="1_gl81x"]
+[ext_resource type="Texture2D" uid="uid://d2rucn6u5pkaa" path="res://Assets/Sprites/UI/Pantallas seleccion de personaje/Pantalla de seleccion de kaleido CS6-13.png" id="2_h288w"]
+[ext_resource type="Texture2D" uid="uid://b04vlmdhnjwvm" path="res://Assets/Sprites/UI/Botones/Seleccion de Personajes/Pantalla de seleccion de kaleido-10.png" id="3_d26h1"]
+[ext_resource type="Texture2D" uid="uid://dk28juuvcwk2l" path="res://Assets/Sprites/UI/Botones/Seleccion de Personajes/Pantalla de seleccion de kaleido-06.png" id="4_87i8q"]
+[ext_resource type="Texture2D" uid="uid://cdin8h4buso8w" path="res://Assets/Sprites/UI/Botones/Seleccion de Personajes/Pantalla de seleccion de kaleido-08.png" id="5_u37yv"]
+[ext_resource type="Texture2D" uid="uid://dgc4sews7qhsy" path="res://Assets/Sprites/UI/Botones/Seleccion de Personajes/Pantalla de seleccion de kaleido-12.png" id="6_prvf7"]
+[ext_resource type="Texture2D" uid="uid://cl450jdlt8t12" path="res://Assets/Sprites/kaleido/Pantalla de seleccion de kaleido-05.png" id="7_a0eaw"]
 
 [node name="CharacterSelect" type="Node2D"]
 
-[node name="TextureRect" type="TextureRect" parent="."]
-offset_right = 40.0
-offset_bottom = 40.0
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+script = ExtResource("1_gl81x")
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer"]
+offset_right = 1155.0
+offset_bottom = 648.0
+texture = ExtResource("2_h288w")
+expand_mode = 3
+
+[node name="TextureButton" type="TextureButton" parent="CanvasLayer"]
+offset_left = 668.0
+offset_top = 553.0
+offset_right = 761.0
+offset_bottom = 627.0
+texture_normal = ExtResource("3_d26h1")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="TextureButton2" type="TextureButton" parent="CanvasLayer"]
+offset_left = 561.0
+offset_top = 514.0
+offset_right = 658.0
+offset_bottom = 588.0
+texture_normal = ExtResource("4_87i8q")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="TextureButton3" type="TextureButton" parent="CanvasLayer"]
+offset_left = 459.0
+offset_top = 560.0
+offset_right = 552.0
+offset_bottom = 634.0
+texture_normal = ExtResource("5_u37yv")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="TextureButton4" type="TextureButton" parent="CanvasLayer"]
+offset_left = 363.0
+offset_top = 508.0
+offset_right = 458.0
+offset_bottom = 582.0
+texture_normal = ExtResource("6_prvf7")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="TextureRect2" type="TextureRect" parent="CanvasLayer"]
+offset_left = 363.0
+offset_top = 129.0
+offset_right = 776.0
+offset_bottom = 527.0
+texture = ExtResource("7_a0eaw")
+expand_mode = 3
