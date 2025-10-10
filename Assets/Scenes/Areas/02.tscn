@@ -1,4 +1,4 @@
-[gd_scene load_steps=64 format=3 uid="uid://bvd0ph2m5cws7"]
+[gd_scene load_steps=65 format=3 uid="uid://bvd0ph2m5cws7"]
 
 [ext_resource type="PackedScene" uid="uid://cx04cpeiplwb5" path="res://Assets/Scenes/kaleido_dummy.tscn" id="1_2bekf"]
 [ext_resource type="Texture2D" uid="uid://8uie6owr3sc3" path="res://Assets/Sprites/nivel_rkgk/02-deuteranopia.jpg" id="2_1arq6"]
@@ -38,6 +38,7 @@
 [ext_resource type="Texture2D" uid="uid://b2ipmdx8vtn4p" path="res://Assets/Sprites/level_assets/02-deuteranopia/Mesa de trabajo 38.png" id="36_jilmu"]
 [ext_resource type="AudioStream" uid="uid://ym6b2s5scjue" path="res://Assets/Sounds/New Super Mario Bros Wii Forest Theme Soundtrack.mp3" id="37_yn47j"]
 [ext_resource type="PackedScene" uid="uid://qju1xa5qugit" path="res://Assets/Scenes/UI/HUD02.tscn" id="38_exdyu"]
+[ext_resource type="PackedScene" uid="uid://b5mty1v36aorc" path="res://Assets/Scenes/enemy.tscn" id="39_ap2ia"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_li2au"]
 size = Vector2(15.75, 94.5)
@@ -879,3 +880,18 @@ max_distance = 1e+17
 [node name="HUD" type="CanvasLayer" parent="."]
 
 [node name="Hud02" parent="HUD" instance=ExtResource("38_exdyu")]
+
+[node name="Enemigo" parent="." instance=ExtResource("39_ap2ia")]
+position = Vector2(1654, -115)
+
+[node name="Enemigo2" parent="." instance=ExtResource("39_ap2ia")]
+position = Vector2(3698, -115)
+
+[node name="Enemigo3" parent="." instance=ExtResource("39_ap2ia")]
+position = Vector2(8936, -103)
+
+[node name="Enemigo4" parent="." instance=ExtResource("39_ap2ia")]
+position = Vector2(10878, -103)
+
+[node name="Enemigo5" parent="." instance=ExtResource("39_ap2ia")]
+position = Vector2(13287, -97)

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bv2syu4o7kih8"
-path="res://.godot/imported/FinalOscuro.png-2abbae88fd73149bf9c7082621f7a3c6.ctex"
+uid="uid://bheq58p3bwhke"
+path="res://.godot/imported/Pantalla de seleccion de kaleido-10.png-d3a16bbb937dafdcdd99ddc260bd4e46.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Sprites/UI/Pantallas Finales/FinalOscuro.png"
-dest_files=["res://.godot/imported/FinalOscuro.png-2abbae88fd73149bf9c7082621f7a3c6.ctex"]
+source_file="res://Assets/Sprites/UI/Botones/Seleccion de Personajes/Pantalla de seleccion de kaleido-10.png"
+dest_files=["res://.godot/imported/Pantalla de seleccion de kaleido-10.png-d3a16bbb937dafdcdd99ddc260bd4e46.ctex"]
 
 [params]
 

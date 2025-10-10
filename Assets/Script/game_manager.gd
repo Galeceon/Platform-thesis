@@ -15,10 +15,32 @@ func _ready():
 	_setup_death_timer()
 	_setup_death_sound()
 	call_deferred("_connect_player_death_signal")
+	# Aplicar volumen global después de cargar la configuración
+	call_deferred("apply_global_volume")
+	
+	# Conectar a la señal de cambio de volumen
+	ConfigManager.sound_volume_changed.connect(_on_volume_changed)
+
+# ===== SISTEMA DE VOLUMEN GLOBAL =====
+func apply_global_volume():
+	print("🔊 GameManager: Aplicando volumen global...")
+	ConfigManager.apply_global_volume()
+
+func _on_volume_changed(volume: float):
+	print("🔊 GameManager: Volumen cambiado a ", volume, " - aplicando globalmente")
+	# Aplicar inmediatamente cuando cambie el volumen
+	apply_global_volume()
 
 # ===== SISTEMA DE CARGA DE NIVELES =====
-# GameManager.gd - en load_level
 func load_level(level_number: int, with_loading_screen: bool = true):
+	# Verificar si es el nivel final
+	if level_number == 5:
+		print("🎯 GameManager: Nivel 5 detectado - cargando escena final")
+		get_tree().change_scene_to_file("res://Assets/Scenes/Areas/final1.tscn")
+		# Aplicar volumen después de cargar la escena final
+		call_deferred("apply_global_volume")
+		return
+	
 	if with_loading_screen:
 		await _show_loading_screen(level_number)
 	else:
@@ -33,7 +55,6 @@ func load_level(level_number: int, with_loading_screen: bool = true):
 		
 		area_setup()
 
-# GameManager.gd - en _show_loading_screen
 func _show_loading_screen(level_number: int):
 	print("🔄 GameManager: Iniciando carga del nivel ", level_number)
 	
@@ -95,7 +116,6 @@ func _setup_death_sound():
 	add_child(death_sound)
 	print("GameManager: Sonido de muerte configurado")
 
-# GameManager.gd - en _connect_player_death_signal
 func _connect_player_death_signal():
 	await get_tree().process_frame
 	var player = get_tree().get_first_node_in_group("player") as KaleidoController
@@ -135,8 +155,10 @@ func _on_player_died():
 			death_anim.process_mode = Node.PROCESS_MODE_ALWAYS
 			death_anim.play("death")
 	
-	# 2. Reproducir sonido de muerte
+	# 2. Reproducir sonido de muerte (aplicar volumen antes de reproducir)
 	if death_sound:
+		# Aplicar volumen actual al sonido de muerte
+		ConfigManager.apply_volume_to_player(death_sound)
 		death_sound.play()
 		print("GameManager: Sonido de muerte reproducido")
 	
@@ -164,8 +186,16 @@ func _on_death_timer_timeout():
 	
 	# Reanudar antes de reiniciar
 	get_tree().paused = false
+	
+	# Si estamos en el nivel 5 (final), no recargar la escena
+	if current_area == 5:
+		print("🎯 GameManager: En escena final - no recargar")
+		return
+	
 	get_tree().reload_current_scene()
 	call_deferred("_connect_player_death_signal")
+	# Aplicar volumen después de recargar la escena
+	call_deferred("apply_global_volume")
 
 # ===== SISTEMA DE METAS Y MONEDAS =====
 func close_all_goals():
@@ -177,17 +207,29 @@ func close_all_goals():
 
 func next_level():
 	print("🎯 GameManager: Pasando al siguiente nivel")
-	# Desbloquear el siguiente nivel en ConfigManager
-	ConfigManager.unlock_level(current_area + 1)
-	# Cargar el siguiente nivel con pantalla de carga
-	await load_level(current_area + 1, true)
+	
+	# Verificar si estamos pasando al nivel 5 (final)
+	if current_area + 1 == 5:
+		print("🎉 GameManager: ¡Completando juego! Cargando escena final")
+		# Desbloquear el nivel 5 en ConfigManager
+		ConfigManager.unlock_level(5)
+		# Cargar la escena final SIN pantalla de carga
+		get_tree().change_scene_to_file("res://Assets/Scenes/Areas/final1.tscn")
+		# Aplicar volumen después de cargar la escena final
+		call_deferred("apply_global_volume")
+	else:
+		# Desbloquear el siguiente nivel en ConfigManager
+		ConfigManager.unlock_level(current_area + 1)
+		# Cargar el siguiente nivel con pantalla de carga
+		await load_level(current_area + 1, true)
 
-# GameManager.gd - modifica area_setup
 func area_setup():
 	reset_coins()
 	close_all_goals()
 	# Esperar un frame para que el jugador esté en la escena
 	call_deferred("_reconnect_player_signals")
+	# Aplicar volumen global después de cargar la escena
+	call_deferred("apply_global_volume")
 
 # Nueva función para reconectar señales
 func _reconnect_player_signals():
@@ -243,4 +285,12 @@ func start_new_game():
 func continue_game():
 	# Cargar el último nivel desbloqueado sin pantalla de carga
 	var last_unlocked = ConfigManager.get_unlocked_levels()
-	await load_level(last_unlocked, true)
+	
+	# Si el último nivel desbloqueado es 5, cargar la escena final
+	if last_unlocked == 5:
+		print("🎯 GameManager: Continuar juego - último nivel es 5, cargando escena final")
+		get_tree().change_scene_to_file("res://Assets/Scenes/Areas/final1.tscn")
+		# Aplicar volumen después de cargar la escena final
+		call_deferred("apply_global_volume")
+	else:
+		await load_level(last_unlocked, true)

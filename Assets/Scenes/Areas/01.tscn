@@ -702,6 +702,12 @@ position_smoothing_speed = 7.0
 [node name="Enemigo" parent="." instance=ExtResource("22_ko5h5")]
 position = Vector2(1103, -576)
 
+[node name="Enemigo2" parent="." instance=ExtResource("22_ko5h5")]
+position = Vector2(5508, -95)
+
+[node name="Enemigo3" parent="." instance=ExtResource("22_ko5h5")]
+position = Vector2(12949, -102)
+
 [node name="HUD" type="CanvasLayer" parent="."]
 
 [node name="Hud01" parent="HUD" instance=ExtResource("23_2ijen")]

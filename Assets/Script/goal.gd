@@ -17,6 +17,7 @@ func close():
 	is_open = false
 	print("Meta CERRADA - is_open = ", is_open)
 
+# AreaExit.gd - modificar la función _on_body_entered
 func _on_body_entered(body):
 	if is_open and body is KaleidoController:
 		print("Jugador tocó meta ABIERTA - iniciando puzzle")
@@ -24,12 +25,8 @@ func _on_body_entered(body):
 		
 		var puzzle_instance = PUZZLE_SCENE.instantiate()
 		
-		# BUSCAR la imagen en el nivel actual
-		var puzzle_image_node = get_tree().get_first_node_in_group("puzzle_image")
-		if puzzle_image_node and puzzle_image_node is TextureRect:
-			puzzle_instance.level_image = puzzle_image_node.texture
-		elif puzzle_image_node and puzzle_image_node is Sprite2D:
-			puzzle_instance.level_image = puzzle_image_node.texture
+		# El puzzle ahora obtiene el nivel automáticamente del GameManager
+		# No necesitamos pasar la imagen manualmente
 		
 		get_tree().root.add_child(puzzle_instance)
 		

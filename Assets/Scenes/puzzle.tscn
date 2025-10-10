@@ -1,31 +1,49 @@
-[gd_scene load_steps=3 format=3 uid="uid://dvagybhamqhpl"]
+[gd_scene load_steps=5 format=3 uid="uid://dvagybhamqhpl"]
 
 [ext_resource type="Script" path="res://Assets/Script/puzzle.gd" id="1_4fuwl"]
 [ext_resource type="AudioStream" uid="uid://lo5lub3o254r" path="res://Assets/Sounds/Phoenix Wright_ Trials and Tribulations OST - Phoenix Wright  Objection! 2004.mp3" id="2_btxid"]
+[ext_resource type="Texture2D" uid="uid://dis1m1r224lvc" path="res://Assets/Sprites/UI/Puzzles/Fondo/01.png" id="3_akwgr"]
+[ext_resource type="Texture2D" uid="uid://d365dubce03a1" path="res://Assets/Sprites/UI/Puzzles/01/background.png" id="4_jk2u2"]
 
 [node name="puzzle_root" type="CanvasLayer"]
+layer = 5
 script = ExtResource("1_4fuwl")
 background_music = ExtResource("2_btxid")
 
-[node name="ColorRect" type="ColorRect" parent="."]
+[node name="Background" type="TextureRect" parent="."]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_top = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-color = Color(1, 1, 1, 0)
+texture = ExtResource("3_akwgr")
+expand_mode = 1
 
-[node name="CenterContainer" type="CenterContainer" parent="ColorRect"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
+[node name="PuzzleBackground" type="TextureRect" parent="."]
+offset_left = 384.0
+offset_top = 82.0
+offset_right = 760.0
+offset_bottom = 549.0
+texture = ExtResource("4_jk2u2")
+expand_mode = 1
 
-[node name="GridContainer" type="GridContainer" parent="ColorRect/CenterContainer"]
+[node name="PuzzleContainer" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 420.0
+offset_top = 220.0
+offset_right = 727.0
+offset_bottom = 514.0
+
+[node name="GridContainer" type="GridContainer" parent="PuzzleContainer"]
 layout_mode = 2
+offset_left = -5.0
+offset_top = -1.0
+offset_right = 309.0
+offset_bottom = 295.0
 mouse_filter = 2
 columns = 3
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]

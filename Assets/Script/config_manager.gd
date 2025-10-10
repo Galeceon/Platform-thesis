@@ -1,3 +1,4 @@
+# ConfigManager.gd (versión simplificada)
 extends Node
 
 # Configuración persistente
@@ -17,6 +18,7 @@ signal character_skin_changed(skin_id)
 
 func _ready():
 	load_config()
+	apply_global_volume()
 
 func save_config():
 	var config_file = FileAccess.open("user://config.cfg", FileAccess.WRITE)
@@ -32,38 +34,48 @@ func load_config():
 		if config_file:
 			var loaded_config = config_file.get_var()
 			if loaded_config != null:
-				# IMPORTANTE: Actualizar el diccionario existente con valores por defecto
-				_update_config_with_defaults(loaded_config)
+				for key in config.keys():
+					if loaded_config.has(key):
+						config[key] = loaded_config[key]
 				print("ConfigManager: Configuración cargada")
 				return
-	
-	# Si llegamos aquí, usar configuración por defecto
 	print("ConfigManager: Configuración por defecto cargada")
 
-# NUEVA FUNCIÓN: Asegurar que todas las claves existan
-func _update_config_with_defaults(loaded_config: Dictionary):
-	# Para cada clave en la configuración por defecto
-	for key in config.keys():
-		if loaded_config.has(key):
-			# Si existe en el archivo cargado, usar ese valor
-			config[key] = loaded_config[key]
-		else:
-			# Si no existe, mantener el valor por defecto
-			print("ConfigManager: Clave '%s' no encontrada, usando valor por defecto" % key)
+# Función simplificada para aplicar volumen global
+func apply_global_volume():
+	var volume = config["sound_volume"]
+	var db_volume = linear_to_db(volume)
 	
-	# Asegurar que character_skin esté en el rango correcto
-	if config.has("character_skin"):
-		config["character_skin"] = _validate_skin_id(config["character_skin"])
+	# Buscar todos los nodos de audio en el árbol
+	var all_nodes = _get_all_nodes(get_tree().root)
+	var audio_players = []
+	
+	for node in all_nodes:
+		if node is AudioStreamPlayer or node is AudioStreamPlayer2D or node is AudioStreamPlayer3D:
+			audio_players.append(node)
+			node.volume_db = db_volume
+	
+	print("🔊 ConfigManager: Volumen aplicado a ", audio_players.size(), " reproductores")
 
-# Validar skin ID - permite valores fuera de rango para testing
+# Función auxiliar para obtener todos los nodos
+func _get_all_nodes(root: Node) -> Array:
+	var nodes = [root]
+	for child in root.get_children():
+		nodes.append_array(_get_all_nodes(child))
+	return nodes
+
+func apply_volume_to_player(player: Node):
+	if player and (player is AudioStreamPlayer or player is AudioStreamPlayer2D or player is AudioStreamPlayer3D):
+		player.volume_db = linear_to_db(config["sound_volume"])
+
 func _validate_skin_id(skin_id: int) -> int:
 	if skin_id >= 1 and skin_id <= 4:
 		return skin_id
 	else:
 		print("⚠️  Skin ID fuera de rango: ", skin_id, ", pero permitiendo para testing")
-		return skin_id  # Devolver el valor original para que falle la carga de textura
+		return skin_id
 
-# Modo de color
+# Resto de las funciones permanecen igual...
 func set_color_mode(mode: String):
 	if mode != config["color_mode"]:
 		config["color_mode"] = mode
@@ -74,7 +86,6 @@ func set_color_mode(mode: String):
 func get_color_mode() -> String:
 	return config["color_mode"]
 
-# Idioma
 func set_language(lang: String):
 	if lang != config["language"]:
 		config["language"] = lang
@@ -85,17 +96,18 @@ func set_language(lang: String):
 func get_language() -> String:
 	return config["language"]
 
-# Volumen de sonido
 func set_sound_volume(volume: float):
-	config["sound_volume"] = clamp(volume, 0.0, 1.0)
-	save_config()
-	sound_volume_changed.emit(config["sound_volume"])
-	print("ConfigManager: Volumen de sonido cambiado a: ", config["sound_volume"])
+	var new_volume = clamp(volume, 0.0, 1.0)
+	if new_volume != config["sound_volume"]:
+		config["sound_volume"] = new_volume
+		save_config()
+		apply_global_volume()
+		sound_volume_changed.emit(config["sound_volume"])
+		print("ConfigManager: Volumen de sonido cambiado a: ", config["sound_volume"])
 
 func get_sound_volume() -> float:
 	return config["sound_volume"]
 
-# Progreso de niveles
 func unlock_level(level: int):
 	if level > config["unlocked_levels"]:
 		config["unlocked_levels"] = level
@@ -105,9 +117,7 @@ func unlock_level(level: int):
 func get_unlocked_levels() -> int:
 	return config["unlocked_levels"]
 
-# Selección de personaje - CORREGIDO: No usar clamp aquí
 func set_character_skin(skin_id: int):
-	# Solo validar, no clamp - permitir valores fuera de rango para testing
 	var validated_skin = _validate_skin_id(skin_id)
 	if validated_skin != config["character_skin"]:
 		config["character_skin"] = validated_skin
