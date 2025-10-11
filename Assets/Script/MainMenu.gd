@@ -154,41 +154,38 @@ func _aplicar_botones_sin_texto(modo: String):
 		print("❌ Modo no encontrado para botones sin texto: ", modo)
 
 func _aplicar_textura_boton(boton: TextureButton, texturas: Dictionary, clave: String):
-	if boton and texturas.has(clave):
-		var texture_path = texturas[clave]
-		var texture = load(texture_path)
-		if texture:
-			boton.texture_normal = texture
+	if not boton or not texturas.has(clave):
+		return
+	
+	var texture_path = texturas[clave]
+	var texture = load(texture_path)
+	if texture:
+		boton.texture_normal = texture
+	
+	var modo_actual = ConfigManager.get_color_mode()
+	var idioma_actual = ConfigManager.get_language()
+	var modo_opuesto = "light" if modo_actual == "dark" else "dark"
+	
+	var textura_hover_path = null
 
-		# Si el modo actual es oscuro, usar la textura del modo claro como hover
-		var modo_actual = ConfigManager.get_color_mode()
-		if modo_actual == "dark":
-			# Buscar la textura equivalente del modo claro
-			var textura_hover_path = null
-			if texturas_botones_texto.has("light"):
-				# Buscar en botones con texto
-				var idioma = ConfigManager.get_language()
-				if texturas_botones_texto["light"].has(idioma) and texturas_botones_texto["light"][idioma].has(clave):
-					textura_hover_path = texturas_botones_texto["light"][idioma][clave]
-			elif texturas_botones.has("light") and texturas_botones["light"].has(clave):
-				# Buscar en botones sin texto
-				textura_hover_path = texturas_botones["light"][clave]
-			
-			# Aplicar textura hover si existe
-			if textura_hover_path:
-				var hover_texture = load(textura_hover_path)
-				if hover_texture:
-					boton.texture_hover = hover_texture
-					
-	# Si el botón es "config" o "cerrar", aplicar hover del modo opuesto
-	if clave in ["config", "cerrar"]:
-		var modo_actual = ConfigManager.get_color_mode()
-		var modo_opuesto = "light" if modo_actual == "dark" else "dark"
+	# 🔹 Si el botón tiene texto (como jugar, reanudar, etc.)
+	if clave in ["jugar", "reanudar", "como_jugar", "creditos"]:
+		# Buscar textura hover del mismo idioma pero modo opuesto
+		if texturas_botones_texto.has(modo_opuesto):
+			var dict_opuesto = texturas_botones_texto[modo_opuesto]
+			if dict_opuesto.has(idioma_actual) and dict_opuesto[idioma_actual].has(clave):
+				textura_hover_path = dict_opuesto[idioma_actual][clave]
+	
+	# 🔹 Si el botón es "config" o "cerrar", buscar en los botones sin texto
+	elif clave in ["config", "cerrar"]:
 		if texturas_botones.has(modo_opuesto) and texturas_botones[modo_opuesto].has(clave):
-			var textura_hover_path = texturas_botones[modo_opuesto][clave]
-			var hover_texture = load(textura_hover_path)
-			if hover_texture:
-				boton.texture_hover = hover_texture
+			textura_hover_path = texturas_botones[modo_opuesto][clave]
+
+	# 🔹 Aplicar hover si existe
+	if textura_hover_path:
+		var hover_texture = load(textura_hover_path)
+		if hover_texture:
+			boton.texture_hover = hover_texture
 
 func _actualizar_boton_reanudar():
 	var nivel_desbloqueado = ConfigManager.get_unlocked_levels()
