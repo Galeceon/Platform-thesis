@@ -9,6 +9,7 @@ extends Control
 @onready var creditos_button = $VBoxContainer/creditos_button
 @onready var config_button = $config_button
 @onready var cerrar_button = $cerrar_button
+var level_select_scene = preload("res://Assets/Scenes/UI/LevelSelect.tscn")
 
 # Texturas para modo claro y oscuro
 var texturas_fondo = {
@@ -208,8 +209,8 @@ func _on_cerrar_button_pressed():
 	get_tree().quit()
 
 func _on_jugar_button_pressed():
-	print("🎮 Iniciando nuevo juego...")
-	GameManager.start_new_game()
+	print("🎮 Abriendo selección de niveles...")
+	get_tree().change_scene_to_file("res://Assets/Scenes/UI/LevelSelect.tscn")
 
 func _on_reanudar_button_pressed():
 	print("🎮 Reanudando juego...")

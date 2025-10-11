@@ -14,11 +14,6 @@ extends CanvasLayer
 @export var fondos: Array[Texture2D] = []          # Fondos de los niveles
 @export var level_scenes: Array[PackedScene] = []  # Escenas reales
 
-# Escenas adicionales (las de los botones extra)
-@export var escena_anterior: PackedScene
-@export var escena_home: PackedScene
-@export var escena_config: PackedScene
-
 var idx: int = 0   # Índice actual
 
 func _ready() -> void:
@@ -60,16 +55,13 @@ func _on_play() -> void:
 
 # --- Botones adicionales ---
 func _on_p_atras() -> void:
-	if escena_anterior:
-		get_tree().change_scene_to_packed(escena_anterior)
-
-func _on_home() -> void:
-	if escena_home:
-		get_tree().change_scene_to_packed(escena_home)
+	get_tree().change_scene_to_file("res://Assets/Scenes/UI/PreviousMenu.tscn")
 
 func _on_config() -> void:
-	if escena_config:
-		get_tree().change_scene_to_packed(escena_config)
+	get_tree().change_scene_to_file("res://Assets/Scenes/UI/OptionsMenu.tscn")
+
+func _on_home() -> void:
+	get_tree().change_scene_to_file("res://Assets/Scenes/UI/MainMenu.tscn")
 
 # --- Actualización visual ---
 func update_ui() -> void:
