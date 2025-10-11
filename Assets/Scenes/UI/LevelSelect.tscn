@@ -1,16 +1,13 @@
-[gd_scene load_steps=26 format=3 uid="uid://dfoeyj4l2pj10"]
+[gd_scene load_steps=23 format=3 uid="uid://dfoeyj4l2pj10"]
 
 [ext_resource type="Script" path="res://Assets/Script/LevelSelect.gd" id="1_ivo8t"]
-[ext_resource type="Texture2D" uid="uid://cc7rei1qu6eyu" path="res://Assets/Sprites/UI/Pantallas de carga/02_es_light.png" id="2_cp470"]
 [ext_resource type="Texture2D" uid="uid://bb1s1kc77mrkv" path="res://Assets/Sprites/UI/Botones/Modo Claro/derecha.png" id="2_tjeae"]
 [ext_resource type="Texture2D" uid="uid://cai2fbhas50fg" path="res://Assets/Sprites/UI/Botones/Modo Claro/izquierda.png" id="3_ayksl"]
 [ext_resource type="Texture2D" uid="uid://c281q4rmkunwo" path="res://Assets/Sprites/UI/Niveles/Menú de niveles- Deuteranopia/MENÚ NIVEL DEUTERANOPIA-05.png" id="3_ihgcx"]
 [ext_resource type="Texture2D" uid="uid://dm7lsgqshbwg5" path="res://Assets/Sprites/UI/Pantallas de carga/01_es_light.png" id="3_po3yl"]
 [ext_resource type="Texture2D" uid="uid://8ps5jme1hifb" path="res://Assets/Sprites/UI/Niveles/Menú de niveles- Protanopia/MENÚ NIVEL PROTANOPIA-05.png" id="4_tmcxy"]
 [ext_resource type="Texture2D" uid="uid://c6u4cygf3l2b6" path="res://Assets/Sprites/UI/Niveles/Menú de niveles- acromatopsia/Menú de niveles- acromatopsia-05.png" id="4_tw78i"]
-[ext_resource type="Texture2D" uid="uid://dnepx4oh6t8uf" path="res://Assets/Sprites/UI/Pantallas de carga/03_es_light.png" id="4_wrfaw"]
 [ext_resource type="Texture2D" uid="uid://hcw8xhndvn05" path="res://Assets/Sprites/UI/Botones/Modo Claro/es_jugar.png" id="5_d56pg"]
-[ext_resource type="Texture2D" uid="uid://b701cei8du1fv" path="res://Assets/Sprites/UI/Pantallas de carga/04_es_light.png" id="5_dway1"]
 [ext_resource type="Texture2D" uid="uid://cal4f7m4pwtg2" path="res://Assets/Sprites/UI/Niveles/Menú de niveles- Tritanopia/MENÚ NIVEL TRITANOPIA-05.png" id="5_gnkh7"]
 [ext_resource type="Texture2D" uid="uid://bu67mb18jcf7k" path="res://Assets/Sprites/UI/Botones/Modo Claro/regresar.png" id="6_t3umq"]
 [ext_resource type="Texture2D" uid="uid://jedceknmw447" path="res://Assets/Sprites/UI/Botones/Modo Claro/es_inicio.png" id="7_owiwc"]
@@ -29,7 +26,6 @@
 [node name="LevelSelect" type="CanvasLayer"]
 script = ExtResource("1_ivo8t")
 previews = Array[Texture2D]([ExtResource("4_tw78i"), ExtResource("3_ihgcx"), ExtResource("4_tmcxy"), ExtResource("5_gnkh7")])
-fondos = Array[Texture2D]([ExtResource("3_po3yl"), ExtResource("2_cp470"), ExtResource("4_wrfaw"), ExtResource("5_dway1")])
 level_scenes = Array[PackedScene]([ExtResource("10_wofe7"), ExtResource("11_6vc7b"), ExtResource("12_c4cdr"), ExtResource("13_nmg05")])
 
 [node name="Fondo" type="TextureRect" parent="."]
