@@ -64,7 +64,7 @@ func _on_play() -> void:
 
 # --- Botones adicionales ---
 func _on_p_atras() -> void:
-	get_tree().change_scene_to_file("res://Assets/Scenes/UI/PreviousMenu.tscn")
+	get_tree().change_scene_to_file("res://Assets/Scenes/UI/MainMenu.tscn")
 
 func _on_config() -> void:
 	get_tree().change_scene_to_file("res://Assets/Scenes/UI/OptionsMenu.tscn")
