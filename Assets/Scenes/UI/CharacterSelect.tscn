@@ -2,11 +2,11 @@
 
 [ext_resource type="Script" path="res://Assets/Script/CanvasLayer.gd" id="1_gl81x"]
 [ext_resource type="Texture2D" uid="uid://d2rucn6u5pkaa" path="res://Assets/Sprites/UI/Pantallas seleccion de personaje/Pantalla de seleccion de kaleido CS6-13.png" id="2_h288w"]
-[ext_resource type="Texture2D" uid="uid://b04vlmdhnjwvm" path="res://Assets/Sprites/UI/Botones/Seleccion de Personajes/Pantalla de seleccion de kaleido-10.png" id="3_d26h1"]
-[ext_resource type="Texture2D" uid="uid://dk28juuvcwk2l" path="res://Assets/Sprites/UI/Botones/Seleccion de Personajes/Pantalla de seleccion de kaleido-06.png" id="4_87i8q"]
-[ext_resource type="Texture2D" uid="uid://cdin8h4buso8w" path="res://Assets/Sprites/UI/Botones/Seleccion de Personajes/Pantalla de seleccion de kaleido-08.png" id="5_u37yv"]
-[ext_resource type="Texture2D" uid="uid://dgc4sews7qhsy" path="res://Assets/Sprites/UI/Botones/Seleccion de Personajes/Pantalla de seleccion de kaleido-12.png" id="6_prvf7"]
-[ext_resource type="Texture2D" uid="uid://cl450jdlt8t12" path="res://Assets/Sprites/kaleido/Pantalla de seleccion de kaleido-05.png" id="7_a0eaw"]
+[ext_resource type="Texture2D" uid="uid://bheq58p3bwhke" path="res://Assets/Sprites/UI/Botones/Seleccion de Personajes/Pantalla de seleccion de kaleido-10.png" id="3_d26h1"]
+[ext_resource type="Texture2D" uid="uid://bmegmh2ewi8bi" path="res://Assets/Sprites/UI/Botones/Seleccion de Personajes/Pantalla de seleccion de kaleido-06.png" id="4_87i8q"]
+[ext_resource type="Texture2D" uid="uid://n5s2kb3o6qna" path="res://Assets/Sprites/UI/Botones/Seleccion de Personajes/Pantalla de seleccion de kaleido-08.png" id="5_u37yv"]
+[ext_resource type="Texture2D" uid="uid://cp0q4xu4fthun" path="res://Assets/Sprites/UI/Botones/Seleccion de Personajes/Pantalla de seleccion de kaleido-12.png" id="6_prvf7"]
+[ext_resource type="Texture2D" uid="uid://cko0lkrxfsvgq" path="res://Assets/Sprites/kaleido/Pantalla de seleccion de kaleido-05.png" id="7_a0eaw"]
 
 [node name="CharacterSelect" type="Node2D"]
 

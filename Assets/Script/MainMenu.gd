@@ -158,8 +158,36 @@ func _aplicar_textura_boton(boton: TextureButton, texturas: Dictionary, clave: S
 		var texture = load(texture_path)
 		if texture:
 			boton.texture_normal = texture
-		else:
-			print("❌ Error cargando textura: ", texture_path, " para botón: ", clave)
+
+		# Si el modo actual es oscuro, usar la textura del modo claro como hover
+		var modo_actual = ConfigManager.get_color_mode()
+		if modo_actual == "dark":
+			# Buscar la textura equivalente del modo claro
+			var textura_hover_path = null
+			if texturas_botones_texto.has("light"):
+				# Buscar en botones con texto
+				var idioma = ConfigManager.get_language()
+				if texturas_botones_texto["light"].has(idioma) and texturas_botones_texto["light"][idioma].has(clave):
+					textura_hover_path = texturas_botones_texto["light"][idioma][clave]
+			elif texturas_botones.has("light") and texturas_botones["light"].has(clave):
+				# Buscar en botones sin texto
+				textura_hover_path = texturas_botones["light"][clave]
+			
+			# Aplicar textura hover si existe
+			if textura_hover_path:
+				var hover_texture = load(textura_hover_path)
+				if hover_texture:
+					boton.texture_hover = hover_texture
+					
+	# Si el botón es "config" o "cerrar", aplicar hover del modo opuesto
+	if clave in ["config", "cerrar"]:
+		var modo_actual = ConfigManager.get_color_mode()
+		var modo_opuesto = "light" if modo_actual == "dark" else "dark"
+		if texturas_botones.has(modo_opuesto) and texturas_botones[modo_opuesto].has(clave):
+			var textura_hover_path = texturas_botones[modo_opuesto][clave]
+			var hover_texture = load(textura_hover_path)
+			if hover_texture:
+				boton.texture_hover = hover_texture
 
 func _actualizar_boton_reanudar():
 	var nivel_desbloqueado = ConfigManager.get_unlocked_levels()
