@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://opi6g8vfenl5"
-path="res://.godot/imported/Pantalla de seleccion de kaleido_Mesa de trabajo 1 copia 2.png-607331a343e1428410dfc6ddb65cf12c.ctex"
+path="res://.godot/imported/ModoOscuro.png-2673020073b1f08c87120a7372ca00f6.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Sprites/UI/Pantallas seleccion de personaje/Pantalla de seleccion de kaleido_Mesa de trabajo 1 copia 2.png"
-dest_files=["res://.godot/imported/Pantalla de seleccion de kaleido_Mesa de trabajo 1 copia 2.png-607331a343e1428410dfc6ddb65cf12c.ctex"]
+source_file="res://Assets/Sprites/UI/pantalla_seleccion/ModoOscuro.png"
+dest_files=["res://.godot/imported/ModoOscuro.png-2673020073b1f08c87120a7372ca00f6.ctex"]
 
 [params]
 

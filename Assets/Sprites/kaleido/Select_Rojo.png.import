@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d2rucn6u5pkaa"
-path="res://.godot/imported/Pantalla de seleccion de kaleido CS6-13.png-e9ee7859ffc48cedac190b2deefa163c.ctex"
+uid="uid://dtgwgijuvg6t0"
+path="res://.godot/imported/Select_Rojo.png-f99caa1d0d826ad03409eaf26cb33666.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Sprites/UI/Pantallas seleccion de personaje/Pantalla de seleccion de kaleido CS6-13.png"
-dest_files=["res://.godot/imported/Pantalla de seleccion de kaleido CS6-13.png-e9ee7859ffc48cedac190b2deefa163c.ctex"]
+source_file="res://Assets/Sprites/kaleido/Select_Rojo.png"
+dest_files=["res://.godot/imported/Select_Rojo.png-f99caa1d0d826ad03409eaf26cb33666.ctex"]
 
 [params]
 
