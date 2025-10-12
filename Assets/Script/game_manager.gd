@@ -6,7 +6,14 @@ var area_path = "res://Assets/Scenes/Areas/0"
 var coins = 0
 var death_timer: Timer
 var death_sound: AudioStreamPlayer
+var puntaje = 0
+var tiempo_restante = 300  # 5 minutos en segundos
+var tiempo_corriendo = true
+var tiempo_timer: Timer
 
+signal puntaje_actualizado(puntaje)
+signal tiempo_actualizado(tiempo_restante)
+signal tiempo_agotado()
 signal coin_added
 signal coins_reset
 
@@ -15,6 +22,8 @@ func _ready():
 	_setup_death_timer()
 	_setup_death_sound()
 	call_deferred("_connect_player_death_signal")
+	# Cargar puntaje guardado
+	call_deferred("load_puntaje")
 	# Aplicar volumen global al inicio
 	call_deferred("apply_global_volume")
 
@@ -139,6 +148,8 @@ func _connect_player_death_signal():
 func _on_player_died():
 	print("GameManager: Jugador murió - procesando muerte")
 	
+	agregar_puntaje(-5000)
+	
 	# 1. Reproducir animación de muerte si existe
 	var player = get_tree().get_first_node_in_group("player") as KaleidoController
 	if player and player.has_node("AgentAnimator/AnimationPlayer"):
@@ -215,6 +226,9 @@ func close_all_goals():
 func next_level():
 	print("🎯 GameManager: Pasando al siguiente nivel")
 	
+	# Agregar 2000 puntos por completar nivel
+	agregar_puntaje(2000)
+	
 	# Verificar si estamos pasando al nivel 5 (final)
 	if current_area + 1 == 5:
 		print("🎉 GameManager: ¡Completando juego! Cargando escena final")
@@ -233,6 +247,8 @@ func next_level():
 func area_setup():
 	reset_coins()
 	close_all_goals()
+	reset_tiempo()
+	iniciar_tiempo()
 	# Esperar un frame para que el jugador esté en la escena
 	call_deferred("_reconnect_player_signals")
 	# Aplicar volumen global después de cargar la escena
@@ -270,6 +286,7 @@ func add_coin():
 	coins += 1
 	print("Moneda recolectada: ", coins, "/50")
 	coin_added.emit()
+	agregar_puntaje(100)
 	if coins >= 50:
 		var goals = get_tree().get_nodes_in_group("goals")
 		for goal in goals:
@@ -286,12 +303,17 @@ func start_new_game():
 	# Reiniciar progreso
 	ConfigManager.config["unlocked_levels"] = 1
 	ConfigManager.save_config()
+	# Resetear puntaje solo cuando se inicia un juego nuevo
+	reset_puntaje()
 	# Cargar nivel 1 con pantalla de carga
 	await load_level(1, true)
 
 func continue_game():
 	# Cargar el último nivel desbloqueado sin pantalla de carga
 	var last_unlocked = ConfigManager.get_unrolled_levels()
+	
+	# Cargar puntaje guardado al continuar juego
+	load_puntaje()
 	
 	# Si el último nivel desbloqueado es 5, cargar la escena final
 	if last_unlocked == 5:
@@ -301,3 +323,77 @@ func continue_game():
 		call_deferred("apply_global_volume")
 	else:
 		await load_level(last_unlocked, true)
+
+# GameManager.gd - agregar después de las funciones existentes
+
+func _setup_tiempo_timer():
+	tiempo_timer = Timer.new()
+	tiempo_timer.wait_time = 1.0
+	tiempo_timer.process_mode = Node.PROCESS_MODE_ALWAYS
+	tiempo_timer.timeout.connect(_on_tiempo_timer_timeout)
+	add_child(tiempo_timer)
+	print("GameManager: Timer de tiempo configurado")
+
+func _on_tiempo_timer_timeout():
+	if tiempo_corriendo:
+		tiempo_restante -= 1
+		tiempo_actualizado.emit(tiempo_restante)
+		
+		if tiempo_restante <= 0:
+			tiempo_restante = 0
+			tiempo_agotado.emit()
+			# Matar al jugador cuando se agota el tiempo
+			var player = get_tree().get_first_node_in_group("player") as KaleidoController
+			if player:
+				player.morir()
+			tiempo_corriendo = false
+
+func iniciar_tiempo():
+	if not tiempo_timer:
+		_setup_tiempo_timer()
+	
+	tiempo_corriendo = true
+	if not tiempo_timer.is_stopped():
+		tiempo_timer.stop()
+	tiempo_timer.start()
+	print("GameManager: Tiempo iniciado")
+
+func detener_tiempo():
+	tiempo_corriendo = false
+	if tiempo_timer:
+		tiempo_timer.stop()
+	print("GameManager: Tiempo detenido")
+
+func agregar_puntaje(cantidad: int):
+	puntaje += cantidad
+	if puntaje < 0:
+		puntaje = 0
+	puntaje_actualizado.emit(puntaje)
+	# Guardar automáticamente cuando cambia el puntaje
+	save_puntaje()
+	print("Puntaje actualizado: ", puntaje)
+
+func reset_puntaje():
+	puntaje = 0
+	puntaje_actualizado.emit(puntaje)
+	print("GameManager: Puntaje reseteado")
+
+func reset_tiempo():
+	tiempo_restante = 300  # 5 minutos
+	tiempo_actualizado.emit(tiempo_restante)
+	print("GameManager: Tiempo reseteado")
+	
+# Agregar esta función para guardar y cargar el puntaje entre sesiones
+func save_puntaje():
+	if ConfigManager.config.has("puntaje_guardado"):
+		ConfigManager.config["puntaje_guardado"] = puntaje
+	else:
+		ConfigManager.config["puntaje_guardado"] = puntaje
+	ConfigManager.save_config()
+	print("💾 Puntaje guardado: ", puntaje)
+
+func load_puntaje():
+	if ConfigManager.config.has("puntaje_guardado"):
+		puntaje = ConfigManager.config["puntaje_guardado"]
+		puntaje_actualizado.emit(puntaje)
+		print("💾 Puntaje cargado: ", puntaje)

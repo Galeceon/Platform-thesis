@@ -25,6 +25,11 @@ func _ready():
 	# Obtener el nivel actual del GameManager
 	current_level = GameManager.current_area
 	
+	# DETENER EL TIEMPO cuando se activa el puzzle
+	if GameManager:
+		GameManager.detener_tiempo()
+		print("⏰ Tiempo detenido - puzzle activado")
+	
 	# Configurar para funcionar aunque el juego esté pausado
 	set_process_unhandled_input(true)
 	process_mode = Node.PROCESS_MODE_ALWAYS
@@ -39,6 +44,12 @@ func _ready():
 	# Mezclar y configurar el tablero
 	_shuffle_board()
 	_draw_board()
+
+func _exit_tree():
+	# Reanudar el tiempo si el puzzle se cierra sin completarse
+	if GameManager and get_tree().paused:
+		GameManager.iniciar_tiempo()
+		print("⏰ Tiempo reanudado - puzzle cerrado")
 
 func _setup_backgrounds():
 	# Configurar fondo principal (01.png, 02.png, etc.)

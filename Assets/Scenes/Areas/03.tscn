@@ -23,7 +23,7 @@
 [ext_resource type="PackedScene" uid="uid://b752ro3u1emxh" path="res://Assets/Scenes/coin.tscn" id="21_hrlsy"]
 [ext_resource type="Texture2D" uid="uid://brbk5n4bop26o" path="res://Assets/Sprites/level_assets/03-protanopia/Mesa de trabajo 21.png" id="22_gh17m"]
 [ext_resource type="AudioStream" uid="uid://co33wfann4ja4" path="res://Assets/Sounds/Tephra Cave - Xenoblade Chronicles_ Definitive Edition OST [047] [DE].mp3" id="23_cpa7p"]
-[ext_resource type="PackedScene" uid="uid://dwc5legtgv6ty" path="res://Assets/Scenes/UI/HUD03.tscn" id="24_dm65o"]
+[ext_resource type="PackedScene" uid="uid://c0xsiivustmmr" path="res://Assets/Scenes/UI/HUD03.tscn" id="24_dm65o"]
 [ext_resource type="PackedScene" uid="uid://b5mty1v36aorc" path="res://Assets/Scenes/enemy.tscn" id="25_fw3vb"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0owxk"]

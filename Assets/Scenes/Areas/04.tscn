@@ -42,7 +42,7 @@
 [ext_resource type="Texture2D" uid="uid://boej8o4a3rdj" path="res://Assets/Sprites/level_assets/04-tritanopia/Mesa de trabajo 40.png" id="38_xxvis"]
 [ext_resource type="AudioStream" uid="uid://co471jbj0y4je" path="res://Assets/Sounds/Kirby 64_ The Crystal Shards - Above the Clouds.mp3" id="41_bvifq"]
 [ext_resource type="Texture2D" uid="uid://d38lv3vnkgfbb" path="res://Assets/Sprites/level_assets/04-tritanopia/modo oscuroMesa de trabajo 1.png" id="42_dokii"]
-[ext_resource type="PackedScene" uid="uid://udebu4b1v8n8" path="res://Assets/Scenes/UI/HUD04.tscn" id="43_gfo21"]
+[ext_resource type="PackedScene" uid="uid://cfgcpitq4glxn" path="res://Assets/Scenes/UI/HUD04.tscn" id="43_gfo21"]
 [ext_resource type="PackedScene" uid="uid://b5mty1v36aorc" path="res://Assets/Scenes/enemy.tscn" id="44_xvuaq"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_snp1y"]

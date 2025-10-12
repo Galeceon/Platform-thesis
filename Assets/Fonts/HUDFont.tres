@@ -1,5 +1,8 @@
-[gd_resource type="LabelSettings" format=3 uid="uid://cwvu40uu8862s"]
+[gd_resource type="LabelSettings" load_steps=2 format=3 uid="uid://cwvu40uu8862s"]
+
+[ext_resource type="FontFile" uid="uid://c1fadbhwuq1d8" path="res://Assets/Fonts/Lexend-VariableFont_wght.ttf" id="1_ekd1s"]
 
 [resource]
-line_spacing = 30.0
-font_size = 30
+line_spacing = 0.0
+font = ExtResource("1_ekd1s")
+font_size = 20

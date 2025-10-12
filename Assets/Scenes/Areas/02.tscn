@@ -37,7 +37,7 @@
 [ext_resource type="PackedScene" uid="uid://b752ro3u1emxh" path="res://Assets/Scenes/coin.tscn" id="35_q7r28"]
 [ext_resource type="Texture2D" uid="uid://b2ipmdx8vtn4p" path="res://Assets/Sprites/level_assets/02-deuteranopia/Mesa de trabajo 38.png" id="36_jilmu"]
 [ext_resource type="AudioStream" uid="uid://ym6b2s5scjue" path="res://Assets/Sounds/New Super Mario Bros Wii Forest Theme Soundtrack.mp3" id="37_yn47j"]
-[ext_resource type="PackedScene" uid="uid://qju1xa5qugit" path="res://Assets/Scenes/UI/HUD02.tscn" id="38_exdyu"]
+[ext_resource type="PackedScene" uid="uid://cccqfec2vtrpr" path="res://Assets/Scenes/UI/HUD02.tscn" id="38_exdyu"]
 [ext_resource type="PackedScene" uid="uid://b5mty1v36aorc" path="res://Assets/Scenes/enemy.tscn" id="39_ap2ia"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_li2au"]
