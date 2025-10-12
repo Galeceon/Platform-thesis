@@ -7,6 +7,7 @@ extends Node
 @onready var verde_button = $VerdeButton
 @onready var character_sprite = $Character
 @onready var atras_button = $Atras_Button
+@onready var jugar_button = $jugar_button  # NUEVO: Botón Jugar
 @onready var main_menu_scene = preload("res://Assets/Scenes/UI/MainMenu.tscn")
 
 var background_paths = {
@@ -33,7 +34,7 @@ var character_paths = {
 	"Rojo": "res://Assets/Sprites/kaleido/Select_Rojo.png",
 	"Naranja": "res://Assets/Sprites/kaleido/Select_Naranja.png",
 	"Azul": "res://Assets/Sprites/kaleido/Select_Azul.png",
-	"Verde": "res://Assets/Sprites/kaleido/Select_Green.png"
+	"Verde": "res://Assets/Sprites/kaleido/Select_Verde.png"
 }
 
 var back_button_paths = {
@@ -44,6 +45,18 @@ var back_button_paths = {
 	"dark": {
 		"normal": "res://Assets/Sprites/UI/Botones/Modo Oscuro/regresar.png",
 		"hover": "res://Assets/Sprites/UI/Botones/Modo Claro/regresar.png"
+	}
+}
+
+# NUEVO: Texturas para el botón Jugar
+var jugar_button_paths = {
+	"light": {
+		"es": "res://Assets/Sprites/UI/Botones/Modo Claro/es_jugar.png",
+		"en": "res://Assets/Sprites/UI/Botones/Modo Claro/en_jugar.png"
+	},
+	"dark": {
+		"es": "res://Assets/Sprites/UI/Botones/Modo Oscuro/es_jugar.png",
+		"en": "res://Assets/Sprites/UI/Botones/Modo Oscuro/en_jugar.png"
 	}
 }
 
@@ -58,9 +71,11 @@ func _ready():
 	ConfigManager.language_changed.connect(_apply_language)
 	ConfigManager.character_skin_changed.connect(_apply_character_skin)
 	
-	atras_button.pressed.connect(_on_back_pressed)
-
 	# Conectar botones
+	atras_button.pressed.connect(_on_back_pressed)
+	jugar_button.pressed.connect(_on_jugar_pressed)  # NUEVO: Conectar botón Jugar
+
+	# Conectar botones de selección de color
 	rojo_button.pressed.connect(func(): _on_color_selected("Rojo"))
 	naranja_button.pressed.connect(func(): _on_color_selected("Naranja"))
 	azul_button.pressed.connect(func(): _on_color_selected("Azul"))
@@ -72,6 +87,7 @@ func _ready():
 	print("🟠 NaranjaButton visible:", naranja_button.visible)
 	print("🔵 AzulButton visible:", azul_button.visible)
 	print("🟢 VerdeButton visible:", verde_button.visible)
+	print("🎮 JugarButton visible:", jugar_button.visible)  # NUEVO: Debug botón Jugar
 
 func _apply_color_mode(mode: String):
 	if not fondo: return
@@ -79,23 +95,47 @@ func _apply_color_mode(mode: String):
 		fondo.texture = load(background_paths[mode])
 	else:
 		print("⚠️ Fondo no encontrado para modo:", mode)
-	#Configurar el botón Atrás
+	
+	# Configurar el botón Atrás
 	if atras_button and back_button_paths.has(mode):
 		var back_data = back_button_paths[mode]
 		atras_button.texture_normal = load(back_data["normal"])
 		atras_button.texture_hover = load(back_data["hover"])
-	print("🧩 Atras normal:", atras_button.texture_normal)
-	print("🧩 Atras hover:", atras_button.texture_hover)
-
+	
+	# NUEVO: Configurar el botón Jugar
+	if jugar_button and jugar_button_paths.has(mode):
+		var current_lang = ConfigManager.get_language()
+		var jugar_texture_path = jugar_button_paths[mode][current_lang]
+		if ResourceLoader.exists(jugar_texture_path):
+			jugar_button.texture_normal = load(jugar_texture_path)
+			print("✅ Textura Jugar aplicada: ", jugar_texture_path)
+			
+			# Aplicar hover (modo opuesto)
+			var modo_opuesto = "light" if mode == "dark" else "dark"
+			if jugar_button_paths.has(modo_opuesto) and jugar_button_paths[modo_opuesto].has(current_lang):
+				var hover_texture_path = jugar_button_paths[modo_opuesto][current_lang]
+				if ResourceLoader.exists(hover_texture_path):
+					jugar_button.texture_hover = load(hover_texture_path)
+		else:
+			print("❌ Textura Jugar no encontrada: ", jugar_texture_path)
 
 func _apply_language(lang: String):
 	if not button_paths.has(lang): return
 	var lang_buttons = button_paths[lang]
 	
+	# Aplicar texturas a botones de color
 	rojo_button.texture_normal = load(lang_buttons["Rojo"])
 	naranja_button.texture_normal = load(lang_buttons["Naranja"])
 	azul_button.texture_normal = load(lang_buttons["Azul"])
 	verde_button.texture_normal = load(lang_buttons["Verde"])
+	
+	# NUEVO: Actualizar botón Jugar según idioma
+	var current_mode = ConfigManager.get_color_mode()
+	if jugar_button and jugar_button_paths.has(current_mode) and jugar_button_paths[current_mode].has(lang):
+		var jugar_texture_path = jugar_button_paths[current_mode][lang]
+		if ResourceLoader.exists(jugar_texture_path):
+			jugar_button.texture_normal = load(jugar_texture_path)
+			print("✅ Textura Jugar actualizada: ", jugar_texture_path)
 
 func _apply_character_skin(skin_id: int):
 	# Vincular IDs con colores (según orden de preferencia)
@@ -120,7 +160,24 @@ func _set_character_texture(color_name: String):
 			print("🎨 Personaje cambiado a:", color_name)
 	else:
 		print("⚠️ No se encontró textura para:", color_name)
-		
+
+# NUEVO: Función para el botón Jugar
+func _on_jugar_pressed():
+	print("🎮 Iniciando nuevo juego desde selección de personajes...")
+	
+	# 1. Resetear progreso del juego
+	ConfigManager.config["unlocked_levels"] = 1
+	ConfigManager.save_config()
+	print("✅ Progreso reseteado - Solo nivel 1 desbloqueado")
+	
+	# 2. Actualizar current_area del GameManager
+	GameManager.current_area = 1
+	print("✅ GameManager.current_area establecido a: 1")
+	
+	# 3. Iniciar el juego con pantalla de carga
+	GameManager.load_level(1, true)
+	print("✅ Iniciando nivel 1 con pantalla de carga...")
+
 func _on_back_pressed():
 	print("🔙 Volviendo al menú principal (precargado)...")
 	get_tree().change_scene_to_packed(main_menu_scene)

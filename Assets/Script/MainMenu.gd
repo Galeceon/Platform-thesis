@@ -75,7 +75,7 @@ func _ready():
 	# Aplicar configuración actual
 	_aplicar_configuracion()
 	
-	# Actualizar estado del botón "Reanudar"
+	# ACTUALIZADO: El botón Reanudar ahora está SIEMPRE ACTIVO
 	_actualizar_boton_reanudar()
 
 func _conectar_senales():
@@ -188,30 +188,30 @@ func _aplicar_textura_boton(boton: TextureButton, texturas: Dictionary, clave: S
 			boton.texture_hover = hover_texture
 
 func _actualizar_boton_reanudar():
-	var nivel_desbloqueado = ConfigManager.get_unlocked_levels()
-	reanudar_button.disabled = (nivel_desbloqueado <= 1)
+	# ACTUALIZADO: El botón Reanudar ahora está SIEMPRE ACTIVO
+	reanudar_button.disabled = false
 	
-	if reanudar_button.disabled:
-		print("🔒 Botón Reanudar deshabilitado - No hay progreso guardado")
-	else:
-		print("🔓 Botón Reanudar habilitado - Nivel desbloqueado: ", nivel_desbloqueado)
+	var nivel_desbloqueado = ConfigManager.get_unlocked_levels()
+	print("🔓 Botón Reanudar SIEMPRE ACTIVO - Nivel desbloqueado: ", nivel_desbloqueado)
 
 func _on_config_changed(_value):
 	print("🔄 Configuración cambiada - actualizando Main Menu")
 	_aplicar_configuracion()
 
-# Señales de los botones
+# Señales de los botones - MODIFICADAS
 func _on_cerrar_button_pressed():
 	print("🚪 Cerrando juego...")
 	get_tree().quit()
 
 func _on_jugar_button_pressed():
-	print("🎮 Abriendo selección de niveles...")
-	get_tree().change_scene_to_file("res://Assets/Scenes/UI/LevelSelect.tscn")
+	# Lleva a la selección de personajes
+	print("🎭 Abriendo selección de personajes...")
+	get_tree().change_scene_to_file("res://Assets/Scenes/UI/CharacterSelect.tscn")
 
 func _on_reanudar_button_pressed():
-	print("🎮 Reanudando juego...")
-	GameManager.continue_game()
+	# Lleva a la selección de niveles (siempre activo)
+	print("🎮 Abriendo selección de niveles...")
+	get_tree().change_scene_to_file("res://Assets/Scenes/UI/LevelSelect.tscn")
 
 func _on_como_jugar_button_pressed():
 	print("❓ Abriendo Cómo Jugar...")
