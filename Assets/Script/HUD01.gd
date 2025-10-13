@@ -1,11 +1,10 @@
-# Hud01.gd
 extends Control
 
 @onready var contador_gemas_label: Label
 @onready var puerta_status_label: Label
 @onready var puntaje_label: Label = $TexturaPuntos/Puntaje
 @onready var tiempo_label: Label = $TextutaTiempo/Tiempo
-@onready var textura_pausa: TextureRect = $TexturaPausa  # Referencia al nodo TexturaPausa
+@onready var textura_pausa: TextureButton = $TexturaPausa  # Referencia al nodo TexturaPausa
 
 func _ready():
 	# Buscar los nodos por nombre
@@ -52,7 +51,7 @@ func _ready():
 		print("✅ TexturaPausa encontrado")
 	else:
 		print("❌ TexturaPausa NO encontrado")
-		textura_pausa = find_child("TexturaPausa") as TextureRect
+		textura_pausa = find_child("TexturaPausa") as TextureButton
 	
 	# Conectar señales del GameManager
 	if GameManager:
@@ -73,13 +72,12 @@ func _ready():
 		ConfigManager.language_changed.connect(_on_language_changed)
 		print("✅ Señal language_changed conectada")
 	
-	# Conectar señal de cambio de tema (modo claro/oscuro)
-	# Verificar si ConfigManager tiene la señal theme_changed
-	if ConfigManager.has_signal("theme_changed"):
-		ConfigManager.theme_changed.connect(_on_theme_changed)
-		print("✅ Señal theme_changed conectada")
+	# Conectar señal de cambio de color_mode
+	if ConfigManager.has_signal("color_mode_changed"):
+		ConfigManager.color_mode_changed.connect(_on_color_mode_changed)
+		print("✅ Señal color_mode_changed conectada")
 	else:
-		print("❌ ConfigManager no tiene señal theme_changed")
+		print("❌ ConfigManager no tiene señal color_mode_changed")
 	
 	# Actualizar estado inicial
 	actualizar_contador_gemas()
@@ -87,6 +85,60 @@ func _ready():
 	actualizar_puntaje()
 	actualizar_tiempo()
 	actualizar_textura_pausa()
+	
+	# Configurar el botón de pausa si es un TextureButton
+	_setup_pause_button()
+
+func _setup_pause_button():
+	if textura_pausa and textura_pausa is TextureButton:
+		var pause_button = textura_pausa
+		
+		# Conectar señales para el efecto hover
+		pause_button.mouse_entered.connect(_on_pause_button_mouse_entered)
+		pause_button.mouse_exited.connect(_on_pause_button_mouse_exited)
+		pause_button.pressed.connect(_on_pause_button_pressed)
+		
+		# Configurar texturas iniciales
+		_actualizar_texturas_pause_button()
+		
+		print("✅ Botón de pausa configurado con efectos hover")
+
+func _actualizar_texturas_pause_button():
+	if textura_pausa and textura_pausa is TextureButton:
+		var pause_button = textura_pausa
+		var modo_oscuro = ConfigManager.get_color_mode() == "dark"
+		
+		var textura_normal = ""
+		var textura_hover = ""
+		
+		if modo_oscuro:
+			textura_normal = "res://Assets/Sprites/UI/Botones/Modo Oscuro/pausa.png"
+			textura_hover = "res://Assets/Sprites/UI/Botones/Modo Claro/pausa.png"
+		else:
+			textura_normal = "res://Assets/Sprites/UI/Botones/Modo Claro/pausa.png"
+			textura_hover = "res://Assets/Sprites/UI/Botones/Modo Oscuro/pausa.png"
+		
+		var tex_normal = load(textura_normal)
+		var tex_hover = load(textura_hover)
+		
+		if tex_normal:
+			pause_button.texture_normal = tex_normal
+		if tex_hover:
+			pause_button.texture_hover = tex_hover
+		
+		print("✅ Texturas del botón pausa actualizadas")
+
+func _on_pause_button_mouse_entered():
+	print("🖱️ Hover en botón pausa")
+
+func _on_pause_button_mouse_exited():
+	print("🖱️ Hover fuera del botón pausa")
+
+func _on_pause_button_pressed():
+	print("🎮 Botón pausa presionado - abriendo menú de pausa")
+	# Abrir el menú de pausa a través del GameManager
+	if GameManager and GameManager.has_method("toggle_pause_menu"):
+		GameManager.toggle_pause_menu()
 
 func _on_game_manager_coin_added():
 	print("✅ Señal coin_added recibida")
@@ -111,9 +163,12 @@ func _on_language_changed(_lang: String):
 	actualizar_contador_gemas()
 	actualizar_status_puerta()
 
-func _on_theme_changed():
-	print("🎨 Tema cambiado - actualizando textura de pausa")
+func _on_color_mode_changed(_mode: String):
+	print("🎨 Modo de color cambiado - actualizando textura de pausa")
 	actualizar_textura_pausa()
+	# Actualizar también las texturas del botón si es TextureButton
+	if textura_pausa and textura_pausa is TextureButton:
+		_actualizar_texturas_pause_button()
 
 func actualizar_contador_gemas():
 	if contador_gemas_label:
@@ -176,14 +231,8 @@ func actualizar_tiempo():
 
 func actualizar_textura_pausa():
 	if textura_pausa:
-		# Verificar si ConfigManager tiene la función is_dark_mode
-		var modo_oscuro = false
-		if ConfigManager.has_method("is_dark_mode"):
-			modo_oscuro = ConfigManager.is_dark_mode()
-		else:
-			# Fallback: verificar si existe la configuración en el config
-			modo_oscuro = ConfigManager.config.get("dark_mode", false)
-			print("⚠️ Usando fallback para detectar modo oscuro: ", modo_oscuro)
+		# Usar el método correcto de ConfigManager
+		var modo_oscuro = ConfigManager.get_color_mode() == "dark"
 		
 		var ruta_textura = ""
 		
@@ -194,7 +243,8 @@ func actualizar_textura_pausa():
 		
 		var textura = load(ruta_textura)
 		if textura:
-			textura_pausa.texture = textura
+			# Como ya sabemos que es TextureButton, asignar textura normal
+			textura_pausa.texture_normal = textura
 			print("✅ Textura de pausa actualizada: ", ruta_textura)
 		else:
 			print("❌ ERROR: No se pudo cargar la textura: ", ruta_textura)

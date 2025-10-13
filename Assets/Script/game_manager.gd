@@ -1,4 +1,3 @@
-# GameManager.gd
 extends Node
 
 var current_area = 1
@@ -10,6 +9,8 @@ var puntaje = 0
 var tiempo_restante = 300  # 5 minutos en segundos
 var tiempo_corriendo = true
 var tiempo_timer: Timer
+var pause_menu_scene = preload("res://Assets/Scenes/UI/PauseMenu.tscn")
+var pause_menu_instance: CanvasLayer = null
 
 signal puntaje_actualizado(puntaje)
 signal tiempo_actualizado(tiempo_restante)
@@ -21,7 +22,8 @@ func _ready():
 	reset_coins()
 	_setup_death_timer()
 	_setup_death_sound()
-	_setup_tiempo_timer()  # NUEVO: Configurar timer de tiempo al inicio
+	_setup_tiempo_timer()
+	_setup_pause_menu()
 	call_deferred("_connect_player_death_signal")
 	# Cargar puntaje guardado
 	call_deferred("load_puntaje")
@@ -263,6 +265,10 @@ func area_setup():
 	close_all_goals()
 	reset_tiempo()
 	iniciar_tiempo()
+	
+	# RECONFIGURAR el menú de pausa después de cargar el nivel
+	_setup_pause_menu()
+	
 	# Esperar un frame para que el jugador esté en la escena
 	call_deferred("_reconnect_player_signals")
 	# Aplicar volumen global después de cargar la escena
@@ -410,3 +416,56 @@ func load_puntaje():
 		puntaje = ConfigManager.config["puntaje_guardado"]
 		puntaje_actualizado.emit(puntaje)
 		print("💾 Puntaje cargado: ", puntaje)
+
+# ===== SISTEMA DE PAUSA =====
+func _setup_pause_menu():
+	# Si ya existe un menú de pausa, eliminarlo
+	if pause_menu_instance:
+		# Verificar si todavía está en el árbol antes de eliminarlo
+		if pause_menu_instance.is_inside_tree():
+			pause_menu_instance.get_parent().remove_child(pause_menu_instance)
+		pause_menu_instance.queue_free()
+		pause_menu_instance = null
+	
+	# Instanciar el menú de pausa
+	pause_menu_instance = pause_menu_scene.instantiate()
+	
+	# Agregar al árbol de escena principal
+	get_tree().root.add_child(pause_menu_instance)
+	
+	# Ocultar inicialmente
+	pause_menu_instance.hide()
+	
+	print("✅ Menú de pausa configurado - En árbol: ", pause_menu_instance.is_inside_tree())
+
+# Función para verificar si se puede pausar el juego
+func can_pause() -> bool:
+	# No pausar si estamos en el nivel final (5) o en un puzzle
+	if current_area == 5:
+		return false
+	
+	# Verificar si hay un puzzle activo
+	var puzzles = get_tree().get_nodes_in_group("puzzles")
+	for puzzle in puzzles:
+		if puzzle.is_inside_tree() and puzzle.visible:
+			return false
+	
+	return current_area >= 1 and current_area <= 5
+
+# Función para abrir el menú de pausa
+func toggle_pause_menu():
+	if not can_pause():
+		print("❌ No se puede pausar en este momento")
+		return
+	
+	# VERIFICAR que el menú de pausa existe y está en el árbol
+	if not pause_menu_instance or not pause_menu_instance.is_inside_tree():
+		print("🔄 Menú de pausa no encontrado, reinstanciando...")
+		_setup_pause_menu()
+	
+	if pause_menu_instance and pause_menu_instance.visible:
+		# Si ya está visible, cerrarlo
+		pause_menu_instance.close_pause_menu()
+	else:
+		# Si está oculto, abrirlo
+		pause_menu_instance.open_pause_menu()

@@ -195,8 +195,16 @@ func _on_body_entered(body):
 		emit_signal("player_died")
 
 # Añade esto al KaleidoController.gd para probar las skins
-func _input(event):
-	# DEBUG: Cambiar skins con teclas numéricas
+func _input(event):	
+	if get_tree().paused:
+		return
+	
+	# Tecla para abrir/cerrar pausa (normalmente ESC o P)
+	if event.is_action_pressed("ui_cancel"):  # ESC key
+		if GameManager and GameManager.can_pause():
+			GameManager.toggle_pause_menu()
+			get_viewport().set_input_as_handled()
+
 	if event.is_action_pressed("ui_1"):
 		ConfigManager.set_character_skin(1)
 		print("🎨 DEBUG: Skin cambiada a 1")

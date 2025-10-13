@@ -1,0 +1,39 @@
+[gd_scene load_steps=5 format=3 uid="uid://c8kmuptyn2fat"]
+
+[ext_resource type="Script" path="res://Assets/Script/PauseMenu.gd" id="1_nx5sb"]
+[ext_resource type="Texture2D" uid="uid://cfsvjtmu5xkaa" path="res://Assets/Sprites/UI/Pausa/pausa_en_light.png" id="2_bj3d7"]
+[ext_resource type="Texture2D" uid="uid://c3n010v3kkfv" path="res://Assets/Sprites/UI/Botones/Modo Claro/cerrar.png" id="3_loxh2"]
+[ext_resource type="Texture2D" uid="uid://jedceknmw447" path="res://Assets/Sprites/UI/Botones/Modo Claro/es_inicio.png" id="4_ovwif"]
+
+[node name="PauseMenu" type="CanvasLayer"]
+layer = 10
+script = ExtResource("1_nx5sb")
+
+[node name="Background" type="TextureRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_bj3d7")
+expand_mode = 3
+
+[node name="close_button" type="TextureButton" parent="Background"]
+layout_mode = 0
+offset_left = 468.0
+offset_top = 255.0
+offset_right = 540.0
+offset_bottom = 327.0
+texture_normal = ExtResource("3_loxh2")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="home_button" type="TextureButton" parent="Background"]
+layout_mode = 0
+offset_left = 604.0
+offset_top = 255.0
+offset_right = 676.0
+offset_bottom = 327.0
+texture_normal = ExtResource("4_ovwif")
+ignore_texture_size = true
+stretch_mode = 0

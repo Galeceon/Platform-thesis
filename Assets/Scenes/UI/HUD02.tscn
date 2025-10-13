@@ -1,10 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://cccqfec2vtrpr"]
+[gd_scene load_steps=6 format=3 uid="uid://cccqfec2vtrpr"]
 
 [ext_resource type="Script" path="res://Assets/Script/HUD01.gd" id="1_2erfv"]
 [ext_resource type="Texture2D" uid="uid://b500loj8rtt87" path="res://Assets/Sprites/UI/Niveles/Menú de niveles- Protanopia/Menú de niveles- acromatopsia-06.png" id="2_w03gx"]
 [ext_resource type="LabelSettings" uid="uid://cwvu40uu8862s" path="res://Assets/Fonts/HUDFont.tres" id="3_gyujr"]
 [ext_resource type="Texture2D" uid="uid://qebyyrmehswu" path="res://Assets/Sprites/UI/Botones/tiempo.png" id="4_30d3l"]
-[ext_resource type="Texture2D" uid="uid://d3i5fhhrsjho3" path="res://Assets/Sprites/UI/Botones/Modo Claro/pausa.png" id="5_s6bc5"]
 [ext_resource type="Texture2D" uid="uid://cijscw5aj5mqq" path="res://Assets/Sprites/UI/Botones/puntos.png" id="6_bcl3v"]
 
 [node name="Hud01" type="Control"]
@@ -72,16 +71,6 @@ offset_bottom = 48.0
 text = "La puerta esta cerrada... recoge las gemas!"
 label_settings = ExtResource("3_gyujr")
 
-[node name="TexturaPausa" type="TextureRect" parent="."]
-layout_mode = 0
-offset_left = 1078.0
-offset_top = 10.0
-offset_right = 1130.0
-offset_bottom = 62.0
-texture = ExtResource("5_s6bc5")
-expand_mode = 1
-stretch_mode = 4
-
 [node name="TexturaPuntos" type="TextureRect" parent="."]
 layout_mode = 0
 offset_left = 790.0
@@ -100,3 +89,11 @@ offset_right = 154.0
 offset_bottom = 22.0
 text = "20000 puntos"
 label_settings = ExtResource("3_gyujr")
+
+[node name="TexturaPausa" type="TextureButton" parent="."]
+layout_mode = 0
+offset_left = 1078.0
+offset_top = 10.0
+offset_right = 1130.0
+offset_bottom = 62.0
+ignore_texture_size = true

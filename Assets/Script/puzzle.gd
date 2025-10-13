@@ -22,8 +22,10 @@ var tile_size = Vector2.ZERO  # Variable para almacenar el tamaño fijo de las t
 # --- Inicialización y Configuración ---
 
 func _ready():
+	add_to_group("puzzles")
 	# Obtener el nivel actual del GameManager
 	current_level = GameManager.current_area
+	
 	
 	# DETENER EL TIEMPO cuando se activa el puzzle
 	if GameManager:
