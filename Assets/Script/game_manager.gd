@@ -21,6 +21,7 @@ func _ready():
 	reset_coins()
 	_setup_death_timer()
 	_setup_death_sound()
+	_setup_tiempo_timer()  # NUEVO: Configurar timer de tiempo al inicio
 	call_deferred("_connect_player_death_signal")
 	# Cargar puntaje guardado
 	call_deferred("load_puntaje")
@@ -35,6 +36,10 @@ func apply_global_volume():
 
 # ===== SISTEMA DE CARGA DE NIVELES =====
 func load_level(level_number: int, with_loading_screen: bool = true):
+	# DETENER EL TIEMPO durante la carga
+	detener_tiempo()
+	print("⏰ Tiempo detenido - iniciando carga de nivel")
+	
 	# Verificar si es el nivel final
 	if level_number == 5:
 		print("🎯 GameManager: Nivel 5 detectado - cargando escena final")
@@ -148,6 +153,10 @@ func _connect_player_death_signal():
 func _on_player_died():
 	print("GameManager: Jugador murió - procesando muerte")
 	
+	# DETENER EL TIEMPO cuando el jugador muere
+	detener_tiempo()
+	print("⏰ Tiempo detenido - jugador murió")
+	
 	agregar_puntaje(-5000)
 	
 	# 1. Reproducir animación de muerte si existe
@@ -204,6 +213,11 @@ func _on_death_timer_timeout():
 	await get_tree().process_frame
 	
 	print("🔄 GameManager: Escena recargada - aplicando configuración")
+	
+	# REINICIAR EL TIEMPO después de recargar la escena - ESTA ES LA LÍNEA CLAVE
+	reset_tiempo()
+	iniciar_tiempo()
+	print("⏰ Tiempo reiniciado después de muerte")
 	
 	# Aplicar volumen inmediatamente después de recargar
 	apply_global_volume()
@@ -324,8 +338,7 @@ func continue_game():
 	else:
 		await load_level(last_unlocked, true)
 
-# GameManager.gd - agregar después de las funciones existentes
-
+# ===== SISTEMA DE TIEMPO =====
 func _setup_tiempo_timer():
 	tiempo_timer = Timer.new()
 	tiempo_timer.wait_time = 1.0
@@ -342,27 +355,27 @@ func _on_tiempo_timer_timeout():
 		if tiempo_restante <= 0:
 			tiempo_restante = 0
 			tiempo_agotado.emit()
+			print("⏰ Tiempo agotado - matando jugador")
 			# Matar al jugador cuando se agota el tiempo
 			var player = get_tree().get_first_node_in_group("player") as KaleidoController
 			if player:
-				player.morir()
-			tiempo_corriendo = false
+				player.player_died.emit()  # Emitir la señal de muerte
+			detener_tiempo()
 
 func iniciar_tiempo():
 	if not tiempo_timer:
 		_setup_tiempo_timer()
 	
 	tiempo_corriendo = true
-	if not tiempo_timer.is_stopped():
-		tiempo_timer.stop()
-	tiempo_timer.start()
-	print("GameManager: Tiempo iniciado")
+	if tiempo_timer and tiempo_timer.is_stopped():
+		tiempo_timer.start()
+	print("GameManager: Tiempo iniciado - Corriendo: ", tiempo_corriendo)
 
 func detener_tiempo():
 	tiempo_corriendo = false
 	if tiempo_timer:
 		tiempo_timer.stop()
-	print("GameManager: Tiempo detenido")
+	print("GameManager: Tiempo detenido - Corriendo: ", tiempo_corriendo)
 
 func agregar_puntaje(cantidad: int):
 	puntaje += cantidad
@@ -381,7 +394,7 @@ func reset_puntaje():
 func reset_tiempo():
 	tiempo_restante = 300  # 5 minutos
 	tiempo_actualizado.emit(tiempo_restante)
-	print("GameManager: Tiempo reseteado")
+	print("GameManager: Tiempo reseteado a 300 segundos")
 	
 # Agregar esta función para guardar y cargar el puntaje entre sesiones
 func save_puntaje():

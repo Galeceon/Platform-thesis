@@ -19,6 +19,7 @@ grow_vertical = 2
 script = ExtResource("1_hrgpt")
 
 [node name="ColorRect2" type="ColorRect" parent="."]
+layout_mode = 0
 offset_right = 1153.0
 offset_bottom = 72.0
 color = Color(0.109804, 0.109804, 0.109804, 1)
@@ -44,6 +45,7 @@ text = "15/50
 label_settings = ExtResource("2_88tib")
 
 [node name="TextutaTiempo" type="TextureRect" parent="."]
+layout_mode = 0
 offset_left = 976.0
 offset_top = 26.0
 offset_right = 989.0

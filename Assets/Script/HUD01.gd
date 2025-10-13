@@ -3,8 +3,8 @@ extends Control
 
 @onready var contador_gemas_label: Label
 @onready var puerta_status_label: Label
-@onready var puntaje_label: Label = $Puntaje
-@onready var tiempo_label: Label = $Tiempo
+@onready var puntaje_label: Label = $TexturaPuntos/Puntaje
+@onready var tiempo_label: Label = $TextutaTiempo/Tiempo
 @onready var textura_pausa: TextureRect = $TexturaPausa  # Referencia al nodo TexturaPausa
 
 func _ready():

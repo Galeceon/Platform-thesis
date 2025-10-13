@@ -22,7 +22,7 @@ script = ExtResource("1_2erfv")
 layout_mode = 0
 offset_right = 1153.0
 offset_bottom = 72.0
-color = Color(0.109804, 0.109804, 0.109804, 1)
+color = Color(0.109804, 0.109804, 0.109804, 0.74902)
 
 [node name="TexturaGema" type="TextureRect" parent="."]
 layout_mode = 0
