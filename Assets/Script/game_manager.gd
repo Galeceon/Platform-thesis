@@ -36,6 +36,51 @@ func apply_global_volume():
 	# Llamar directamente a la función del ConfigManager
 	ConfigManager.apply_global_volume()
 
+# ===== SISTEMA DE CINEMÁTICAS =====
+# En GameManager.gd - VERIFICAR que start_new_game() esté así:
+func start_new_game():
+	print("🎮 Iniciando nuevo juego con cinemática...")
+	
+	# Determinar idioma para la cinemática
+	var language = ConfigManager.get_language()
+	var cinematic_type = CinematicManager.CinematicType.INTRO_ES if language == "es" else CinematicManager.CinematicType.INTRO_EN
+	
+	# Conectar señal para continuar después de la cinemática
+	if not CinematicManager.cinematic_finished.is_connected(_on_intro_finished):
+		CinematicManager.cinematic_finished.connect(_on_intro_finished, CONNECT_ONE_SHOT)
+	
+	# Reproducir cinemática de introducción
+	CinematicManager.play_cinematic(cinematic_type)
+
+# En GameManager.gd - VERIFICAR estas funciones:
+func _on_intro_finished(cinematic_name):
+	print("🎬 Cinemática de introducción finalizada: ", cinematic_name)
+	
+	# Desconectar la señal
+	CinematicManager.cinematic_finished.disconnect(_on_intro_finished)
+	
+	# Resetear progreso del juego
+	ConfigManager.config["unlocked_levels"] = 1
+	ConfigManager.save_config()
+	reset_puntaje()
+	
+	# Cargar nivel 1
+	current_area = 1
+	load_level(1, true)
+
+# En GameManager.gd - MODIFICAR la función _on_outro_finished()
+func _on_outro_finished(cinematic_name):
+	print("🎬 Cinemática final finalizada: ", cinematic_name)
+	
+	# Desconectar la señal
+	CinematicManager.cinematic_finished.disconnect(_on_outro_finished)
+	
+	# CAMBIADO: En lugar de ir al menú principal, cargar el nivel final
+	print("🎯 GameManager: Cargando escena final después de cinemática")
+	get_tree().change_scene_to_file("res://Assets/Scenes/Areas/final1.tscn")
+	# Aplicar volumen después de cargar la escena final
+	call_deferred("apply_global_volume")
+
 # ===== SISTEMA DE CARGA DE NIVELES =====
 func load_level(level_number: int, with_loading_screen: bool = true):
 	# DETENER EL TIEMPO durante la carga
@@ -247,13 +292,21 @@ func next_level():
 	
 	# Verificar si estamos pasando al nivel 5 (final)
 	if current_area + 1 == 5:
-		print("🎉 GameManager: ¡Completando juego! Cargando escena final")
+		print("🎉 GameManager: ¡Completando juego! Reproduciendo cinemática final")
+		
+		# Determinar idioma para la cinemática final
+		var language = ConfigManager.get_language()
+		var cinematic_type = CinematicManager.CinematicType.OUTRO_ES if language == "es" else CinematicManager.CinematicType.OUTRO_EN
+		
+		# Conectar señal para terminar después de la cinemática
+		if not CinematicManager.cinematic_finished.is_connected(_on_outro_finished):
+			CinematicManager.cinematic_finished.connect(_on_outro_finished, CONNECT_ONE_SHOT)
+		
+		# Reproducir cinemática final
+		CinematicManager.play_cinematic(cinematic_type)
+		
 		# Desbloquear el nivel 5 en ConfigManager
 		ConfigManager.unlock_level(5)
-		# Cargar la escena final SIN pantalla de carga
-		get_tree().change_scene_to_file("res://Assets/Scenes/Areas/final1.tscn")
-		# Aplicar volumen después de cargar la escena final
-		call_deferred("apply_global_volume")
 	else:
 		# Desbloquear el siguiente nivel en ConfigManager
 		ConfigManager.unlock_level(current_area + 1)
@@ -319,15 +372,6 @@ func reset_coins():
 	coins_reset.emit()
 
 # ===== FUNCIONES PÚBLICAS PARA MENÚS =====
-func start_new_game():
-	# Reiniciar progreso
-	ConfigManager.config["unlocked_levels"] = 1
-	ConfigManager.save_config()
-	# Resetear puntaje solo cuando se inicia un juego nuevo
-	reset_puntaje()
-	# Cargar nivel 1 con pantalla de carga
-	await load_level(1, true)
-
 func continue_game():
 	# Cargar el último nivel desbloqueado sin pantalla de carga
 	var last_unlocked = ConfigManager.get_unrolled_levels()

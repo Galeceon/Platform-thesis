@@ -97,3 +97,4 @@ offset_top = 10.0
 offset_right = 1130.0
 offset_bottom = 62.0
 ignore_texture_size = true
+stretch_mode = 0

@@ -3,10 +3,10 @@
 [ext_resource type="Script" path="res://Assets/Script/CharacterSelect.gd" id="1_tpc7f"]
 [ext_resource type="Texture2D" uid="uid://d2rucn6u5pkaa" path="res://Assets/Sprites/UI/pantalla_seleccion/ModoClaro.png" id="2_h288w"]
 [ext_resource type="Texture2D" uid="uid://bu67mb18jcf7k" path="res://Assets/Sprites/UI/Botones/Modo Claro/regresar.png" id="4_8xw1c"]
-[ext_resource type="Texture2D" uid="uid://cfiobf32ynmb1" path="res://Assets/Sprites/UI/Botones/Seleccion/Red.png" id="4_r5emq"]
-[ext_resource type="Texture2D" uid="uid://ddrgv4f1j5ep8" path="res://Assets/Sprites/UI/Botones/Seleccion/Orange.png" id="5_b2xoh"]
-[ext_resource type="Texture2D" uid="uid://csmul1qsop4jq" path="res://Assets/Sprites/UI/Botones/Seleccion/Blue.png" id="6_0ce2d"]
-[ext_resource type="Texture2D" uid="uid://dptbkbxdck0cn" path="res://Assets/Sprites/UI/Botones/Seleccion/Green.png" id="7_xqkv1"]
+[ext_resource type="Texture2D" uid="uid://oasj8oimsrth" path="res://Assets/Sprites/UI/Botones/Seleccion/Naranja.png" id="5_0esaq"]
+[ext_resource type="Texture2D" uid="uid://bwsvfx7x53wrd" path="res://Assets/Sprites/kaleido/Select_Naranja.png" id="5_tdl1a"]
+[ext_resource type="Texture2D" uid="uid://bb1s1kc77mrkv" path="res://Assets/Sprites/UI/Botones/Modo Claro/derecha.png" id="7_0k4yy"]
+[ext_resource type="Texture2D" uid="uid://cai2fbhas50fg" path="res://Assets/Sprites/UI/Botones/Modo Claro/izquierda.png" id="8_5s0k5"]
 [ext_resource type="Texture2D" uid="uid://hcw8xhndvn05" path="res://Assets/Sprites/UI/Botones/Modo Claro/es_jugar.png" id="8_7dqya"]
 
 [node name="CharacterSelect" type="Node2D"]
@@ -19,60 +19,53 @@ texture = ExtResource("2_h288w")
 expand_mode = 3
 
 [node name="Atras_Button" type="TextureButton" parent="."]
-offset_left = 40.0
-offset_top = 40.0
-offset_right = 84.0
-offset_bottom = 84.0
+offset_left = 34.0
+offset_top = 36.0
+offset_right = 74.0
+offset_bottom = 76.0
 texture_normal = ExtResource("4_8xw1c")
 ignore_texture_size = true
 stretch_mode = 0
 
 [node name="Character" type="TextureRect" parent="."]
-offset_left = 363.0
-offset_top = 129.0
-offset_right = 776.0
-offset_bottom = 527.0
-expand_mode = 3
-
-[node name="RojoButton" type="TextureButton" parent="."]
-offset_left = 898.0
-offset_top = 446.0
-offset_right = 991.0
-offset_bottom = 520.0
-texture_normal = ExtResource("4_r5emq")
-ignore_texture_size = true
-stretch_mode = 0
-
-[node name="NaranjaButton" type="TextureButton" parent="."]
-offset_left = 148.0
-offset_top = 434.0
-offset_right = 249.0
-offset_bottom = 508.0
-texture_normal = ExtResource("5_b2xoh")
-ignore_texture_size = true
-stretch_mode = 0
-
-[node name="AzulButton" type="TextureButton" parent="."]
 offset_left = 265.0
-offset_top = 515.0
-offset_right = 361.0
-offset_bottom = 589.0
-texture_normal = ExtResource("6_0ce2d")
-ignore_texture_size = true
-stretch_mode = 0
+offset_top = -9.0
+offset_right = 892.0
+offset_bottom = 596.0
+texture = ExtResource("5_tdl1a")
+expand_mode = 1
 
-[node name="VerdeButton" type="TextureButton" parent="."]
-offset_left = 785.0
-offset_top = 521.0
-offset_right = 880.0
-offset_bottom = 593.0
-texture_normal = ExtResource("7_xqkv1")
-ignore_texture_size = true
-stretch_mode = 0
+[node name="color" type="TextureRect" parent="."]
+offset_left = 385.0
+offset_top = 538.0
+offset_right = 523.0
+offset_bottom = 632.0
+texture = ExtResource("5_0esaq")
+expand_mode = 1
 
 [node name="jugar_button" type="TextureButton" parent="."]
-offset_left = 400.0
-offset_top = 559.0
-offset_right = 757.0
-offset_bottom = 626.0
+offset_left = 552.0
+offset_top = 564.0
+offset_right = 765.0
+offset_bottom = 604.0
 texture_normal = ExtResource("8_7dqya")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="next_button" type="TextureButton" parent="."]
+offset_left = 809.0
+offset_top = 550.0
+offset_right = 829.0
+offset_bottom = 608.0
+texture_normal = ExtResource("7_0k4yy")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="prev_button" type="TextureButton" parent="."]
+offset_left = 321.0
+offset_top = 550.0
+offset_right = 341.0
+offset_bottom = 608.0
+texture_normal = ExtResource("8_5s0k5")
+ignore_texture_size = true
+stretch_mode = 0

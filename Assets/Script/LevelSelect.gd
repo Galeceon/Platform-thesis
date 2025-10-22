@@ -36,7 +36,7 @@ var texturas_botones_sin_texto = {
 	"light": {
 		"next": "res://Assets/Sprites/UI/Botones/Modo Claro/derecha.png",
 		"back": "res://Assets/Sprites/UI/Botones/Modo Claro/izquierda.png",
-		"home": "res://Assets/Sprites/UI/Botones/Modo Claro/inicio.png",
+		"home": "res://Assets/Sprites/UI/Botones/Modo Claro/es_inicio.png",
 		"config": "res://Assets/Sprites/UI/Botones/Modo Claro/configuracion.png",
 		"p_atras": "res://Assets/Sprites/UI/Botones/Modo Claro/regresar.png"
 	},
@@ -116,7 +116,7 @@ func _on_back() -> void:
 		idx -= 1
 		update_ui()
 
-# --- Botón JUGAR - MODIFICADO: Usa GameManager.load_level() con pantalla de carga ---
+# En LevelSelect.gd - MODIFICAR la función _on_play()
 func _on_play() -> void:
 	if idx < level_scenes.size():
 		var nivel_seleccionado = idx + 1  # Convertir índice a número de nivel (1, 2, 3, 4)
@@ -126,8 +126,13 @@ func _on_play() -> void:
 		GameManager.current_area = nivel_seleccionado
 		print("✅ GameManager.current_area actualizado a: ", GameManager.current_area)
 		
-		# Usar el sistema de carga del GameManager con pantalla de carga
-		GameManager.load_level(nivel_seleccionado, true)
+		# Verificar si es un nuevo juego (nivel 1) o continuación
+		if nivel_seleccionado == 1 and ConfigManager.get_unlocked_levels() == 1:
+			print("🎬 Iniciando nuevo juego desde Level Select - reproduciendo cinemática")
+			GameManager.start_new_game()  # ← CON CINEMÁTICA para nuevo juego
+		else:
+			print("🎮 Continuando juego desde Level Select")
+			GameManager.load_level(nivel_seleccionado, true)  # ← SIN CINEMÁTICA para continuar
 
 # --- Botones adicionales ---
 func _on_p_atras() -> void:

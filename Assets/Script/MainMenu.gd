@@ -3,10 +3,10 @@ extends Control
 
 # Referencias a los nodos
 @onready var background = $TextureRect
-@onready var jugar_button = $VBoxContainer/jugar_button
-@onready var reanudar_button = $VBoxContainer/reanudar_button
-@onready var como_jugar_button = $VBoxContainer/como_jugar_button
-@onready var creditos_button = $VBoxContainer/creditos_button
+@onready var jugar_button = $jugar_button
+@onready var reanudar_button = $reanudar_button
+@onready var como_jugar_button = $como_jugar_button
+@onready var creditos_button = $creditos_button
 @onready var config_button = $config_button
 @onready var cerrar_button = $cerrar_button
 var level_select_scene = preload("res://Assets/Scenes/UI/LevelSelect.tscn")

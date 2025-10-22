@@ -21,7 +21,7 @@ script = ExtResource("1_3kw8w")
 layout_mode = 0
 offset_right = 1153.0
 offset_bottom = 72.0
-color = Color(0.109804, 0.109804, 0.109804, 1)
+color = Color(0.109804, 0.109804, 0.109804, 0.752941)
 
 [node name="TexturaGema" type="TextureRect" parent="."]
 layout_mode = 0
@@ -78,7 +78,7 @@ offset_top = 10.0
 offset_right = 1130.0
 offset_bottom = 62.0
 ignore_texture_size = true
-stretch_mode = 4
+stretch_mode = 0
 
 [node name="TexturaPuntos" type="TextureRect" parent="."]
 layout_mode = 0
