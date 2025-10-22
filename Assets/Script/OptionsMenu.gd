@@ -82,7 +82,6 @@ func _ready():
 	_actualizar_estado_modo()
 	_actualizar_estado_sonido()
 
-# OptionsMenu.gd - en la función _conectar_senales()
 func _conectar_senales():
 	# Botones de idioma
 	if not idioma_espanol.pressed.is_connected(_on_idioma_espanol_pressed):
@@ -105,6 +104,91 @@ func _conectar_senales():
 	# Botón regresar
 	if not regresar.pressed.is_connected(_on_regresar_pressed):
 		regresar.pressed.connect(_on_regresar_pressed)
+	
+	# Conectar señales de hover para efecto contrario
+	_conectar_hover_senales()
+
+func _conectar_hover_senales():
+	# Conectar hover a todos los botones regulares
+	_conectar_hover_boton(regresar, "regresar")
+	_conectar_hover_boton(modo_claro, "modo_claro")
+	_conectar_hover_boton(modo_oscuro, "modo_oscuro")
+	_conectar_hover_boton(sonido_on, "sonido_on")
+	_conectar_hover_boton(sonido_off, "sonido_off")
+	
+	# Conectar hover a botones de idioma
+	_conectar_hover_boton_idioma(idioma_espanol, "idioma_espanol")
+	_conectar_hover_boton_idioma(idioma_ingles, "idioma_ingles")
+
+func _conectar_hover_boton(boton: TextureButton, clave_boton: String):
+	if boton:
+		if not boton.mouse_entered.is_connected(_on_boton_mouse_entered.bind(boton, clave_boton)):
+			boton.mouse_entered.connect(_on_boton_mouse_entered.bind(boton, clave_boton))
+		if not boton.mouse_exited.is_connected(_on_boton_mouse_exited.bind(boton, clave_boton)):
+			boton.mouse_exited.connect(_on_boton_mouse_exited.bind(boton, clave_boton))
+
+func _conectar_hover_boton_idioma(boton: TextureButton, clave_boton: String):
+	if boton:
+		if not boton.mouse_entered.is_connected(_on_boton_idioma_mouse_entered.bind(boton, clave_boton)):
+			boton.mouse_entered.connect(_on_boton_idioma_mouse_entered.bind(boton, clave_boton))
+		if not boton.mouse_exited.is_connected(_on_boton_idioma_mouse_exited.bind(boton, clave_boton)):
+			boton.mouse_exited.connect(_on_boton_idioma_mouse_exited.bind(boton, clave_boton))
+
+func _on_boton_mouse_entered(boton: TextureButton, clave_boton: String):
+	_aplicar_hover_contrario(boton, clave_boton)
+
+func _on_boton_mouse_exited(boton: TextureButton, clave_boton: String):
+	_aplicar_textura_normal(boton, clave_boton)
+
+func _on_boton_idioma_mouse_entered(boton: TextureButton, clave_boton: String):
+	_aplicar_hover_contrario_idioma(boton, clave_boton)
+
+func _on_boton_idioma_mouse_exited(boton: TextureButton, clave_boton: String):
+	_aplicar_textura_normal_idioma(boton, clave_boton)
+
+func _aplicar_hover_contrario(boton: TextureButton, clave_boton: String):
+	var modo_actual = ConfigManager.get_color_mode()
+	var modo_contrario = "dark" if modo_actual == "light" else "light"
+	
+	if texturas_botones.has(modo_contrario) and texturas_botones[modo_contrario].has(clave_boton):
+		var texture_path = texturas_botones[modo_contrario][clave_boton]
+		var texture = load(texture_path)
+		if texture:
+			boton.texture_hover = texture
+			print("🎯 Hover contrario aplicado: ", clave_boton, " -> ", modo_contrario)
+
+func _aplicar_hover_contrario_idioma(boton: TextureButton, clave_boton: String):
+	var modo_actual = ConfigManager.get_color_mode()
+	var idioma_actual = ConfigManager.get_language()
+	var modo_contrario = "dark" if modo_actual == "light" else "light"
+	var clave_config_contraria = "%s_%s" % [idioma_actual, modo_contrario]
+	
+	if texturas_botones_idioma.has(clave_config_contraria) and texturas_botones_idioma[clave_config_contraria].has(clave_boton):
+		var texture_path = texturas_botones_idioma[clave_config_contraria][clave_boton]
+		var texture = load(texture_path)
+		if texture:
+			boton.texture_hover = texture
+			print("🎯 Hover contrario idioma aplicado: ", clave_boton, " -> ", clave_config_contraria)
+
+func _aplicar_textura_normal(boton: TextureButton, clave_boton: String):
+	var modo_actual = ConfigManager.get_color_mode()
+	
+	if texturas_botones.has(modo_actual) and texturas_botones[modo_actual].has(clave_boton):
+		var texture_path = texturas_botones[modo_actual][clave_boton]
+		var texture = load(texture_path)
+		if texture:
+			boton.texture_normal = texture
+
+func _aplicar_textura_normal_idioma(boton: TextureButton, clave_boton: String):
+	var modo_actual = ConfigManager.get_color_mode()
+	var idioma_actual = ConfigManager.get_language()
+	var clave_config_actual = "%s_%s" % [idioma_actual, modo_actual]
+	
+	if texturas_botones_idioma.has(clave_config_actual) and texturas_botones_idioma[clave_config_actual].has(clave_boton):
+		var texture_path = texturas_botones_idioma[clave_config_actual][clave_boton]
+		var texture = load(texture_path)
+		if texture:
+			boton.texture_normal = texture
 
 func _aplicar_configuracion():
 	var modo = ConfigManager.get_color_mode()
@@ -124,6 +208,29 @@ func _aplicar_configuracion():
 	
 	# Aplicar checks de idioma (solo modo)
 	_aplicar_checks_idioma(modo)
+	
+	# Actualizar hovers después de cambiar configuración
+	_actualizar_todos_los_hovers()
+
+func _actualizar_todos_los_hovers():
+	# Actualizar hovers de botones regulares
+	_actualizar_hover_boton(regresar, "regresar")
+	_actualizar_hover_boton(modo_claro, "modo_claro")
+	_actualizar_hover_boton(modo_oscuro, "modo_oscuro")
+	_actualizar_hover_boton(sonido_on, "sonido_on")
+	_actualizar_hover_boton(sonido_off, "sonido_off")
+	
+	# Actualizar hovers de botones de idioma
+	_actualizar_hover_boton_idioma(idioma_espanol, "idioma_espanol")
+	_actualizar_hover_boton_idioma(idioma_ingles, "idioma_ingles")
+
+func _actualizar_hover_boton(boton: TextureButton, clave_boton: String):
+	_aplicar_hover_contrario(boton, clave_boton)
+
+func _actualizar_hover_boton_idioma(boton: TextureButton, clave_boton: String):
+	_aplicar_hover_contrario_idioma(boton, clave_boton)
+
+# ... (el resto de tus funciones existentes se mantienen igual)
 
 func _aplicar_fondo(clave_config: String):
 	if texturas_fondo.has(clave_config):
