@@ -1,0 +1,96 @@
+[gd_scene load_steps=9 format=3 uid="uid://bjicbyqjp2hpb"]
+
+[ext_resource type="Script" path="res://Assets/Script/enemy.gd" id="1_y4jdl"]
+[ext_resource type="Texture2D" uid="uid://o7n02okbjaio" path="res://Assets/Sprites/Enemigos/enemigo_1.png" id="2_7xvyy"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ivkin"]
+radius = 39.0
+height = 146.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_c5ei7"]
+radius = 63.0
+height = 168.0
+
+[sub_resource type="Animation" id="Animation_tt1si"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:region_rect")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Rect2(1850, 100.227, 143.636, 183.637)]
+}
+
+[sub_resource type="Animation" id="Animation_dyuuu"]
+resource_name = "move"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:region_rect")
+tracks/0/interp = 0
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Rect2(1103.16, 1373.76, 421.523, 763.298), Rect2(1919.62, 1376.28, 375.953, 759.5)]
+}
+
+[sub_resource type="Animation" id="Animation_vsxce"]
+resource_name = "turn"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:region_rect")
+tracks/0/interp = 0
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Rect2(2306.97, 1358.57, 322.788, 793.678), Rect2(1940, 1358.57, 322.788, 793.678), Rect2(579.248, 1378.82, 520.258, 778.488), Rect2(2147.47, 262.289, 451.903, 770.893), Rect2(1331.01, 250.909, 387.345, 770.893)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_nrihp"]
+_data = {
+"RESET": SubResource("Animation_tt1si"),
+"move": SubResource("Animation_dyuuu"),
+"turn": SubResource("Animation_vsxce")
+}
+
+[node name="Enemigo1" type="CharacterBody2D"]
+script = ExtResource("1_y4jdl")
+metadata/_edit_vertical_guides_ = [-40.0, 40.0]
+metadata/_edit_horizontal_guides_ = [-72.0, 72.0]
+
+[node name="Timer" type="Timer" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_ivkin")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CapsuleShape2D_c5ei7")
+debug_color = Color(0.941764, 0.221017, 0.259251, 0.42)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_nrihp")
+}
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.22, 0.199)
+texture = ExtResource("2_7xvyy")
+region_enabled = true
+region_rect = Rect2(1850, 100.227, 143.636, 183.637)
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

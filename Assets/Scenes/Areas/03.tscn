@@ -24,7 +24,7 @@
 [ext_resource type="Texture2D" uid="uid://brbk5n4bop26o" path="res://Assets/Sprites/level_assets/03-protanopia/Mesa de trabajo 21.png" id="22_gh17m"]
 [ext_resource type="AudioStream" uid="uid://co33wfann4ja4" path="res://Assets/Sounds/Tephra Cave - Xenoblade Chronicles_ Definitive Edition OST [047] [DE].mp3" id="23_cpa7p"]
 [ext_resource type="PackedScene" uid="uid://c0xsiivustmmr" path="res://Assets/Scenes/UI/HUD03.tscn" id="24_dm65o"]
-[ext_resource type="PackedScene" uid="uid://b5mty1v36aorc" path="res://Assets/Scenes/enemy.tscn" id="25_fw3vb"]
+[ext_resource type="PackedScene" uid="uid://d4hvpo1wdjn27" path="res://Assets/Scenes/enemy3.tscn" id="25_2fygm"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0owxk"]
 size = Vector2(15.75, 94.5)
@@ -778,30 +778,30 @@ max_distance = 1e+17
 
 [node name="Hud02" parent="HUD" instance=ExtResource("24_dm65o")]
 
-[node name="Enemigo" parent="." instance=ExtResource("25_fw3vb")]
-position = Vector2(8289, -118)
+[node name="Enemigo2" parent="." instance=ExtResource("25_2fygm")]
+position = Vector2(1454, -117)
 scale = Vector2(1.15893, 1.15893)
 
-[node name="Enemigo3" parent="." instance=ExtResource("25_fw3vb")]
-position = Vector2(5742, -605)
+[node name="Enemigo3" parent="." instance=ExtResource("25_2fygm")]
+position = Vector2(3553, -629)
 scale = Vector2(1.15893, 1.15893)
 
-[node name="Enemigo4" parent="." instance=ExtResource("25_fw3vb")]
-position = Vector2(3602, -622)
+[node name="Enemigo4" parent="." instance=ExtResource("25_2fygm")]
+position = Vector2(5759, -595)
 scale = Vector2(1.15893, 1.15893)
 
-[node name="Enemigo5" parent="." instance=ExtResource("25_fw3vb")]
-position = Vector2(1504, -113)
+[node name="Enemigo5" parent="." instance=ExtResource("25_2fygm")]
+position = Vector2(8237, -125)
 scale = Vector2(1.15893, 1.15893)
 
-[node name="Enemigo2" parent="." instance=ExtResource("25_fw3vb")]
-position = Vector2(10264, -105)
+[node name="Enemigo6" parent="." instance=ExtResource("25_2fygm")]
+position = Vector2(10203, -119)
 scale = Vector2(1.15893, 1.15893)
 
-[node name="Enemigo6" parent="." instance=ExtResource("25_fw3vb")]
-position = Vector2(12035, -113)
+[node name="Enemigo7" parent="." instance=ExtResource("25_2fygm")]
+position = Vector2(12025, -122)
 scale = Vector2(1.15893, 1.15893)
 
-[node name="Enemigo7" parent="." instance=ExtResource("25_fw3vb")]
-position = Vector2(13319, -109)
+[node name="Enemigo8" parent="." instance=ExtResource("25_2fygm")]
+position = Vector2(13275, -116)
 scale = Vector2(1.15893, 1.15893)

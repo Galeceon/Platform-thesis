@@ -43,7 +43,7 @@
 [ext_resource type="AudioStream" uid="uid://co471jbj0y4je" path="res://Assets/Sounds/Kirby 64_ The Crystal Shards - Above the Clouds.mp3" id="41_bvifq"]
 [ext_resource type="Texture2D" uid="uid://d38lv3vnkgfbb" path="res://Assets/Sprites/level_assets/04-tritanopia/modo oscuroMesa de trabajo 1.png" id="42_dokii"]
 [ext_resource type="PackedScene" uid="uid://cfgcpitq4glxn" path="res://Assets/Scenes/UI/HUD04.tscn" id="43_gfo21"]
-[ext_resource type="PackedScene" uid="uid://b5mty1v36aorc" path="res://Assets/Scenes/enemy.tscn" id="44_xvuaq"]
+[ext_resource type="PackedScene" uid="uid://bjicbyqjp2hpb" path="res://Assets/Scenes/enemy1.tscn" id="44_gajga"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_snp1y"]
 size = Vector2(15891, 620)
@@ -832,29 +832,37 @@ texture = ExtResource("42_dokii")
 
 [node name="Hud02" parent="HUD" instance=ExtResource("43_gfo21")]
 
-[node name="Enemigo" parent="." instance=ExtResource("44_xvuaq")]
-position = Vector2(504, -590)
+[node name="Enemigo1" parent="." instance=ExtResource("44_gajga")]
+position = Vector2(588, -617)
+scale = Vector2(1.15921, 1.225)
 
-[node name="Enemigo2" parent="." instance=ExtResource("44_xvuaq")]
-position = Vector2(2197, -672)
+[node name="Enemigo2" parent="." instance=ExtResource("44_gajga")]
+position = Vector2(2212, -695)
+scale = Vector2(1.15921, 1.225)
 
-[node name="Enemigo3" parent="." instance=ExtResource("44_xvuaq")]
-position = Vector2(3352, -586)
+[node name="Enemigo3" parent="." instance=ExtResource("44_gajga")]
+position = Vector2(3360, -608)
+scale = Vector2(1.15921, 1.225)
 
-[node name="Enemigo4" parent="." instance=ExtResource("44_xvuaq")]
-position = Vector2(5105, -615)
+[node name="Enemigo4" parent="." instance=ExtResource("44_gajga")]
+position = Vector2(5119, -644)
+scale = Vector2(1.15921, 1.225)
 
-[node name="Enemigo5" parent="." instance=ExtResource("44_xvuaq")]
-position = Vector2(6334, -415)
+[node name="Enemigo5" parent="." instance=ExtResource("44_gajga")]
+position = Vector2(6303, -440)
+scale = Vector2(1.15921, 1.225)
 
-[node name="Enemigo6" parent="." instance=ExtResource("44_xvuaq")]
-position = Vector2(7702, -422)
+[node name="Enemigo6" parent="." instance=ExtResource("44_gajga")]
+position = Vector2(7657, -446)
+scale = Vector2(1.15921, 1.225)
 
-[node name="Enemigo7" parent="." instance=ExtResource("44_xvuaq")]
-position = Vector2(9202, -679)
+[node name="Enemigo7" parent="." instance=ExtResource("44_gajga")]
+position = Vector2(9197, -716)
+scale = Vector2(1.15921, 1.225)
 
-[node name="Enemigo8" parent="." instance=ExtResource("44_xvuaq")]
-position = Vector2(10717, -572)
+[node name="Enemigo8" parent="." instance=ExtResource("44_gajga")]
+position = Vector2(10701, -599)
+scale = Vector2(1.15921, 1.225)
 
 [connection signal="body_entered" from="CanvasLayer2/rio/Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

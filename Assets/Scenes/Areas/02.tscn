@@ -38,7 +38,7 @@
 [ext_resource type="Texture2D" uid="uid://b2ipmdx8vtn4p" path="res://Assets/Sprites/level_assets/02-deuteranopia/Mesa de trabajo 38.png" id="36_jilmu"]
 [ext_resource type="AudioStream" uid="uid://ym6b2s5scjue" path="res://Assets/Sounds/New Super Mario Bros Wii Forest Theme Soundtrack.mp3" id="37_yn47j"]
 [ext_resource type="PackedScene" uid="uid://cccqfec2vtrpr" path="res://Assets/Scenes/UI/HUD02.tscn" id="38_exdyu"]
-[ext_resource type="PackedScene" uid="uid://b5mty1v36aorc" path="res://Assets/Scenes/enemy.tscn" id="39_ap2ia"]
+[ext_resource type="PackedScene" uid="uid://da2rlm8bt7rn0" path="res://Assets/Scenes/enemy2.tscn" id="39_1y38i"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_li2au"]
 size = Vector2(15.75, 94.5)
@@ -881,17 +881,17 @@ max_distance = 1e+17
 
 [node name="Hud02" parent="HUD" instance=ExtResource("38_exdyu")]
 
-[node name="Enemigo" parent="." instance=ExtResource("39_ap2ia")]
-position = Vector2(1654, -115)
+[node name="Enemigo2" parent="." instance=ExtResource("39_1y38i")]
+position = Vector2(1667, -109)
 
-[node name="Enemigo2" parent="." instance=ExtResource("39_ap2ia")]
-position = Vector2(3698, -115)
+[node name="Enemigo3" parent="." instance=ExtResource("39_1y38i")]
+position = Vector2(3739, -106)
 
-[node name="Enemigo3" parent="." instance=ExtResource("39_ap2ia")]
-position = Vector2(8936, -103)
+[node name="Enemigo4" parent="." instance=ExtResource("39_1y38i")]
+position = Vector2(8867, -110)
 
-[node name="Enemigo4" parent="." instance=ExtResource("39_ap2ia")]
-position = Vector2(10878, -103)
+[node name="Enemigo5" parent="." instance=ExtResource("39_1y38i")]
+position = Vector2(10838, -106)
 
-[node name="Enemigo5" parent="." instance=ExtResource("39_ap2ia")]
-position = Vector2(13287, -97)
+[node name="Enemigo6" parent="." instance=ExtResource("39_1y38i")]
+position = Vector2(13321, -110)
