@@ -1,3 +1,4 @@
+# GameManager.gd
 extends Node
 
 var current_area = 1
@@ -11,6 +12,8 @@ var tiempo_corriendo = true
 var tiempo_timer: Timer
 var pause_menu_scene = preload("res://Assets/Scenes/UI/PauseMenu.tscn")
 var pause_menu_instance: CanvasLayer = null
+var level_complete_screen_scene = preload("res://Assets/Scenes/UI/LevelCompleteScreen.tscn")
+var level_complete_instance: CanvasLayer = null
 
 signal puntaje_actualizado(puntaje)
 signal tiempo_actualizado(tiempo_restante)
@@ -24,6 +27,7 @@ func _ready():
 	_setup_death_sound()
 	_setup_tiempo_timer()
 	_setup_pause_menu()
+	_setup_level_complete_screen()
 	call_deferred("_connect_player_death_signal")
 	# Cargar puntaje guardado
 	call_deferred("load_puntaje")
@@ -37,7 +41,6 @@ func apply_global_volume():
 	ConfigManager.apply_global_volume()
 
 # ===== SISTEMA DE CINEMÁTICAS =====
-# En GameManager.gd - VERIFICAR que start_new_game() esté así:
 func start_new_game():
 	print("🎮 Iniciando nuevo juego con cinemática...")
 	
@@ -52,7 +55,6 @@ func start_new_game():
 	# Reproducir cinemática de introducción
 	CinematicManager.play_cinematic(cinematic_type)
 
-# En GameManager.gd - VERIFICAR estas funciones:
 func _on_intro_finished(cinematic_name):
 	print("🎬 Cinemática de introducción finalizada: ", cinematic_name)
 	
@@ -68,7 +70,6 @@ func _on_intro_finished(cinematic_name):
 	current_area = 1
 	load_level(1, true)
 
-# En GameManager.gd - MODIFICAR la función _on_outro_finished()
 func _on_outro_finished(cinematic_name):
 	print("🎬 Cinemática final finalizada: ", cinematic_name)
 	
@@ -80,6 +81,34 @@ func _on_outro_finished(cinematic_name):
 	get_tree().change_scene_to_file("res://Assets/Scenes/Areas/final1.tscn")
 	# Aplicar volumen después de cargar la escena final
 	call_deferred("apply_global_volume")
+
+# ===== SISTEMA DE PANTALLA DE CULMINACIÓN =====
+func _setup_level_complete_screen():
+	# Instanciar la pantalla de culminación
+	level_complete_instance = level_complete_screen_scene.instantiate()
+	
+	# Agregar al árbol de escena principal
+	get_tree().root.add_child(level_complete_instance)
+	
+	# Ocultar inicialmente
+	level_complete_instance.hide()
+	
+	print("✅ Pantalla de culminación configurada - En árbol: ", level_complete_instance.is_inside_tree())
+
+func _show_level_complete_screen():
+	print("🏆 GameManager: Mostrando pantalla de culminación")
+	
+	# Verificar que la instancia existe
+	if not level_complete_instance or not level_complete_instance.is_inside_tree():
+		print("🔄 Pantalla de culminación no encontrada, reinstanciando...")
+		_setup_level_complete_screen()
+	
+	if level_complete_instance and level_complete_instance.has_method("open_level_complete_screen"):
+		level_complete_instance.open_level_complete_screen()
+	else:
+		print("❌ Error: No se pudo abrir la pantalla de culminación")
+		# Fallback: cargar directamente el siguiente nivel
+		await load_level(current_area + 1, true)
 
 # ===== SISTEMA DE CARGA DE NIVELES =====
 func load_level(level_number: int, with_loading_screen: bool = true):
@@ -308,10 +337,8 @@ func next_level():
 		# Desbloquear el nivel 5 en ConfigManager
 		ConfigManager.unlock_level(5)
 	else:
-		# Desbloquear el siguiente nivel en ConfigManager
-		ConfigManager.unlock_level(current_area + 1)
-		# Cargar el siguiente nivel con pantalla de carga
-		await load_level(current_area + 1, true)
+		# MOSTRAR PANTALLA DE CULMINACIÓN en lugar de cargar directamente
+		_show_level_complete_screen()
 
 func area_setup():
 	reset_coins()
@@ -321,6 +348,9 @@ func area_setup():
 	
 	# RECONFIGURAR el menú de pausa después de cargar el nivel
 	_setup_pause_menu()
+	
+	# RECONFIGURAR la pantalla de culminación después de cargar el nivel
+	_setup_level_complete_screen()
 	
 	# Esperar un frame para que el jugador esté en la escena
 	call_deferred("_reconnect_player_signals")
@@ -374,7 +404,7 @@ func reset_coins():
 # ===== FUNCIONES PÚBLICAS PARA MENÚS =====
 func continue_game():
 	# Cargar el último nivel desbloqueado sin pantalla de carga
-	var last_unlocked = ConfigManager.get_unrolled_levels()
+	var last_unlocked = ConfigManager.get_unlocked_levels()
 	
 	# Cargar puntaje guardado al continuar juego
 	load_puntaje()
@@ -493,6 +523,10 @@ func can_pause() -> bool:
 	for puzzle in puzzles:
 		if puzzle.is_inside_tree() and puzzle.visible:
 			return false
+	
+	# Verificar si la pantalla de culminación está activa
+	if level_complete_instance and level_complete_instance.visible:
+		return false
 	
 	return current_area >= 1 and current_area <= 5
 

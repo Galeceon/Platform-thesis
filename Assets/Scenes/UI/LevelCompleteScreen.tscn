@@ -1,0 +1,58 @@
+[gd_scene load_steps=6 format=3 uid="uid://k1lm2bau1is5"]
+
+[ext_resource type="Script" path="res://Assets/Script/LevelCompleteScreen.gd" id="1_2p4m0"]
+[ext_resource type="Texture2D" uid="uid://1ajiv0lplbc5" path="res://Assets/Sprites/UI/Pantalla culminacion/culm_dark.png" id="2_u27ud"]
+[ext_resource type="Texture2D" uid="uid://dshbxscpy1sw4" path="res://Assets/Sprites/UI/Botones/Modo Oscuro/en_reanudar.png" id="3_j8was"]
+[ext_resource type="Texture2D" uid="uid://bvqg6kn76kgxl" path="res://Assets/Sprites/UI/Botones/Modo Oscuro/inicio.png" id="4_0y1fi"]
+[ext_resource type="LabelSettings" uid="uid://cwvu40uu8862s" path="res://Assets/Fonts/HUDFont.tres" id="5_w11wd"]
+
+[node name="LevelCompleteScreen" type="CanvasLayer"]
+layer = 50
+script = ExtResource("1_2p4m0")
+
+[node name="Background" type="TextureRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_u27ud")
+expand_mode = 1
+
+[node name="ContinueButton" type="TextureButton" parent="Background"]
+layout_mode = 0
+offset_left = 534.0
+offset_top = 297.0
+offset_right = 713.0
+offset_bottom = 330.0
+texture_normal = ExtResource("3_j8was")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="HomeButton" type="TextureButton" parent="Background"]
+layout_mode = 0
+offset_left = 473.0
+offset_top = 295.0
+offset_right = 507.0
+offset_bottom = 329.0
+texture_normal = ExtResource("4_0y1fi")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="PointsLabel" type="Label" parent="Background"]
+layout_mode = 0
+offset_left = 471.0
+offset_top = 234.0
+offset_right = 539.0
+offset_bottom = 266.0
+text = "2000"
+label_settings = ExtResource("5_w11wd")
+
+[node name="TimeLabel" type="Label" parent="Background"]
+layout_mode = 0
+offset_left = 639.0
+offset_top = 234.0
+offset_right = 701.0
+offset_bottom = 265.0
+text = "3:00"
+label_settings = ExtResource("5_w11wd")

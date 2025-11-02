@@ -50,8 +50,8 @@ func _ready():
 func _exit_tree():
 	# Reanudar el tiempo si el puzzle se cierra sin completarse
 	if GameManager and get_tree().paused:
-		GameManager.iniciar_tiempo()
-		print("⏰ Tiempo reanudado - puzzle cerrado")
+		#GameManager.iniciar_tiempo()
+		print("⏰ Puzzle cerrado, mas no reanudando tiempo")
 
 func _setup_backgrounds():
 	# Configurar fondo principal (01.png, 02.png, etc.)
@@ -246,13 +246,17 @@ func _is_adjacent(p1, p2):
 	var dy = abs(p1.y - p2.y)
 	return (dx == 1 and dy == 0) or (dx == 0 and dy == 1)
 
+# En puzzle.gd - modificar la función _check_win_condition()
 func _check_win_condition():
 	if board == TARGET_BOARD:
 		print("🎉 ¡Puzzle completado!")
 		if audio_player and audio_player.playing:
 			audio_player.stop()
+		
 		# Reanudar el juego ANTES de emitir la señal
 		get_tree().paused = false
+		
+		# Emitir señal para que GameManager maneje la culminación
 		puzzle_solved.emit()
 		queue_free()
 
