@@ -4,55 +4,85 @@ extends Node
 var click_sound_pool: Array = []
 var max_sounds = 3
 var is_enabled: bool = true
-var base_volume_db: float = -10.0  # Volumen base cuando el sonido está activado
+var base_volume_db: float = -10.0  # Volumen base más bajo
 
 func _ready():
-	# Crear pool de sonidos
+	# Crear pool de sonidos (inicialmente silenciados)
 	for i in range(max_sounds):
 		var sound_player = AudioStreamPlayer.new()
 		sound_player.stream = preload("res://Assets/Sounds/click_sound.mp3")
+		sound_player.volume_db = -80.0  # Silencio hasta que se cargue la config
 		add_child(sound_player)
 		click_sound_pool.append(sound_player)
 	
-	# Conectar al ConfigManager para cambios de volumen
+	# Esperar a que el ConfigManager esté completamente inicializado
+	call_deferred("_initialize_with_config")
+	
+	print("🔊 ClickSoundManager: Inicializando...")
+
+func _initialize_with_config():
+	# Esperar un frame para asegurar que ConfigManager está listo
+	await get_tree().process_frame
+	
 	if has_node("/root/ConfigManager"):
 		var config_manager = get_node("/root/ConfigManager")
+		
+		# Verificar que el ConfigManager tiene la configuración cargada
+		if config_manager.config.has("sound_volume"):
+			_apply_immediate_volume()
+		else:
+			# Si no tiene la config aún, esperar un poco más
+			print("🔊 ClickSoundManager: ConfigManager no tiene config cargada, esperando...")
+			await get_tree().create_timer(0.1).timeout
+			_apply_immediate_volume()
+		
+		# Conectar para cambios futuros
 		if config_manager.has_signal("sound_volume_changed"):
 			config_manager.sound_volume_changed.connect(_on_sound_volume_changed)
+	else:
+		print("❌ ClickSoundManager: ConfigManager no encontrado")
+		# Fallback: aplicar volumen por defecto
+		_apply_volume_to_all(base_volume_db)
 	
 	# Conectar a todos los botones existentes y futuros
 	get_tree().node_added.connect(_on_node_added)
 	_connect_existing_buttons()
 	
-	# Aplicar volumen inicial basado en ConfigManager
-	_update_volume_from_config()
-	
-	print("🔊 ClickSoundManager listo - Integrado con ConfigManager")
+	print("🔊 ClickSoundManager listo")
 
-func _update_volume_from_config():
+func _apply_immediate_volume():
 	if has_node("/root/ConfigManager"):
 		var config_manager = get_node("/root/ConfigManager")
 		var config_volume = config_manager.get_sound_volume()
 		
-		# Si el volumen del config es 0, silenciar completamente
+		print("🔊 ClickSoundManager: Volumen inicial del ConfigManager = ", config_volume)
+		
+		# Aplicar volumen inmediatamente
 		if config_volume == 0.0:
 			_apply_volume_to_all(-80.0)  # Silencio total
+			print("🔊 Click volume: SILENCIADO")
 		else:
-			# Usar nuestro volumen base (-10dB) cuando el config está en 1
-			# O interpolar si quisieras diferentes niveles
-			_apply_volume_to_all(base_volume_db)
-		
-		print("🔊 Click volume: Config=", config_volume, " → DB=", base_volume_db if config_volume > 0 else -80.0)
+			# Usar cálculo más simple y consistente
+			var calculated_volume_db = linear_to_db(config_volume) + base_volume_db
+			_apply_volume_to_all(calculated_volume_db)
+			print("🔊 Click volume: Config=", config_volume, " → DB=", calculated_volume_db)
 
 func _on_sound_volume_changed(volume: float):
-	print("🔊 ClickSoundManager: Volumen del ConfigManager cambiado a ", volume)
-	_update_volume_from_config()
+	print("🔊 ClickSoundManager: Volumen cambiado a ", volume)
+	
+	# Aplicar volumen inmediatamente cuando cambia
+	if volume == 0.0:
+		_apply_volume_to_all(-80.0)  # Silencio total
+		print("🔊 Click volume: SILENCIADO por cambio")
+	else:
+		var calculated_volume_db = linear_to_db(volume) + base_volume_db
+		_apply_volume_to_all(calculated_volume_db)
+		print("🔊 Click volume: Cambiado a DB=", calculated_volume_db)
 
 func _apply_volume_to_all(db_volume: float):
 	for sound_player in click_sound_pool:
 		sound_player.volume_db = db_volume
 
-# El resto del código se mantiene igual...
 func _on_node_added(node):
 	if node is BaseButton:
 		_setup_button_sound(node)
@@ -102,7 +132,12 @@ func set_enabled(enabled: bool):
 	is_enabled = enabled
 	print("🔊 ClickSoundManager: ", "activado" if enabled else "desactivado")
 
-# Función para cambiar el volumen base si lo necesitas
 func set_base_volume_db(db_volume: float):
 	base_volume_db = db_volume
-	_update_volume_from_config()
+	# Re-aplicar el volumen actual con la nueva base
+	if has_node("/root/ConfigManager"):
+		var config_manager = get_node("/root/ConfigManager")
+		var config_volume = config_manager.get_sound_volume()
+		if config_volume > 0:
+			var calculated_volume_db = linear_to_db(config_volume) + base_volume_db
+			_apply_volume_to_all(calculated_volume_db)
