@@ -1,8 +1,12 @@
-[gd_scene load_steps=4 format=3 uid="uid://b00idumss66ia"]
+[gd_scene load_steps=8 format=3 uid="uid://b00idumss66ia"]
 
 [ext_resource type="Script" path="res://Assets/Script/final2.gd" id="1_but8s"]
-[ext_resource type="Texture2D" uid="uid://1b6f7uwfvs14" path="res://Assets/Sprites/UI/Pantallas Finales/resumen_es.png" id="2_w7ex7"]
+[ext_resource type="Texture2D" uid="uid://dxs236831n1hi" path="res://Assets/Sprites/UI/Pantallas Finales/boceto.png" id="2_cotjp"]
 [ext_resource type="Texture2D" uid="uid://jedceknmw447" path="res://Assets/Sprites/UI/Botones/Modo Claro/es_inicio.png" id="3_edmjr"]
+[ext_resource type="Texture2D" uid="uid://nluft87614lh" path="res://Assets/Sprites/UI/Pantallas Finales/en_01.png" id="3_hud61"]
+[ext_resource type="Texture2D" uid="uid://bptolracqbxrb" path="res://Assets/Sprites/UI/Botones/Modo Claro/es_menu.png" id="5_8jvu6"]
+[ext_resource type="Texture2D" uid="uid://cai2fbhas50fg" path="res://Assets/Sprites/UI/Botones/Modo Claro/izquierda.png" id="6_ub4al"]
+[ext_resource type="Texture2D" uid="uid://bb1s1kc77mrkv" path="res://Assets/Sprites/UI/Botones/Modo Claro/derecha.png" id="7_ftk56"]
 
 [node name="Final2" type="Control"]
 layout_mode = 3
@@ -13,24 +17,67 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_but8s")
 
-[node name="Background" type="TextureRect" parent="."]
+[node name="TextureRect" type="TextureRect" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("2_w7ex7")
+texture = ExtResource("2_cotjp")
+expand_mode = 1
+
+[node name="Background" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -0.299988
+offset_right = 0.300049
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_hud61")
 expand_mode = 3
 
-[node name="TextureButton" type="TextureButton" parent="Background"]
+[node name="home_button" type="TextureButton" parent="Background"]
 layout_mode = 0
-offset_left = 32.0
-offset_top = 32.0
-offset_right = 105.0
-offset_bottom = 105.0
+offset_left = 37.3
+offset_top = 37.0
+offset_right = 73.3
+offset_bottom = 73.0
 texture_normal = ExtResource("3_edmjr")
 ignore_texture_size = true
 stretch_mode = 0
 
-[connection signal="pressed" from="Background/TextureButton" to="." method="_on_texture_button_pressed"]
+[node name="level_select_button" type="TextureButton" parent="Background"]
+layout_mode = 0
+offset_left = 1079.3
+offset_top = 37.0
+offset_right = 1115.3
+offset_bottom = 73.0
+texture_normal = ExtResource("5_8jvu6")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="prev_button" type="TextureButton" parent="Background"]
+layout_mode = 0
+offset_left = 37.3
+offset_top = 294.0
+offset_right = 57.3
+offset_bottom = 352.0
+texture_normal = ExtResource("6_ub4al")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="next_button" type="TextureButton" parent="Background"]
+layout_mode = 0
+offset_left = 1095.3
+offset_top = 294.0
+offset_right = 1115.3
+offset_bottom = 352.0
+texture_normal = ExtResource("7_ftk56")
+ignore_texture_size = true
+stretch_mode = 0
+
+[connection signal="pressed" from="Background/home_button" to="." method="_on_texture_button_pressed"]
